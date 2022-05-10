@@ -1,4 +1,13 @@
 # 工程准备启动等
+## 启动
+npm install
+## 运行
+npm run dev
+## 打包
+npm run build
+## 查看打包结果
+npm run preview
+
 # 文件目录
 ———— src
    ____api            接口
