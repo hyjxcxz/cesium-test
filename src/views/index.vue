@@ -1,30 +1,25 @@
-<template >
+<template>
   <div class="home">
-    <div class="home-header">
-    </div>
+    <div class="home-header" />
     <div class="home-content">
-      <div class="home-content-left">
-
-      </div>
-      <div class="home-content-right">
-
-      </div>
+      <div class="home-content-left" />
+      <div class="home-content-right" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, defineComponent } from 'vue'
 
-export default {
-  name: 'HomeCom',
+export default defineComponent({
+  name: 'HomeComponent',
   setup () {
     const a = ref(0)
     return {
       a
     }
   }
-}
+})
 </script>
 
 <style lang="scss">
