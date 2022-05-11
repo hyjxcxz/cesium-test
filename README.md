@@ -8,7 +8,10 @@ npm run build
 vue-tsc --noEmit 校验ts
 ## 查看预览打包结果
 npm run preview 
-
+## 规范代码
+npm run lint 
+## 安装依赖前生效 git钩子才能生效
+npm run prepare
 # 文件目录
 ## public
 不需要打包构建的文件
