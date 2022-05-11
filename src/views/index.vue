@@ -1,4 +1,4 @@
-<template>
+<template >
   <div class="home">
     <div class="home-header">
     </div>
@@ -13,10 +13,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from 'vue'
+
 export default {
-  name: 'home',
+  name: 'HomeCom',
   setup () {
     const a = ref(0)
     return {
