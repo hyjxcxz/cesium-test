@@ -3,13 +3,17 @@
 npm install
 ## 运行
 npm run dev
-## 打包
+## 打包构建
 npm run build
-## 查看打包结果
-npm run preview
+vue-tsc --noEmit 校验ts
+## 查看预览打包结果
+npm run preview 
 
 # 文件目录
-———— src
+## public
+不需要打包构建的文件
+
+## src
    ____api            接口
    ____assets         静态文件
    ____components     业务组件文件
