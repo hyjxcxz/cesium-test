@@ -21,7 +21,8 @@ npm run preview
    ____styles         全局样式
    ____utils          工具
    ____views          路由页面
-
+# 报错参考
+https://blog.csdn.net/qq_45022197/article/details/124428798
 
 # Vue 3 + TypeScript + Vite
 
