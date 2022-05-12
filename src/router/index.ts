@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const history = createWebHistory()
 const routes: Array<RouteRecordRaw> = [
 //   {
@@ -6,13 +6,13 @@ const routes: Array<RouteRecordRaw> = [
 //     redirect: { name: 'index' },
 //   },
   {
-    path: "/",
-    name: "home",
-    component: () => import("../views/index.vue"),
-  },
-];
+    path: '/',
+    name: 'home',
+    component: () => import('../views/index.vue')
+  }
+]
 const router = createRouter({
-      history,
-      routes
+  history,
+  routes
 })
 export default router
