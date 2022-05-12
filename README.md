@@ -10,6 +10,10 @@ vue-tsc --noEmit 校验ts
 npm run preview 
 ## 规范代码
 npm run lint 
+分两种
+   "lint": "eslint ./src/**/*.{js,jsx,ts,tsx,vue} --fix",
+或
+   "lint": "eslint './src/**/*.{js,jsx,ts,tsx,vue}' --fix",
 ## commit规范
 git commit -m 'fix(account): 修复xxx的bug'
 
