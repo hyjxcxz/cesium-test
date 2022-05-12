@@ -5,10 +5,7 @@ import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    eslintPlugin()
-  ], // 注册插件
+  plugins: [vue(), eslintPlugin()], // 注册插件
   server: {
     open: true
   },
