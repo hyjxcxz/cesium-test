@@ -1,47 +1,141 @@
 <template>
   <div class="home">
-    <div class="home-header" />
-    <div class="home-content">
-      <div class="home-content-left" />
-      <div class="home-content-right" />
+    <div class="home-header">
+      <div class="home-header-left">
+        <img class="logo" src="images/logo.svg" alt="">
+        <div class="division"></div>
+        <span class="project-title">风场信息化数据平台</span>
+      </div>
+      <div class="home-header-right">
+        <el-tooltip content="全屏展开" effect="dark" placement="bottom" v-if="!isFullScreen">
+          <i class="iconfont icon-quanping1" @click="fullScreen()"></i>
+        </el-tooltip>
+        <el-tooltip content="退出全屏" effect="dark" placement="bottom" v-else>
+          <i class="iconfont icon-tuichuquanping" @click="exitFullscreen()"></i>
+        </el-tooltip>
+      </div>
     </div>
+    <div id="mapContainer"></div>
   </div>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'HomeComponent',
+<script>
+import { ref, watch } from 'vue'
+import gwmap from '../gwmap'
+export default {
+  name: 'home',
   setup () {
-    const a = ref(0)
-    return {
-      a
+    const isFullScreen = ref(false)
+
+    function fullScreen () {
+      var element = document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen()
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen()
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen()
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen()
+      }
+      isFullScreen.value = true
     }
+    function exitFullscreen () {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      }
+      isFullScreen.value = false
+    }
+    
+    return {
+      isFullScreen,
+      fullScreen,
+      exitFullscreen
+    }
+  },
+  mounted () {
+    gwmap.init('mapContainer')
   }
-})
+}
 </script>
 
 <style lang="scss">
 .home {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   .home-header{
+    position: fixed;
+    width: 100%;
     height: 60px;
-    border-bottom: 1px solid #ccc;
-  }
-  .home-content{
-    flex:1;
+    background: #373F72;
+    opacity: 0.5;
+    border-bottom:1px solid;
+    border-image: linear-gradient(to bottom right,#C8C8C8 40%,#979797 100%,#C2C2C2 40%) 1;
     display: flex;
     flex-direction: row;
-    .home-content-left{
+    .home-header-left{
       flex:1;
-      border-right:1px solid #ccc;
+      height: 100%;
+      line-height: 60px;
+      .logo{
+        margin:19.5px 18px;
+      }
+      .division{
+        display: inline-block;
+        position: absolute;
+        top: 17px;
+        height: 26px;
+        border-right:2px solid rgba(#979797,0.5);
+      }
+      .project-title{
+        margin-left: 18px;
+        position: absolute;
+        display: inline-block;
+        font-size: 18px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #BCCCFF;
+        letter-spacing: 1px;
+      }
+      
     }
-    .home-content-right{
-      width: 500px;
+    .home-header-right{
+      flex:1;
+      .iconfont{
+        float: right;
+        color: #EBEEE7;
+        font-size: 22px;
+        margin-top: 18px;
+        margin-right:18px;
+        cursor:pointer;
+      }
+    }
+  }
+  #mapContainer{
+    width: 100vw;
+    height: 100%;
+    .cesium-viewer{
+      width: 100%;
+      height: 100%;
+    }
+    .cesium-viewer-cesiumWidgetContainer{
+      width: 100%;
+      height: 100%;
+    }
+    .cesium-widget{
+      width: 100%;
+      height: 100%;
+    }
+    .cesium-widget canvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
     }
   }
 }
