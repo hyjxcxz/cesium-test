@@ -5,15 +5,15 @@ import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),eslintPlugin()],//注册插件
+  plugins: [vue(), eslintPlugin()], // 注册插件
   server: {
     open: true
   },
   resolve: {
     alias: {
       // 如果报错__dirname找不到，需要安装node,执行yarn add @types/node --save-dev
-      "@": path.resolve(__dirname, "src"),
-      "comps": path.resolve(__dirname, "src/components"),
+      '@': path.resolve(__dirname, 'src'),
+      comps: path.resolve(__dirname, 'src/components')
     }
   }
 })
