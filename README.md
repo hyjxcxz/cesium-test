@@ -1,3 +1,4 @@
+# http://10.35.191.98:82/GIS-Projects/dataBaseEarth.git
 # 工程准备启动等
 ## 启动
 npm install
@@ -51,7 +52,8 @@ npm run prepare
    ____views          路由页面
 # 报错参考
 https://blog.csdn.net/qq_45022197/article/details/124428798
-
+# TS 用法请参考官方文档
+https://v3.cn.vuejs.org/guide/typescript-support.html#%E4%B8%8E%E7%BB%84%E5%90%88%E5%BC%8F-api-%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
