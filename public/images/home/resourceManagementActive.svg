@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="51px" height="47px" viewBox="0 0 51 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>编组 17</title>
     <defs>
         <linearGradient x1="104.05034%" y1="100%" x2="30.8776111%" y2="100%" id="linearGradient-1">
@@ -7,14 +7,13 @@
             <stop stop-color="#3049FE" stop-opacity="0.49773359" offset="100%"></stop>
         </linearGradient>
         <polygon id="path-2" points="11.7320063 16.0902693 32.0311326 7.4737292 27.719382 29.8338452 6.96886744 35.3388377"></polygon>
-        <filter x="-85.8%" y="-52.0%" width="271.6%" height="254.3%" filterUnits="objectBoundingBox" id="filter-3">
-            <feOffset dx="0" dy="7" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.660653068 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        <filter x="-2.0%" y="-1.8%" width="108.0%" height="107.2%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.660653068 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
         </filter>
     </defs>
     <g id="主界面" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="主界面菜单效果与图例展开" transform="translate(-1348.000000, -64.000000)">
+        <g id="主界面菜单效果与图例展开" transform="translate(-1365.000000, -69.000000)">
             <g id="编组-17" transform="translate(1365.000000, 69.000000)">
                 <path d="M49,0.5 C49.4142136,0.5 49.7892136,0.667893219 50.0606602,0.939339828 C50.3321068,1.21078644 50.5,1.58578644 50.5,2 L50.5,2 L50.5,41 C50.5,41.4142136 50.3321068,41.7892136 50.0606602,42.0606602 C49.7892136,42.3321068 49.4142136,42.5 49,42.5 L49,42.5 L2,42.5 C1.58578644,42.5 1.21078644,42.3321068 0.939339828,42.0606602 C0.667893219,41.7892136 0.5,41.4142136 0.5,41 L0.5,41 L0.5,2 C0.5,1.58578644 0.667893219,1.21078644 0.939339828,0.939339828 C1.21078644,0.667893219 1.58578644,0.5 2,0.5 L2,0.5 Z" id="矩形备份-20" stroke="#3049FE" fill="url(#linearGradient-1)"></path>
                 <g id="编组-19" transform="translate(4.000000, 5.000000)">
