@@ -97,7 +97,7 @@ export default {
   .home-header{
     position: fixed;
     width: 100%;
-    height: 60px;
+    height: 50px;
     background: #373F72;
     opacity: 0.5;
     border-bottom:1px solid;
@@ -108,14 +108,14 @@ export default {
     .home-header-left{
       flex:1;
       height: 100%;
-      line-height: 60px;
+      line-height: 50px;
       .logo{
-        margin:19.5px 18px;
+        margin:14.5px 18px;
       }
       .division{
         display: inline-block;
         position: absolute;
-        top: 17px;
+        top: 12px;
         height: 26px;
         border-right:2px solid rgba(#979797,0.5);
       }
@@ -137,7 +137,7 @@ export default {
         float: right;
         color: #EBEEE7;
         font-size: 22px;
-        margin-top: 18px;
+        margin-top: 13px;
         margin-right:18px;
         cursor:pointer;
       }

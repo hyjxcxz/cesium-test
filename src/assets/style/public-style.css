@@ -9,5 +9,72 @@
   line-height: 43px;
   color: #9BAEEC;
   margin-top: 10px;
-  cursor: pointer;
+}
+
+.resourceManagement {
+  margin-top: 10px;
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/resourceManagement.svg") no-repeat center/100%;
+}
+
+.resourceManagement:hover {
+  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
+}
+
+.dataManagement {
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/dataManagement.svg") no-repeat center/100%;
+}
+
+.dataManagement:hover {
+  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
+}
+
+.measuringTools {
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/measuringTools.svg") no-repeat center/100%;
+}
+
+.measuringTools:hover {
+  background: url("/images/home/measuringToolsText.svg") no-repeat center/100%;
+}
+
+.resourceManagementChecked {
+  margin-top: 10px;
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/resourceManagementActive.svg") no-repeat center/100%;
+}
+
+.resourceManagementChecked:hover {
+  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
+}
+
+.dataManagementChecked {
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/dataManagementActive.svg") no-repeat center/100%;
+}
+
+.dataManagementChecked:hover {
+  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
+}
+
+.measuringToolsChecked {
+  display: inline-block;
+  width: 51px;
+  height: 48px;
+  background: url("/images/home/measuringToolsActive.svg") no-repeat center/100%;
+}
+
+.measuringToolsChecked:hover {
+  background: url("/images/home/measuringToolsText.svg") no-repeat center/100%;
 }
