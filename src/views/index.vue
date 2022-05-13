@@ -2,33 +2,58 @@
   <div class="home">
     <div class="home-header">
       <div class="home-header-left">
-        <img class="logo" src="images/logo.svg" alt="">
-        <div class="division"></div>
+        <img
+          class="logo"
+          src="images/logo.svg"
+          alt=""
+        >
+        <div class="division" />
         <span class="project-title">风场信息化数据平台</span>
       </div>
       <div class="home-header-right">
-        <el-tooltip content="全屏展开" effect="dark" placement="bottom" v-if="!isFullScreen">
-          <i class="iconfont icon-quanping1" @click="fullScreen()"></i>
+        <el-tooltip
+          content="全屏展开"
+          effect="dark"
+          placement="bottom"
+          v-if="!isFullScreen"
+        >
+          <i
+            class="iconfont icon-quanping1"
+            @click="fullScreen()"
+          />
         </el-tooltip>
-        <el-tooltip content="退出全屏" effect="dark" placement="bottom" v-else>
-          <i class="iconfont icon-tuichuquanping" @click="exitFullscreen()"></i>
+        <el-tooltip
+          content="退出全屏"
+          effect="dark"
+          placement="bottom"
+          v-else
+        >
+          <i
+            class="iconfont icon-tuichuquanping"
+            @click="exitFullscreen()"
+          />
         </el-tooltip>
       </div>
     </div>
-    <div id="mapContainer"></div>
+    <div id="mapContainer" />
+    <popupRightBox />
   </div>
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import gwmap from '../gwmap'
+import popupRightBox from './popup-right/index.vue'
 export default {
-  name: 'home',
+  name: 'HomeMapContainer',
+  components: {
+    popupRightBox
+  },
   setup () {
     const isFullScreen = ref(false)
 
     function fullScreen () {
-      var element = document.documentElement;
+      const element = document.documentElement
       if (element.requestFullscreen) {
         element.requestFullscreen()
       } else if (element.msRequestFullscreen) {
@@ -52,7 +77,7 @@ export default {
       }
       isFullScreen.value = false
     }
-    
+
     return {
       isFullScreen,
       fullScreen,
@@ -79,6 +104,7 @@ export default {
     border-image: linear-gradient(to bottom right,#C8C8C8 40%,#979797 100%,#C2C2C2 40%) 1;
     display: flex;
     flex-direction: row;
+    z-index: 1;
     .home-header-left{
       flex:1;
       height: 100%;
@@ -103,7 +129,7 @@ export default {
         color: #BCCCFF;
         letter-spacing: 1px;
       }
-      
+
     }
     .home-header-right{
       flex:1;

@@ -1,0 +1,13 @@
+.tab {
+  display: inline-block;
+  width: 51px;
+  height: 43px;
+  background: linear-gradient(270deg, rgba(48, 73, 254, 0.14) 0%, rgba(48, 73, 254, 0.5) 100%);
+  border-radius: 2px;
+  border: 1px solid rgba(192, 200, 255, 0.26);
+  text-align: center;
+  line-height: 43px;
+  color: #9BAEEC;
+  margin-top: 10px;
+  cursor: pointer;
+}
