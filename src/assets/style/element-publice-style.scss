@@ -1,0 +1,35 @@
+.el-checkbox{
+  .el-checkbox__input.is-checked .el-checkbox__inner{
+    background-color: #3049FE;
+    border-color: #3049FE;
+    border-radius: 1px;
+  }
+  .el-checkbox__label{
+    color: #BCCCFF;
+  }
+}
+
+.el-switch{
+  height: 24px;
+  .el-switch__core{
+    width: 24px !important;
+    height: 12px !important;
+    .el-switch__action{
+      width: 8px;
+      height: 8px;
+      margin-left: 0;
+    }
+  }
+}
+.el-switch.is-checked{
+  height: 24px;
+  .el-switch__core{
+    width: 24px !important;
+    height: 12px !important;
+    .el-switch__action{
+      width: 8px;
+      height: 8px;
+      margin-left: calc(-1px - 8px);
+    }
+  }
+}
