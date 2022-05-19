@@ -62,26 +62,39 @@
         <p class="img-title">
           <span>按规划设计统计</span>
         </p>
-        <div id="planning-statistics" />
+        <div
+          id="planning-statistics"
+          v-if="isShow"
+        />
         <p class="img-title">
           <span>按机型分布统计</span>
         </p>
-        <div id="model-distribution" />
+        <div
+          id="model-distribution"
+          v-if="isShow"
+        />
         <p class="img-title">
           <span>按项目类型统计</span>
         </p>
-        <div id="project-type" />
+        <div
+          id="project-type"
+          v-if="isShow"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 export default {
   name: 'ResourceManagement',
   setup () {
+    let isShow = ref(true)
+    let planningStatisticsEcharts
+    let modelDistributionEcharts
+    let projectTypeEcharts
     const checkedTab = ref(1)
     let checkList = ref([])
     const windField = ref(false)
@@ -164,10 +177,8 @@ export default {
         show: true,
         type: 'category',
         axisLabel: {
-          textStyle: {
-            fontSize: 14,
-            color: '#eeeeee'
-          }
+          fontSize: 14,
+          color: '#eeeeee'
         },
         data: ['类型一', '类型二', '类型三', '类型四', '类型五', '类型六', '类型七']
       },
@@ -187,10 +198,8 @@ export default {
           }
         },
         axisLabel: {
-          textStyle: {
-            fontSize: 14,
-            color: '#eeeeee'
-          }
+          fontSize: 14,
+          color: '#eeeeee'
         }
       },
       series: [
@@ -199,19 +208,17 @@ export default {
           type: 'bar',
           barWidth: 16,
           itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#80CEFF'
-                },
-                {
-                  offset: 1,
-                  color: '#453AF7'
-                }
-              ]),
-              barBorderRadius: [2.7, 2.7, 0, 0]
-            }
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: '#80CEFF'
+              },
+              {
+                offset: 1,
+                color: '#453AF7'
+              }
+            ]),
+            borderRadius: [2.7, 2.7, 0, 0]
           },
           data: [90, 113, 60, 50, 55, 77, 88]
         },
@@ -220,19 +227,17 @@ export default {
           type: 'bar',
           barWidth: 32,
           itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#E489F2'
-                },
-                {
-                  offset: 1,
-                  color: '#6C60FF'
-                }
-              ]),
-              barBorderRadius: [2, 2, 0, 0]
-            }
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: '#E489F2'
+              },
+              {
+                offset: 1,
+                color: '#6C60FF'
+              }
+            ]),
+            borderRadius: [2, 2, 0, 0]
           },
           data: [90, 113, 60, 50, 55, 77, 88]
         }
@@ -322,25 +327,17 @@ export default {
         {
           type: 'pie',
           radius: ['5%', '10%'],
-          hoverAnimation: false,
           labelLine: {
-            normal: {
-              show: false,
-              length: 30,
-              length2: 55
-            },
-            emphasis: {
-              show: false
-            }
+            show: false,
+            length: 30,
+            length2: 55
           },
           data: [
             {
               name: '',
               value: 0,
               itemStyle: {
-                normal: {
-                  color: '#0B4A6B'
-                }
+                color: '#0B4A6B'
               }
             }
           ]
@@ -348,16 +345,10 @@ export default {
         {
           type: 'pie',
           radius: ['90%', '95%'],
-          hoverAnimation: false,
           labelLine: {
-            normal: {
-              show: false,
-              length: 30,
-              length2: 55
-            },
-            emphasis: {
-              show: false
-            }
+            show: false,
+            length: 30,
+            length2: 55
           },
           name: '',
           data: [
@@ -365,9 +356,7 @@ export default {
               name: '',
               value: 0,
               itemStyle: {
-                normal: {
-                  color: '#0B4A6B'
-                }
+                color: '#0B4A6B'
               }
             }
           ]
@@ -379,27 +368,15 @@ export default {
           roseType: 'area',
           zlevel: 10,
           label: {
-            normal: {
-              show: true,
-              formatter: '{c}',
-              textStyle: {
-                fontSize: 12
-              },
-              position: 'outside'
-            },
-            emphasis: {
-              show: true
-            }
+            show: true,
+            formatter: '{c}',
+            fontSize: 12,
+            position: 'outside'
           },
           labelLine: {
-            normal: {
-              show: true,
-              length: 20,
-              length2: 55
-            },
-            emphasis: {
-              show: false
-            }
+            show: true,
+            length: 20,
+            length2: 55
           },
           data: [
             {
@@ -437,25 +414,19 @@ export default {
           sort: 'descending',
           gap: 4,
           label: {
-            normal: {
-              show: true,
-              position: 'right'
-            }
+            show: true,
+            position: 'right'
           },
           labelLine: {
-            normal: {
-              length: 10,
-              lineStyle: {
-                width: 1,
-                type: 'solid'
-              }
+            length: 10,
+            lineStyle: {
+              width: 1,
+              type: 'solid'
             }
           },
           itemStyle: {
-            normal: {
-              borderColor: '#fff',
-              borderWidth: 1
-            }
+            borderColor: '#fff',
+            borderWidth: 1
           },
           data: [
             {
@@ -483,17 +454,23 @@ export default {
       checkList = []
     }
     onMounted(() => {
-      const planningStatisticsEcharts = echarts.init(document.getElementById('planning-statistics')) // 按规划设计统计
-      const modelDistributionEcharts = echarts.init(document.getElementById('model-distribution')) // 按机型分布统计
-      const projectTypeEcharts = echarts.init(document.getElementById('project-type')) // 按项目类型统计
-      planningStatisticsEcharts.setOption(planningStatisticsOption)
-      modelDistributionEcharts.setOption(modelDistributionOption)
-      projectTypeEcharts.setOption(projectTypeEchartsOption)
+      isShow = true
+      planningStatisticsEcharts = echarts.init(document.getElementById('planning-statistics')) // 按规划设计统计
+      modelDistributionEcharts = echarts.init(document.getElementById('model-distribution')) // 按机型分布统计
+      projectTypeEcharts = echarts.init(document.getElementById('project-type')) // 按项目类型统计
+      if (planningStatisticsEcharts) {
+        planningStatisticsEcharts.setOption(planningStatisticsOption, true)
+        modelDistributionEcharts.setOption(modelDistributionOption, true)
+        projectTypeEcharts.setOption(projectTypeEchartsOption, true)
+      }
       window.onresize = function () {
         planningStatisticsEcharts.resize()
         modelDistributionEcharts.resize()
         projectTypeEcharts.resize()
       }
+    })
+    onUnmounted(() => {
+      isShow = false
     })
     return {
       tabList,
@@ -504,7 +481,8 @@ export default {
       transportTab,
       windField,
       riskAssessment,
-      postEvaluation
+      postEvaluation,
+      isShow
     }
   }
 }
