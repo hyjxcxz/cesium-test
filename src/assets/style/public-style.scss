@@ -14,7 +14,7 @@
   margin-top: 10px;
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
   background: url("/images/home/resourceManagement.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/resourceManagementText.svg") no-repeat center / 100%;
@@ -23,7 +23,7 @@
 .dataManagement{
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
   background: url("/images/home/dataManagement.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/dataManagementText.svg") no-repeat center / 100%;
@@ -32,7 +32,7 @@
 .measuringTools{
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
   background: url("/images/home/measuringTools.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/measuringToolsText.svg") no-repeat center / 100%;
@@ -42,27 +42,65 @@
   margin-top: 10px;
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
+  margin-bottom: 5px;
   background: url("/images/home/resourceManagementActive.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/resourceManagementText.svg") no-repeat center / 100%;
+  }
+  &::before{
+    content: '';
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #3049FE;
+    position: relative;
+    right: -52px;
+    top: 10px;
   }
 }
 .dataManagementChecked{
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
+  margin-bottom: 5px;
   background: url("/images/home/dataManagementActive.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/dataManagementText.svg") no-repeat center / 100%;
+  }
+  &::before{
+    content: '';
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #3049FE;
+    position: relative;
+    right: -52px;
+    top: 10px;
   }
 }
 .measuringToolsChecked{
   display: inline-block;
   width: 51px;
-  height: 48px;
+  height: 45px;
   background: url("/images/home/measuringToolsActive.svg") no-repeat center / 100%;
   &:hover{
     background: url("/images/home/measuringToolsText.svg") no-repeat center / 100%;
+  }
+  &::before{
+    content: '';
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #3049FE;
+    position: relative;
+    right: -52px;
+    top: 10px;
   }
 }
