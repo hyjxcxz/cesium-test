@@ -4,7 +4,7 @@
       <div class="home-header-left">
         <img
           class="logo"
-          src="images/logo.svg"
+          src="https://windit.s3.cn-north-1.amazonaws.com.cn/logo-goldwind/gold-en-level-white.svg"
           alt=""
         >
         <div class="division" />
@@ -98,8 +98,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 50px;
-    background: #373F72;
-    opacity: 0.5;
+    background: rgba(#373F72,0.5);
     border-bottom:1px solid;
     border-image: linear-gradient(to bottom right,#C8C8C8 40%,#979797 100%,#C2C2C2 40%) 1;
     display: flex;
@@ -110,7 +109,8 @@ export default {
       height: 100%;
       line-height: 50px;
       .logo{
-        margin:14.5px 18px;
+        height: 26px;
+        margin:11.5px 18px;
       }
       .division{
         display: inline-block;
