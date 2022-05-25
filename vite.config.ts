@@ -7,7 +7,14 @@ import eslintPlugin from 'vite-plugin-eslint'
 export default defineConfig({
   plugins: [vue(), eslintPlugin()], // 注册插件
   server: {
-    open: true
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: 'http://localhost/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
   resolve: {
     alias: {
