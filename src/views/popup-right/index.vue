@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import ResourceManagement from './resource-management.vue'
 import DataManagement from './data-management.vue'
 import MeasuringTools from './measuring-tools.vue'
@@ -63,7 +63,7 @@ export default {
       }
     ])
 
-    function changeTab (val) {
+    function changeTab (val:any) {
       activePage.value = val.class
       tabData.map(item => {
         if (item.title === val.title) {
