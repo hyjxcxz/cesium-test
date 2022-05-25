@@ -40,8 +40,8 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { ref, onMounted } from 'vue'
 import gwmap from '../gwmap'
 import popupRightBox from './popup-right/index.vue'
 export default {
@@ -51,29 +51,19 @@ export default {
   },
   setup () {
     const isFullScreen = ref(false)
-
+    onMounted(() => {
+      gwmap.init('mapContainer')
+    })
     function fullScreen () {
       const element = document.documentElement
       if (element.requestFullscreen) {
         element.requestFullscreen()
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen()
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen()
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen()
       }
       isFullScreen.value = true
     }
     function exitFullscreen () {
       if (document.exitFullscreen) {
         document.exitFullscreen()
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen()
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen()
       }
       isFullScreen.value = false
     }
@@ -83,9 +73,6 @@ export default {
       fullScreen,
       exitFullscreen
     }
-  },
-  mounted () {
-    gwmap.init('mapContainer')
   }
 }
 </script>

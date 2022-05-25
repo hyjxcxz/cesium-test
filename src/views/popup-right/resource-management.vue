@@ -85,18 +85,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 export default {
   name: 'ResourceManagement',
   setup () {
-    let isShow = ref(true)
-    let planningStatisticsEcharts
-    let modelDistributionEcharts
-    let projectTypeEcharts
+    const isShow = ref(true)
     const checkedTab = ref(1)
-    let checkList = ref([])
+    const checkList = ref([])
     const windField = ref(false)
     const riskAssessment = ref(false)
     const postEvaluation = ref(false)
@@ -449,15 +446,18 @@ export default {
         }
       ]
     }
-    function changeTab (tab) {
+    function changeTab (tab:any) {
       checkedTab.value = tab.code
-      checkList = []
+      checkList.value = []
     }
     onMounted(() => {
-      isShow = true
-      planningStatisticsEcharts = echarts.init(document.getElementById('planning-statistics')) // 按规划设计统计
-      modelDistributionEcharts = echarts.init(document.getElementById('model-distribution')) // 按机型分布统计
-      projectTypeEcharts = echarts.init(document.getElementById('project-type')) // 按项目类型统计
+      isShow.value = true
+      // let planningStatisticsEcharts:any
+      // let modelDistributionEcharts:any
+      // let projectTypeEcharts:any
+      const planningStatisticsEcharts = echarts.init(document.getElementById('planning-statistics') as HTMLElement) // 按规划设计统计
+      const modelDistributionEcharts = echarts.init(document.getElementById('model-distribution') as HTMLElement) // 按机型分布统计
+      const projectTypeEcharts = echarts.init(document.getElementById('project-type') as HTMLElement) // 按项目类型统计
       if (planningStatisticsEcharts) {
         planningStatisticsEcharts.setOption(planningStatisticsOption, true)
         modelDistributionEcharts.setOption(modelDistributionOption, true)
@@ -470,7 +470,7 @@ export default {
       }
     })
     onUnmounted(() => {
-      isShow = false
+      isShow.value = false
     })
     return {
       tabList,
