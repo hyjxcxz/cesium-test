@@ -52,7 +52,7 @@ npm run prepare
    ____views          路由页面
 # 报错参考
 https://blog.csdn.net/qq_45022197/article/details/124428798
-# TS 用法请参考官方文档
+# TS 用法请参考官方文档或src/components/right/testComponet.vue
 https://v3.cn.vuejs.org/guide/typescript-support.html#%E4%B8%8E%E7%BB%84%E5%90%88%E5%BC%8F-api-%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8
 # Vue 3 + TypeScript + Vite
 
