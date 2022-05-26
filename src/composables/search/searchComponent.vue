@@ -3,7 +3,6 @@
     <el-input
       class="input-with-select"
       v-model="searchWord"
-      :size="props.size ? props.size : 'mini'"
       :placeholder="props.placeholder"
       @change="searchClick"
     >
@@ -26,10 +25,6 @@ export default {
   name: 'SearchComponent',
   emits: ['search-click'],
   props: {
-    size: {
-      type: String,
-      default: 'mini'
-    },
     placeholder: { type: String, default: '搜索' }
   },
   setup (props:any, { emit }:any) {

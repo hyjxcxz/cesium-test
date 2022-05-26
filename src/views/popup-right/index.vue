@@ -3,7 +3,6 @@
   <div class="popup-right-box">
     <SearchComponent
       v-if="SearchShow"
-      :size="size"
       :placeholder="placeholder"
     />
     <div class="function-box">
@@ -44,7 +43,6 @@ export default {
     SearchComponent
   },
   setup () {
-    const size = ref('default')// 搜索框size
     const SearchShow = ref(true)// 搜索框显示
     const placeholder = ref('输入名称/编号查找') // 搜索框placeholder
     const activePage = ref('resourceManagement')
@@ -101,7 +99,6 @@ export default {
       }
     }
     return {
-      size,
       placeholder,
       tabData,
       changeTab,
