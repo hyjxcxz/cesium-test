@@ -104,3 +104,30 @@
     top: 10px;
   }
 }
+
+.el-dialog{
+  background: #141726;
+  border-radius: 30px 0 30% 0;
+  border: 1px solid rgba(192, 200, 255, 0.4);
+  .el-dialog__header{
+    background: #2D45F2;
+    margin: 2px;
+    border-radius: 26px 0 0 0;
+    padding: 15px 0px;
+    .el-dialog__title{
+      color: #fff;
+      font-size: 16px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      line-height: 20px;
+      padding: 15px 20px;
+    }
+  }
+  .el-dialog__headerbtn{
+    top: 3px;
+    .el-dialog__close{
+      color: #FAFAFA;
+      font-size: 24px !important;
+    }
+  }
+}

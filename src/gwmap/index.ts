@@ -45,7 +45,7 @@ gwmap.init = function (elementId:any, options = {}) {
   })
 
   const map = new WindEarth.Map(globeView, configMap)
-  const url = '/vendors/border_001_v2.geojson'
+  const url = '/vendors/border_001_v2.geojson' // 纹理数据
   function readData () {
     WindEarth.Resource.fetchJson({ url }).then((data:any) => {
       addWallGraphic(data)
@@ -65,7 +65,7 @@ gwmap.init = function (elementId:any, options = {}) {
           maximumHeights: max,
           minimumHeights: min,
           material: new WindEarth.LineFlowMaterialProperty({
-            image: '/vendors/fence1.png', // 3049FE
+            image: '/vendors/fence1.png', // 3049FE 纹理图片
             color: WindEarth.Color.fromCssColorString('#3049FE').withAlpha(1.0),
             repeat: new WindEarth.Cartesian2(5, 1),
             axisY: true, // 方向，true时上下，false左右
