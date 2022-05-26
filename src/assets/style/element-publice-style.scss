@@ -33,3 +33,24 @@
     }
   }
 }
+.screen-input{
+  .el-input__wrapper{
+      background-color: unset;
+      box-shadow:unset;
+      .el-input__inner{
+        height: 34px;
+      }
+  }
+  .el-input-group__append,
+  .el-input-group__prepend {
+    padding: 0 12.5px;
+    border-top-left-radius: 0;
+    box-shadow: unset;
+    background: unset;
+    border-bottom-left-radius: 0;
+    position: relative;
+    height: 34px;
+    font-size: 18px;
+    color: #BCCCFF;
+  }
+}

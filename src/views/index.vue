@@ -11,28 +11,32 @@
         <span class="project-title">风场信息化数据平台</span>
       </div>
       <div class="home-header-right">
-        <el-tooltip
-          content="全屏展开"
-          effect="dark"
-          placement="bottom"
-          v-if="!isFullScreen"
-        >
-          <i
-            class="iconfont icon-quanping1"
-            @click="fullScreen()"
-          />
-        </el-tooltip>
-        <el-tooltip
-          content="退出全屏"
-          effect="dark"
-          placement="bottom"
-          v-else
-        >
-          <i
-            class="iconfont icon-tuichuquanping"
-            @click="exitFullscreen()"
-          />
-        </el-tooltip>
+        <div class="home-header-right-title">
+          <el-tooltip
+            content="全屏展开"
+            effect="dark"
+            placement="bottom"
+            v-if="!isFullScreen"
+          >
+            <i
+              class="iconfont icon-quanping1"
+              @click="fullScreen()"
+            />
+          </el-tooltip>
+          <el-tooltip
+            content="退出全屏"
+            effect="dark"
+            placement="bottom"
+            v-else
+          >
+            <i
+              class="iconfont icon-tuichuquanping"
+              @click="exitFullscreen()"
+            />
+          </el-tooltip>
+          <!-- 用户信息 -->
+          <userComponentVue />
+        </div>
       </div>
     </div>
     <div id="mapContainer" />
@@ -49,12 +53,14 @@
 import { ref, onMounted, reactive } from 'vue'
 import gwmap from '../gwmap'
 import popupRightBox from './popup-right/index.vue'
+import userComponentVue from '@/layout/userComponent.vue'
 import infoPopup from '@/components/info-popup.vue'
 import ProjectInfo from './project/components/project-info.vue'
 export default {
   name: 'HomeMapContainer',
   components: {
     popupRightBox,
+    userComponentVue,
     infoPopup,
     ProjectInfo
   },
@@ -158,13 +164,26 @@ export default {
     }
     .home-header-right{
       flex:1;
-      .iconfont{
+      .home-header-right-title{
+        margin-right: 18px;
+        color: #EBEEE7;
         float: right;
+        height: 100%;
+      .iconfont{
+        float: left;
         color: #EBEEE7;
         font-size: 22px;
         margin-top: 13px;
-        margin-right:18px;
         cursor:pointer;
+      }
+      .user-content{
+        float: left;
+        cursor: pointer;
+        color: #EBEEE7;
+        height: 100%;
+        line-height: 50px;
+        margin: auto 20px;
+      }
       }
     }
   }

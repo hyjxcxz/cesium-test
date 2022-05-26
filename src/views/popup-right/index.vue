@@ -1,6 +1,10 @@
 <template>
   <!--右侧弹窗的盒子  -->
   <div class="popup-right-box">
+    <SearchComponent
+      v-if="SearchShow"
+      :placeholder="placeholder"
+    />
     <div class="function-box">
       <div class="tab-box">
         <span
@@ -12,7 +16,10 @@
       </div>
       <HomeLegend />
     </div>
-    <ResourceManagement v-if="activePage === 'resourceManagement'" />
+    <ResourceManagement
+      v-if="activePage === 'resourceManagement'"
+      @show-search="showSearch"
+    />
     <DataManagement v-if="activePage === 'dataManagement'" />
     <MeasuringTools v-if="activePage === 'measuringTools'" />
   </div>
@@ -23,6 +30,7 @@ import ResourceManagement from './resource-management.vue'
 import DataManagement from './data-management.vue'
 import MeasuringTools from './measuring-tools.vue'
 import HomeLegend from './components/home-legend.vue'
+import SearchComponent from '@/composables/search/searchComponent.vue'
 
 import { reactive, ref } from 'vue'
 export default {
@@ -31,9 +39,12 @@ export default {
     ResourceManagement,
     DataManagement,
     MeasuringTools,
-    HomeLegend
+    HomeLegend,
+    SearchComponent
   },
   setup () {
+    const SearchShow = ref(true)// 搜索框显示
+    const placeholder = ref('输入名称/编号查找') // 搜索框placeholder
     const activePage = ref('resourceManagement')
     const tabData = reactive([
       {
@@ -79,10 +90,21 @@ export default {
         return item
       })
     }
+    function showSearch (item:any) {
+      SearchShow.value = false
+      switch (item.title) {
+        case '风现场':
+          SearchShow.value = true
+          placeholder.value = '输入名称/编号查找'
+      }
+    }
     return {
+      placeholder,
       tabData,
       changeTab,
-      activePage
+      activePage,
+      showSearch,
+      SearchShow
     }
   }
 }
