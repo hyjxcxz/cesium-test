@@ -42,21 +42,57 @@
     <div id="mapContainer" />
     <popupRightBox />
   </div>
+  <infoPopup
+    :info="info"
+    v-if="isShowPopup"
+  />
+  <ProjectInfo />
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import gwmap from '../gwmap'
 import popupRightBox from './popup-right/index.vue'
 import userComponentVue from '@/layout/userComponent.vue'
+import infoPopup from '@/components/info-popup.vue'
+import ProjectInfo from './project/components/project-info.vue'
 export default {
   name: 'HomeMapContainer',
   components: {
     popupRightBox,
-    userComponentVue
+    userComponentVue,
+    infoPopup,
+    ProjectInfo
   },
   setup () {
     const isFullScreen = ref(false)
+    const isShowPopup = ref(false)
+    const info = reactive({
+      title: '风场基本信息',
+      class: 'default', // default 风场 factory 工厂
+      data: [
+        {
+          key: '风场名称：',
+          value: '河北张家口风电场河北张家口风电场'
+        }, {
+          key: '位置：',
+          value: '39.916527'
+        }, {
+          key: '行政区划：',
+          value: '河北省张家口市'
+        }, {
+          key: '业主名称：',
+          value: '张家口红松风场'
+        }, {
+          key: '状态：',
+          value: '已建',
+          status: true
+        }, {
+          key: '并网时间：',
+          value: '20180324'
+        }
+      ]
+    }) // 场区详情弹框数据
     onMounted(() => {
       gwmap.init('mapContainer')
     })
@@ -77,7 +113,9 @@ export default {
     return {
       isFullScreen,
       fullScreen,
-      exitFullscreen
+      exitFullscreen,
+      info,
+      isShowPopup
     }
   }
 }

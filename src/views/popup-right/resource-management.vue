@@ -448,15 +448,14 @@ export default {
       ]
     }
     function changeTab (tab:any) {
-      checkedTab.value = tab.code
-      checkList.value = []
-      emit('show-search', tab)//
+      if (checkedTab.value !== tab.code) {
+        checkedTab.value = tab.code
+        checkList.value = []
+      }
+      emit('show-search', tab)// 展示搜索框
     }
     onMounted(() => {
       isShow.value = true
-      // let planningStatisticsEcharts:any
-      // let modelDistributionEcharts:any
-      // let projectTypeEcharts:any
       const planningStatisticsEcharts = echarts.init(document.getElementById('planning-statistics') as HTMLElement) // 按规划设计统计
       const modelDistributionEcharts = echarts.init(document.getElementById('model-distribution') as HTMLElement) // 按机型分布统计
       const projectTypeEcharts = echarts.init(document.getElementById('project-type') as HTMLElement) // 按项目类型统计
