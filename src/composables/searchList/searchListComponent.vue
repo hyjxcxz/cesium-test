@@ -21,8 +21,6 @@ export default {
   },
   emits: ['schear-list-click'],
   setup (props:any, { emit }:any) {
-    // eslint-disable-next-line no-debugger
-    debugger
     function listClick (item:Object) {
       emit('schear-list-click', item)
     }

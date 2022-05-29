@@ -47,6 +47,8 @@
     v-if="isShowPopup"
   />
   <ProjectInfo />
+  <!-- 接口实验（长青线接口路径对，没登录会报500） -->
+  <!-- <testComponetVue /> -->
 </template>
 
 <script lang="ts">
@@ -56,6 +58,7 @@ import popupRightBox from './popup-right/index.vue'
 import userComponentVue from '@/layout/userComponent.vue'
 import infoPopup from '@/components/info-popup.vue'
 import ProjectInfo from './project/components/project-info.vue'
+// import testComponetVue from '@/components/right/testComponet.vue'
 export default {
   name: 'HomeMapContainer',
   components: {
@@ -63,6 +66,7 @@ export default {
     userComponentVue,
     infoPopup,
     ProjectInfo
+    // testComponetVue
   },
   setup () {
     const isFullScreen = ref(false)

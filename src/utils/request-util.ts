@@ -1,4 +1,4 @@
-import request from '@/utils/request-pre'
+import request from '@/utils/request'
 import {
   apiPathConfigs
 } from '@/api/api-config'
