@@ -2,8 +2,9 @@
   <!--右侧弹窗的盒子  -->
   <div class="popup-right-box">
     <SearchComponent
-      v-if="SearchShow"
       :placeholder="placeholder"
+      :search-options="searchOptions"
+      @search-click="searchClick"
     />
     <div class="function-box">
       <div class="tab-box">
@@ -18,7 +19,6 @@
     </div>
     <ResourceManagement
       v-if="activePage === 'resourceManagement'"
-      @show-search="showSearch"
     />
     <DataManagement v-if="activePage === 'dataManagement'" />
     <MeasuringTools v-if="activePage === 'measuringTools'" />
@@ -43,8 +43,7 @@ export default {
     SearchComponent
   },
   setup () {
-    const SearchShow = ref(true)// 搜索框显示
-    const placeholder = ref('输入名称/编号查找') // 搜索框placeholder
+    const placeholder = ref('输入项目名称查找') // 搜索框placeholder
     const activePage = ref('resourceManagement')
     const tabData = reactive([
       {
@@ -73,7 +72,13 @@ export default {
         imgActive: '/images/home/measuringToolsActive.svg'
       }
     ])
-
+    const searchOptions = reactive([{
+      value: 'projectName',
+      label: '项目名称'
+    }, {
+      value: 'projectNumber',
+      label: '项目编号'
+    }])
     function changeTab (val:any) {
       activePage.value = val.class
       tabData.map(item => {
@@ -90,21 +95,16 @@ export default {
         return item
       })
     }
-    function showSearch (item:any) {
-      SearchShow.value = false
-      switch (item.title) {
-        case '风现场':
-          SearchShow.value = true
-          placeholder.value = '输入名称/编号查找'
-      }
+    function searchClick (keyword:string) {
+      console.log('搜索框关键字：' + keyword)
     }
     return {
       placeholder,
       tabData,
       changeTab,
       activePage,
-      showSearch,
-      SearchShow
+      searchOptions,
+      searchClick
     }
   }
 }
