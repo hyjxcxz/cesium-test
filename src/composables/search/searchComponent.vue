@@ -74,10 +74,15 @@ export default {
         }
         return result
       }
-      const newArry:any = [
-        { name: '山西大同风电场1' },
-        { name: '山西大同风电场1' },
-        { name: '山西大同风电场1' }]
+      let newArry:any = []
+      if (searchWord.value) {
+        newArry = [
+          { name: '山西大同风电场1' },
+          { name: '山西大同风电场1' },
+          { name: '山西大同风电场1' }]
+      } else {
+        newArry = []
+      }
       searchlist.data = newArry
       emit('search-click', searchWord.value)
     }

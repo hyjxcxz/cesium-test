@@ -15,7 +15,8 @@
     "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
     "paths": {
       "@/*":["src/*"]
-    }
+    },
+    "types": ["vite/client","node"],
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

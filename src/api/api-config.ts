@@ -1,7 +1,7 @@
 export const apiPathConfigs = {
   // 获取当前用户
-  currentuser: {
-    url: '/auth/currentuser',
+  getTaskStatus: {
+    url: '/assignTask/getTaskStatus',
     method: 'get'
   },
   userList: { // 公司所有用户

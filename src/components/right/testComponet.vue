@@ -6,8 +6,9 @@
 import { requestApi } from '@/utils/request-util'
 const test = 'test'
 requestApi(
-  'deleteAssignTaskWeekProgress',
+  'getTaskStatus',
   null,
   (res:any) => {
-  }, [''])
+    console.log(res)
+  }, null)
 </script>
