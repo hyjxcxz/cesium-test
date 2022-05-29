@@ -1,54 +1,69 @@
 <template>
-  <div class="screen-input">
-    <el-input
-      class="input-with-select"
-      v-model="searchWord"
-      :placeholder="searchPlaceholder"
-      @change="searchClick"
-    >
-      <template #prepend>
-        <el-select
-          v-model="select"
-          class="select-button"
-          style="width: 105px"
-          @change="handlerChange"
-        >
-          <el-option
-            v-for="item in props.searchOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+  <div class="screen">
+    <div class="screen-input">
+      <el-input
+        class="input-with-select"
+        v-model="searchWord"
+        :placeholder="searchPlaceholder"
+        @change="searchClick"
+      >
+        <template #prepend>
+          <el-select
+            v-model="select"
+            class="select-button"
+            style="width: 105px"
+            @change="handlerChange"
+          >
+            <el-option
+              v-for="item in searchOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </template>
+        <template #append>
+          <el-button
+            :icon="Search"
+            circle
+            @click="searchClick"
           />
-        </el-select>
-      </template>
-      <template #append>
-        <el-button
-          :icon="Search"
-          circle
-          @click="searchClick"
-        />
-      </template>
-    </el-input>
+        </template>
+      </el-input>
+    </div>
+    <SearchListComponent
+      :searchlist="searchlist.data"
+    />
   </div>
 </template>
 <script lang="ts" >
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import SearchListComponent from '@/composables/searchList/searchListComponent.vue'
 import {
   Search
 } from '@element-plus/icons-vue'
 export default {
   name: 'SearchComponent',
   emits: ['search-click'],
+  components: {
+    SearchListComponent
+  },
   props: {
     placeholder: { type: String, default: '搜索' },
     searchOptions: {
       type: Array, default () { return [] }
     }
+    // searchlist: {
+    //   type: Object, default () { return {} }
+    // }
   },
   setup (props:any, { emit }:any) {
     const searchWord = ref('')
     const searchPlaceholder = ref(props.placeholder)
     const select = ref(props.searchOptions[0].label)
+    const searchlist = reactive({
+      data: []
+    })
     function searchClick () {
       searchWord.value = Trim(searchWord.value, 'g')
       function Trim (str:string, global: string) {
@@ -59,6 +74,11 @@ export default {
         }
         return result
       }
+      const newArry:any = [
+        { name: '山西大同风电场1' },
+        { name: '山西大同风电场1' },
+        { name: '山西大同风电场1' }]
+      searchlist.data = newArry
       emit('search-click', searchWord.value)
     }
     function handlerChange (e:string) {
@@ -75,7 +95,8 @@ export default {
       searchClick,
       select,
       handlerChange,
-      searchPlaceholder
+      searchPlaceholder,
+      searchlist
     }
   }
 
