@@ -3,9 +3,24 @@
     <el-input
       class="input-with-select"
       v-model="searchWord"
-      :placeholder="props.placeholder"
+      :placeholder="searchPlaceholder"
       @change="searchClick"
     >
+      <template #prepend>
+        <el-select
+          v-model="select"
+          class="select-button"
+          style="width: 105px"
+          @change="handlerChange"
+        >
+          <el-option
+            v-for="item in props.searchOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </template>
       <template #append>
         <el-button
           :icon="Search"
@@ -25,10 +40,15 @@ export default {
   name: 'SearchComponent',
   emits: ['search-click'],
   props: {
-    placeholder: { type: String, default: '搜索' }
+    placeholder: { type: String, default: '搜索' },
+    searchOptions: {
+      type: Array, default () { return [] }
+    }
   },
   setup (props:any, { emit }:any) {
     const searchWord = ref('')
+    const searchPlaceholder = ref(props.placeholder)
+    const select = ref(props.searchOptions[0].label)
     function searchClick () {
       searchWord.value = Trim(searchWord.value, 'g')
       function Trim (str:string, global: string) {
@@ -41,11 +61,21 @@ export default {
       }
       emit('search-click', searchWord.value)
     }
+    function handlerChange (e:string) {
+      if (e === 'projectName') {
+        searchPlaceholder.value = '输入项目名称查找'
+      } else if (e === 'projectNumber') {
+        searchPlaceholder.value = '输入项目编号查找'
+      }
+    }
     return {
       Search,
       props,
       searchWord,
-      searchClick
+      searchClick,
+      select,
+      handlerChange,
+      searchPlaceholder
     }
   }
 
@@ -59,5 +89,13 @@ export default {
     height: 34px;
     border-radius: 2px;
     border: 1px solid rgba(192, 200, 255, 0.26);
+    .select-button{
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #BCCCFF;
+        background: rgba(48, 73, 254, 0.27);
+    }
+
 }
 </style>

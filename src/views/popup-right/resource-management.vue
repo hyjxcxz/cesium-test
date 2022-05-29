@@ -90,8 +90,7 @@ import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 export default {
   name: 'ResourceManagement',
-  emits: ['show-search'],
-  setup (props:any, { emit } : any) {
+  setup () {
     const isShow = ref(true)
     const checkedTab = ref(1)
     const checkList = ref([])
@@ -452,7 +451,6 @@ export default {
         checkedTab.value = tab.code
         checkList.value = []
       }
-      emit('show-search', tab)// 展示搜索框
     }
     onMounted(() => {
       isShow.value = true
