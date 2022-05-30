@@ -34,6 +34,7 @@
     <SearchListComponent
       v-if="searchlist.data.length>0"
       :searchlist="searchlist.data"
+      @schear-list-click="schearListClick"
     />
     <div
       v-else
@@ -54,7 +55,7 @@ import nodataComponentVue from '@/composables/nodata/nodataComponent.vue'
 
 export default {
   name: 'SearchComponent',
-  emits: ['search-click'],
+  emits: ['search-click-item'],
   components: {
     SearchListComponent,
     nodataComponentVue
@@ -101,6 +102,9 @@ export default {
       }
       // emit('search-click', searchWord.value)
     }
+    function schearListClick (value:Object) {
+      emit('search-click-item', value)
+    }
     function getSearchData <T> (param: T, calback:any) : T {
       return requestApi(
         'getbaseInfos',
@@ -126,7 +130,8 @@ export default {
       searchlist,
       getSearchData,
       nodata,
-      showNodata
+      showNodata,
+      schearListClick
     }
   }
 
