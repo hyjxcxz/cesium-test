@@ -1,5 +1,5 @@
 const envConfig = {
-  apiBaseUrl: process.env.VUE_APP_API + 'delistmanage/delistmanage',
-  apiBaseUserUrl: process.env.VUE_APP_API_USER
+  // apiBaseUrl: import.meta.env.VITE_APP_API_IP + '/delistmanage'
+  apiBaseUrl: import.meta.env.VITE_APP_API_IP
 }
 export default envConfig

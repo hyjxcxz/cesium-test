@@ -3,11 +3,17 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import eslintPlugin from 'vite-plugin-eslint'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'true' ? './' : '.',
   plugins: [vue(), eslintPlugin()], // 注册插件
   server: {
-    open: true
+    proxy: {
+      '/api': {
+        target: 'http://10.12.9.167:52006', // 测试
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
   resolve: {
     alias: {

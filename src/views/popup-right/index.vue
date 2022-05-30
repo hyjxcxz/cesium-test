@@ -1,6 +1,11 @@
 <template>
   <!--右侧弹窗的盒子  -->
   <div class="popup-right-box">
+    <SearchComponent
+      :placeholder="placeholder"
+      :search-options="searchOptions"
+      @search-click-item="searchClickItem"
+    />
     <div class="function-box">
       <div class="tab-box">
         <span
@@ -23,6 +28,7 @@ import ResourceManagement from './resource-management.vue'
 import DataManagement from './data-management.vue'
 import MeasuringTools from './measuring-tools.vue'
 import HomeLegend from './components/home-legend.vue'
+import SearchComponent from '@/composables/search/searchComponent.vue'
 
 import { reactive, ref } from 'vue'
 export default {
@@ -31,9 +37,11 @@ export default {
     ResourceManagement,
     DataManagement,
     MeasuringTools,
-    HomeLegend
+    HomeLegend,
+    SearchComponent
   },
   setup () {
+    const placeholder = ref('输入项目名称查找') // 搜索框placeholder
     const activePage = ref('resourceManagement')
     const tabData = reactive([
       {
@@ -65,7 +73,13 @@ export default {
         dom: 'measuring-tools'
       }
     ])
-
+    const searchOptions = reactive([{
+      value: 'projectName',
+      label: '项目名称'
+    }, {
+      value: 'projectNumber',
+      label: '项目编号'
+    }])
     function changeTab (val:any) {
       activePage.value = val.class
       tabData.map(item => {
@@ -100,10 +114,16 @@ export default {
         }
       })
     }
+    function searchClickItem (value:Object) {
+      console.log('点击搜索结果定位：' + value)
+    }
     return {
+      placeholder,
       tabData,
       changeTab,
-      activePage
+      activePage,
+      searchOptions,
+      searchClickItem
     }
   }
 }
