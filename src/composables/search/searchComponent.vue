@@ -24,7 +24,7 @@
         </template>
         <template #append>
           <el-button
-            :icon="Search"
+            class="iconfont icon-sousuo"
             circle
             @click="searchClick"
           />
@@ -32,32 +32,42 @@
       </el-input>
     </div>
     <SearchListComponent
+      v-if="searchlist.data.length>0"
       :searchlist="searchlist.data"
     />
+    <div
+      v-else
+      class="screen-list-nodata"
+    >
+      <nodataComponentVue
+        v-if="showNodata"
+        :data="nodata"
+      />
+    </div>
   </div>
 </template>
 <script lang="ts" >
 import { ref, reactive } from 'vue'
+import { requestApi } from '@/utils/request-util'
 import SearchListComponent from '@/composables/searchList/searchListComponent.vue'
-import {
-  Search
-} from '@element-plus/icons-vue'
+import nodataComponentVue from '@/composables/nodata/nodataComponent.vue'
+
 export default {
   name: 'SearchComponent',
   emits: ['search-click'],
   components: {
-    SearchListComponent
+    SearchListComponent,
+    nodataComponentVue
   },
   props: {
     placeholder: { type: String, default: '搜索' },
     searchOptions: {
       type: Array, default () { return [] }
     }
-    // searchlist: {
-    //   type: Object, default () { return {} }
-    // }
   },
   setup (props:any, { emit }:any) {
+    const nodata = ref('暂无数据')
+    const showNodata = ref(false)
     const searchWord = ref('')
     const searchPlaceholder = ref(props.placeholder)
     const select = ref(props.searchOptions[0].label)
@@ -74,17 +84,30 @@ export default {
         }
         return result
       }
-      let newArry:any = []
       if (searchWord.value) {
-        newArry = [
-          { name: '山西大同风电场1' },
-          { name: '山西大同风电场1' },
-          { name: '山西大同风电场1' }]
+        showNodata.value = true
+        if (select.value === '项目名称') {
+          getSearchData([searchWord.value, null], (res:any) => {
+            searchlist.data = res.data
+          })
+        } else if (select.value === '项目编号') {
+          getSearchData([null, searchWord.value], (res:any) => {
+            searchlist.data = res.data
+          })
+        }
       } else {
-        newArry = []
+        showNodata.value = false
+        searchlist.data = []
       }
-      searchlist.data = newArry
-      emit('search-click', searchWord.value)
+      // emit('search-click', searchWord.value)
+    }
+    function getSearchData <T> (param: T, calback:any) : T {
+      return requestApi(
+        'getbaseInfos',
+        null,
+        (res: any) => {
+          calback(res)
+        }, param)
     }
     function handlerChange (e:string) {
       if (e === 'projectName') {
@@ -94,14 +117,16 @@ export default {
       }
     }
     return {
-      Search,
       props,
       searchWord,
       searchClick,
       select,
       handlerChange,
       searchPlaceholder,
-      searchlist
+      searchlist,
+      getSearchData,
+      nodata,
+      showNodata
     }
   }
 
@@ -122,6 +147,20 @@ export default {
         color: #BCCCFF;
         background: rgba(48, 73, 254, 0.27);
     }
-
+    :deep(.el-button){
+      height: 100%;
+      background: unset;
+      border: unset;
+      &:hover{
+        color: #3049FE;
+        background: #262B4D;
+      }
+    }
+}
+.screen-list-nodata{
+    width: 265px;
+    max-height:calc(100% - 250px) ;
+    background: #262B4D;
+    opacity: 0.8;
 }
 </style>

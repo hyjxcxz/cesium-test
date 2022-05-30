@@ -31,7 +31,7 @@ export function requestService (param: { request: any; apisConfig:any; apiName: 
     apisConfigs[item] = apiConfigObj[item]
   }
   const requestConfig = {
-    method: 'post',
+    method: param.apisConfig.method || 'post',
     data: param.data,
     ...apiConfig,
     url: getRequestUrl({
