@@ -43,7 +43,8 @@ export default {
         icon: 'icon-fengdian1',
         class: 'resourceManagement',
         img: '/images/home/resourceManagement.svg',
-        imgActive: '/images/home/resourceManagementActive.svg'
+        imgActive: '/images/home/resourceManagementActive.svg',
+        dom: 'resource-management'
       }, {
         code: 2,
         title: '数据管理',
@@ -51,7 +52,8 @@ export default {
         icon: 'icon-shuju',
         class: 'dataManagement',
         img: '/images/home/dataManagement.svg',
-        imgActive: '/images/home/dataManagementActive.svg'
+        imgActive: '/images/home/dataManagementActive.svg',
+        dom: 'data-management'
       }, {
         code: 3,
         title: '测量工具',
@@ -59,7 +61,8 @@ export default {
         icon: 'icon-gongjuxiang',
         class: 'measuringTools',
         img: '/images/home/measuringTools.svg',
-        imgActive: '/images/home/measuringToolsActive.svg'
+        imgActive: '/images/home/measuringToolsActive.svg',
+        dom: 'measuring-tools'
       }
     ])
 
@@ -78,6 +81,24 @@ export default {
         }
         return item
       })
+      setTimeout(() => {
+        // 判断工具栏定位
+        const dom:any = document.getElementsByClassName('navigation-controls')[0]
+        if (tabData.some(item => item.checked === true)) {
+          let width = 0
+          tabData.forEach(item => {
+            if (item.checked) {
+              const box:any = document.getElementsByClassName(item.dom)[0]
+              width = box.offsetWidth
+            }
+          })
+          if (width) {
+            dom.style.right = width + 30 + 'px'
+          }
+        } else {
+          dom.style.right = '30px'
+        }
+      })
     }
     return {
       tabData,
@@ -93,7 +114,7 @@ export default {
   height: calc(100% - 52px);
   position: fixed;
   top: 51px;
-  right:0;
+  right:10px;
   display: flex;
   flex-direction: row;
   .function-box{

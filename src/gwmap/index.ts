@@ -1,5 +1,63 @@
+// import { CesiumConfig } from '../config/map-config'
+// import MapManager from './cesium/map-manager' // 定位
+// import mapStatusBar from './components/map-statusbar'
+// import ImageLayerGroup from '@/core/cesium/image-layer-group'
+// import {
+//   loadLayerByConfig
+// } from '@/core/cesium/layer-config-util'
+import dataManager from './cesium/data-manager'
+// import MapControlManager from './cesium/map-control-manager'
+import drawFeature from './cesium/draw-feature'
+import fanLayer from './components/fan-layer' // 地球项目风机
+import scoutingLayer from './components/scouting-layer' // 踏勘
+import fieldLayer from './components/field-layer' // 风场范围
+import astrictLayer from './components/astrict-layer' // 自定义限制因素
+import mastLayer from './components/mast-layer' // 测风塔
+import mastDatangLayer from './components/mast-datang-layer' // 风功率预测塔
+import wtLayer from './components/wt-layer' // 方案风机
+import wtLayerRealtime from './components/wt-realTime-layer' // 实时-方案风机
+import windMap from './components/wind-map-layer' // 综合风图谱
+import stationLayer from './components/station-layer' // 升压站
+import roadLayerEdit from './components/road-layer-edit' // 道路
+import towerLineLayer from './components/tower-line-layer' // 集电线路
+import towerLineNewLayer from './components/tower-line-new-layer' // 道亨集电线路
+import towerLineDatangLayer from './components/tower-line-datang-layer' // 大唐
+import noiseLayer from './components/noise-layer' // 噪音图谱
+import creditLayer from './components/credit-layer' // 置信度图谱
+import comparisonLayer from './components/scheme-comparison' // 方案比选
+import terrainGridLayer from './components/terrain-grid-layer' // 地形前后对比
+import wakeLayer from './components/wake-layer' // 尾流
+import wakeDatangLayer from './components/wake-datang-layer' // 尾流
+import meteorologicalLayer from './components/meteorological-layer' // 气象站
 declare const WindEarth: any
+
 const gwmap:any = {}
+gwmap.dataManager = dataManager
+gwmap.mapControlManager = null
+gwmap.fanLayer = fanLayer
+gwmap.scoutingLayer = scoutingLayer
+gwmap.fieldLayer = fieldLayer
+gwmap.astrictLayer = astrictLayer
+gwmap.mastLayer = mastLayer
+gwmap.mastDatangLayer = mastDatangLayer
+gwmap.wtLayer = wtLayer
+gwmap.windMap = windMap
+gwmap.stationLayer = stationLayer
+gwmap.roadLayerEdit = roadLayerEdit
+gwmap.towerLineLayer = towerLineLayer
+gwmap.towerLineNewLayer = towerLineNewLayer
+gwmap.noiseLayer = noiseLayer
+gwmap.creditLayer = creditLayer
+gwmap.comparisonLayer = comparisonLayer
+gwmap.drawFeature = drawFeature
+gwmap.terrainGridLayer = terrainGridLayer
+gwmap.wakeLayer = wakeLayer
+gwmap.wakeDatangLayer = wakeDatangLayer
+gwmap.towerLineDatangLayer = towerLineDatangLayer
+gwmap.wtLayerRealtime = wtLayerRealtime
+gwmap.meteorologicalLayer = meteorologicalLayer
+
+// 初始化
 gwmap.init = function (elementId:any, options = {}) {
   if (!elementId) {
     return
@@ -43,8 +101,9 @@ gwmap.init = function (elementId:any, options = {}) {
       }
     }
   })
-
   const map = new WindEarth.Map(globeView, configMap)
+
+  // 展示国界线
   const url = '/vendors/border_001_v2.geojson' // 纹理数据
   function readData () {
     WindEarth.Resource.fetchJson({ url }).then((data:any) => {
@@ -78,27 +137,7 @@ gwmap.init = function (elementId:any, options = {}) {
     //  globeView.zoomTo(globeView.entities);
   }
   readData()
-  // gwmap.mapManager = new MapManager(elementId, CesiumConfig)
-  // gwmap.viewer = gwmap.mapManager.viewer
-
-  // // 加载地图状态栏
-  // document.getElementById(elementId).appendChild(mapStatusBar.element)
-  // mapStatusBar.init(gwmap.mapManager.viewer)
-
-  // gwmap.mapControlManager = new MapControlManager(gwmap.mapManager.viewer, {
-  //   activeChange: () => { },
-  //   measureProfileCallback: (positions) => {
-  //     store.commit('profilePoints', positions)
-  //   }
-  // })
-
-  // 指南针
-  // setTimeout(() => {
-  //   gwmap.viewer && gwmap.viewer.rotateCameraChanged.addEventListener(function(options) {
-  //     store.commit('deg', options.angle)
-  //   })
-  // }, 1000);
-  return map
+  map.viewer.extend(WindEarth.NavigationMixin, {}) // 展示指南针
 }
 
 export default gwmap
