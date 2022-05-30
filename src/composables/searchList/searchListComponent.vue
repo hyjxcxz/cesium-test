@@ -1,17 +1,24 @@
 <template>
   <div class="screen-list">
-    <ul>
+    <ul v-if="searchlist.length>0">
       <li
         v-for="(item,index) in searchlist"
         :key="index"
         @click="listClick(item)"
       >
-        <span>{{ item.name }}</span>
+        <el-tooltip
+          class="box-item"
+          effect="light"
+          :content="item.project_name"
+          placement="top"
+        >
+          <span>{{ item.project_name }}</span>
+        </el-tooltip>
       </li>
     </ul>
   </div>
 </template>
-<script lang="ts" >
+<script lang="ts" set>
 export default {
   name: 'SearchListComponent',
   props: {
@@ -35,10 +42,11 @@ export default {
 <style scoped lang="scss">
 .screen-list{
     width: 265px;
-    max-height:calc(100% - 200px) ;
+    max-height:calc(100% - 250px) ;
     background: #262B4D;
     opacity: 0.8;
     color: #ffff;
+    overflow: auto;
     ul{
         padding-inline-start:0px;
         padding-inline-end:0px;
@@ -46,10 +54,14 @@ export default {
             cursor: pointer;
             list-style-type: none;
             height: 27px;
-            padding: 2px;
+            padding: 5px 2px;
             border: 1px solid #262B4D;
             color: #BCCCFF;
             font-weight: 400;
+            width: 255px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             span{
                 font-size: 14px;
                 padding-left: 12px;
