@@ -4,7 +4,7 @@
     <SearchComponent
       :placeholder="placeholder"
       :search-options="searchOptions"
-      @search-click="searchClick"
+      @search-click-item="searchClickItem"
     />
     <div class="function-box">
       <div class="tab-box">
@@ -95,8 +95,8 @@ export default {
         return item
       })
     }
-    function searchClick (keyword:string) {
-      console.log('搜索框关键字：' + keyword)
+    function searchClickItem (value:Object) {
+      console.log('点击搜索结果定位：' + value)
     }
     return {
       placeholder,
@@ -104,7 +104,7 @@ export default {
       changeTab,
       activePage,
       searchOptions,
-      searchClick
+      searchClickItem
     }
   }
 }
