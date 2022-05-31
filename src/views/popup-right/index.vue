@@ -1,11 +1,11 @@
 <template>
   <!--右侧弹窗的盒子  -->
+  <SearchComponent
+    :placeholder="placeholder"
+    :search-options="searchOptions"
+    @search-click-item="searchClickItem"
+  />
   <div class="popup-right-box">
-    <SearchComponent
-      :placeholder="placeholder"
-      :search-options="searchOptions"
-      @search-click-item="searchClickItem"
-    />
     <div class="function-box">
       <div class="tab-box">
         <span
