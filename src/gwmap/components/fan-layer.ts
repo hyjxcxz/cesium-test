@@ -11,28 +11,28 @@ let arr:any = []
 
 fanLayer.load = function () {
   fanLayer.remove()
-  if (!featureEntityLayer) {
+  if (!featureEntityLayer && gwmap.viewer) {
     featureEntityLayer = new WindEarth.FeatureEntityLayer(gwmap.viewer, {
       id: 'fan'
     })
 
-    // const pixelRange = 6
-    // const minimumClusterSize = 1
-    // const pinBuilder = new WindEarth.PinBuilder()
-    // featureEntityLayer.clustering.enabled = true
-    // featureEntityLayer.clustering.pixelRange = pixelRange
-    // featureEntityLayer.clustering.minimumClusterSize = minimumClusterSize
-    // featureEntityLayer.clustering.clusterEvent.addEventListener(function(clusteredEntities, cluster) {
-    //   cluster.label.show = false
-    //   cluster.billboard.show = true
-    //   cluster.billboard.id = cluster.label.id
-    //   cluster.billboard.disableDepthTestDistance = 1000000000000
-    //   cluster.billboard.verticalOrigin = WindEarth.VerticalOrigin.BOTTOM
-    //   cluster.billboard.image = pinBuilder.fromText('' + (clusteredEntities.length), WindEarth.Color.fromCssColorString('rgba(141,166,176,0.8)'), 36).toDataURL()
-    // })
+    const pixelRange = 6
+    const minimumClusterSize = 2 // 聚合的个数
+    const pinBuilder = new WindEarth.PinBuilder()
+    featureEntityLayer.clustering.enabled = true
+    featureEntityLayer.clustering.pixelRange = pixelRange
+    featureEntityLayer.clustering.minimumClusterSize = minimumClusterSize
+    featureEntityLayer.clustering.clusterEvent.addEventListener(function (clusteredEntities:any, cluster:any) {
+      cluster.label.show = false
+      cluster.billboard.show = true
+      cluster.billboard.id = cluster.label.id
+      cluster.billboard.disableDepthTestDistance = 1000000000000
+      cluster.billboard.verticalOrigin = WindEarth.VerticalOrigin.BOTTOM
+      cluster.billboard.image = pinBuilder.fromText('' + (clusteredEntities.length), WindEarth.Color.fromCssColorString('rgba(141,166,176,0.8)'), 36).toDataURL()
+    })
 
-    featureEntityLayer.bindMouseEventFunc(WindEarth.MouseEventType.LEFT_CLICK, function (e:any) {
-      // console.log(e.feature)
+    featureEntityLayer.bindMouseEventFunc(WindEarth.MouseEventType.LEFT_CLICK, function (e:any) { // MOUSE_MOVE
+      console.log(e.feature)
       // console.log(e)
       if (!e.feature || !e.position) {
         // store.commit('clickEarthFan', null)
@@ -63,14 +63,14 @@ fanLayer.add = function (data:any) {
   if (!data) {
     return
   }
-  featureEntity = new WindEarth.BillBoardFeatureEntity({
-    name: '',
-    id: data.project_id,
+  featureEntity = new WindEarth.BillboardFeatureEntity({
+    name: '' + data.id,
+    id: data.id,
     positions: [data.longitude, data.latitude, 0],
     styleOptions: {
-      url: '/images/fans.svg',
+      url: '/images/fan.svg',
       heightReference: 1,
-      scale: 1,
+      scale: 2,
       // width: 52,
       // height: 62,
       width: 32,
@@ -83,7 +83,7 @@ fanLayer.add = function (data:any) {
       }
     }
   })
-  featureEntityLayer.addFeatureEntity(featureEntity)
+  featureEntityLayer && featureEntityLayer.addFeatureEntity(featureEntity)
   arr.push(featureEntity)
 }
 

@@ -53,7 +53,8 @@
 
 <script lang="ts">
 import { ref, onMounted, reactive } from 'vue'
-import gwmap from '../gwmap'
+import { requestApi } from '@/utils/request-util'
+import gwmap from '@/gwmap/index'
 import popupRightBox from './popup-right/index.vue'
 import userComponentVue from '@/layout/userComponent.vue'
 import infoPopup from '@/components/info-popup.vue'
@@ -97,9 +98,6 @@ export default {
         }
       ]
     }) // 场区详情弹框数据
-    onMounted(() => {
-      gwmap.init('mapContainer')
-    })
     function fullScreen () {
       const element = document.documentElement
       if (element.requestFullscreen) {
@@ -114,12 +112,31 @@ export default {
       isFullScreen.value = false
     }
 
+    function getSearchData () {
+      requestApi(
+        'getbaseInfos',
+        null,
+        (res: any) => {
+          setTimeout(() => {
+            gwmap.fanLayer.load()
+            res.data.forEach((item:Object) => {
+              gwmap.fanLayer.add(item)
+            })
+          }, 200)
+        }, ['', '']
+      )
+    }
+    onMounted(() => {
+      gwmap.init('mapContainer')
+      getSearchData()
+    })
     return {
       isFullScreen,
       fullScreen,
       exitFullscreen,
       info,
-      isShowPopup
+      isShowPopup,
+      getSearchData
     }
   }
 }
