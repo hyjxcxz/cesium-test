@@ -48,7 +48,7 @@
   </div>
 </template>
 <script lang="ts" >
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { requestApi } from '@/utils/request-util'
 import SearchListComponent from '@/composables/searchList/searchListComponent.vue'
 import nodataComponentVue from '@/composables/nodata/nodataComponent.vue'
@@ -75,16 +75,24 @@ export default {
     const searchlist = reactive({
       data: []
     })
+    watch(searchWord, (searchWord, pre) => {
+      searchWord = Trim(searchWord, 'g')
+      if (!searchWord) {
+        searchlist.data = []
+        showNodata.value = false
+      }
+    })
+    function Trim (str:string, global: string) {
+      let result = ''
+      result = str.replace(/(^\s+)|(\s+$)/g, '')
+      if (global.toLowerCase() === 'g') {
+        result = result.replace(/\s/g, '')
+      }
+      return result
+    }
     function searchClick () {
       searchWord.value = Trim(searchWord.value, 'g')
-      function Trim (str:string, global: string) {
-        let result = ''
-        result = str.replace(/(^\s+)|(\s+$)/g, '')
-        if (global.toLowerCase() === 'g') {
-          result = result.replace(/\s/g, '')
-        }
-        return result
-      }
+
       if (searchWord.value) {
         showNodata.value = true
         if (select.value === '项目名称') {
@@ -136,9 +144,15 @@ export default {
   }
 
 }
-
 </script>
 <style scoped lang="scss">
+.screen{
+    width: 265px;
+    position: absolute;
+    top: 51px;
+    right: 443px;
+    margin-right: 60px;
+}
 .screen-input{
     margin: 10px 60px 0 0;
     width: 265px;

@@ -1,5 +1,8 @@
 <template>
-  <div class="screen-list">
+  <div
+    class="screen-list"
+    :style="styleObject"
+  >
     <ul v-if="searchlist.length>0">
       <li
         v-for="(item,index) in searchlist"
@@ -18,7 +21,8 @@
     </ul>
   </div>
 </template>
-<script lang="ts" set>
+<script lang="ts">
+import { ref, reactive } from 'vue'
 export default {
   name: 'SearchListComponent',
   props: {
@@ -28,11 +32,19 @@ export default {
   },
   emits: ['schear-list-click'],
   setup (props:any, { emit }:any) {
+    const documents = document.documentElement
+    // eslint-disable-next-line no-debugger
+    debugger
+    const height = ref(documents.offsetHeight - 300)
+    const styleObject = reactive({
+      height: height.value + 'px'
+    })
     function listClick (item:Object) {
       emit('schear-list-click', item)
     }
     return {
-      listClick
+      listClick,
+      styleObject
     }
   }
 
@@ -42,7 +54,7 @@ export default {
 <style scoped lang="scss">
 .screen-list{
     width: 265px;
-    max-height:calc(100% - 250px) ;
+    // max-height:calc(100% - 250px) ;
     background: #262B4D;
     opacity: 0.8;
     color: #ffff;
