@@ -1,8 +1,7 @@
-
-// import store from '@/store'
-// import envConfig from '@/config/env-config'
+import { store } from '@/store/index'
 import gwmap from '../index'
 declare const WindEarth: any
+
 const fanLayer:any = {}
 
 let featureEntityLayer:any = null
@@ -16,6 +15,7 @@ fanLayer.load = function () {
       id: 'fan'
     })
 
+    // 聚合功能
     const pixelRange = 6
     const minimumClusterSize = 2 // 聚合的个数
     const pinBuilder = new WindEarth.PinBuilder()
@@ -31,29 +31,34 @@ fanLayer.load = function () {
       cluster.billboard.image = pinBuilder.fromText('' + (clusteredEntities.length), WindEarth.Color.fromCssColorString('rgba(141,166,176,0.8)'), 36).toDataURL()
     })
 
+    // 点击图标事件
     featureEntityLayer.bindMouseEventFunc(WindEarth.MouseEventType.LEFT_CLICK, function (e:any) { // MOUSE_MOVE
-      console.log(e.feature)
-      // console.log(e)
       if (!e.feature || !e.position) {
-        // store.commit('clickEarthFan', null)
+        store.commit('app/changeClickFanList', [])
       } else {
-        // const obj = {}
-        // obj.x = e.position.x
-        // obj.y = e.position.y
-        // obj.id = e.feature._id
-        // store.commit('clickEarthFan', obj)
-        // console.log(arr)
+        const data:any = {
+          arr: [], // 数据
+          x: e.position.x, // 位置
+          y: e.position.y
+        }
+        if (e.feature.constructor === Array) { // 处理聚合多个数据
+          e.feature.forEach((item: any) => {
+            data.arr.push(item.styleOptions.data)
+          })
+          store.commit('app/changeClickFanList', data)
+        } else {
+          data.arr.push(e.feature.styleOptions.data)
+          store.commit('app/changeClickFanList', data)
+        }
       }
 
       featureEntityLayer.bindRotateEventFunc(function (res:any) {
-        // if (!store.state.earthFan.clickEarthFan) return
-        // if (store.state.earthFan.clickEarthFan.id == res.feature._id) {
-        //   const obj = {}
-        //   obj.x = res.position.x
-        //   obj.y = res.position.y
-        //   obj.id = res.feature._id
-        //   store.commit('clickEarthFan', obj)
-        // }
+        if (!store.state.app.clickFanList.arr || store.state.app.clickFanList.arr.length <= 0) return
+        const obj = {
+          x: res.position.x,
+          y: res.position.y
+        }
+        store.commit('app/changeClickFanList', Object.assign(store.state.app.clickFanList, obj))
       })
     })
   }
@@ -70,17 +75,18 @@ fanLayer.add = function (data:any) {
     styleOptions: {
       url: '/images/fan.svg',
       heightReference: 1,
-      scale: 2,
+      scale: 1,
       // width: 52,
       // height: 62,
-      width: 32,
-      height: 32,
+      width: 44,
+      height: 68,
       disableDepthTestDistance: Number.POSITIVE_INFINITY,
       scaleByDistance: new WindEarth.NearFarScalar(2000, 1, 4000000, 0.65),
       distanceDisplayCondition: {
         near: 3500, // 最近显示距离
         far: 20000000 // 最远显示距离
-      }
+      },
+      data
     }
   })
   featureEntityLayer && featureEntityLayer.addFeatureEntity(featureEntity)

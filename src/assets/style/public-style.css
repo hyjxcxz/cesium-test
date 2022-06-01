@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .tab {
   display: inline-block;
   width: 51px;
@@ -120,33 +121,35 @@
   top: 10px;
 }
 
-.el-dialog {
-  background: #141726;
-  border-radius: 30px 0 30% 0;
-  border: 1px solid rgba(192, 200, 255, 0.4);
+*::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background-color: transparent;
 }
 
-.el-dialog .el-dialog__header {
-  background: #2D45F2;
-  margin: 2px;
-  border-radius: 26px 0 0 0;
-  padding: 15px 0px;
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+*::-webkit-scrollbar-track {
+  background-color: #262B4D;
 }
 
-.el-dialog .el-dialog__header .el-dialog__title {
-  color: #fff;
-  font-size: 16px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  line-height: 20px;
-  padding: 15px 20px;
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  background-color: #3049FE;
+  border-radius: 5px;
 }
 
-.el-dialog .el-dialog__headerbtn {
-  top: 3px;
+/*定义滑块 内阴影+圆角*/
+.scrollbarHide::-webkit-scrollbar {
+  display: none;
 }
 
-.el-dialog .el-dialog__headerbtn .el-dialog__close {
-  color: #FAFAFA;
-  font-size: 24px !important;
+.scrollbarShow::-webkit-scrollbar {
+  display: block;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
