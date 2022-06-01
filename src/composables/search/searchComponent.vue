@@ -147,11 +147,8 @@ export default {
 </script>
 <style scoped lang="scss">
 .screen{
-    width: 265px;
     position: absolute;
-    top: 51px;
-    right: 443px;
-    margin-right: 60px;
+    right: 0;
 }
 .screen-input{
     margin: 10px 60px 0 0;
