@@ -47,8 +47,10 @@ fanLayer.load = function () {
           })
           store.commit('app/changeClickFanList', data)
         } else {
-          data.arr.push(e.feature.styleOptions.data)
-          store.commit('app/changeClickFanList', data)
+          if (e.feature.styleOptions && e.feature.styleOptions.data) {
+            data.arr.push(e.feature.styleOptions.data)
+            store.commit('app/changeClickFanList', data)
+          }
         }
       }
 

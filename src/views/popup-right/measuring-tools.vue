@@ -30,11 +30,20 @@ export default {
       }, {
         title: '测距',
         code: 2
+      }, {
+        title: '清除',
+        code: 3
       }
     ])
 
     function controlsClick () {
-      gwmap.mapControlManager.active('measureArea')
+      if (checked.value === 1) {
+        gwmap.mapControlManager.active('measureArea')
+      } else if (checked.value === 2) {
+        gwmap.mapControlManager.active('measureLength')
+      } else if (checked.value === 3) {
+        gwmap.mapControlManager.disactive('measure')
+      }
     }
 
     return {
