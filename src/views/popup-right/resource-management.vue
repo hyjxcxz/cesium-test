@@ -86,6 +86,8 @@
 </template>
 
 <script lang="ts">
+import { requestApi } from '@/utils/request-util'
+import gwmap from '@/gwmap/index'
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 export default {
@@ -447,10 +449,39 @@ export default {
       ]
     }
     function changeTab (tab:any) {
+      gwmap.fanLayer.remove()
       if (checkedTab.value !== tab.code) {
         checkedTab.value = tab.code
         checkList.value = []
       }
+      switch (tab.code) {
+        case 1:
+          getData('getbaseInfos', ['', ''], (res:any) => {
+            gwmap.fanLayer.load()
+            const data = res.data
+            data.forEach((item:Object) => {
+              gwmap.fanLayer.add(item, 'windFarm')
+            })
+          })
+          break
+        case 3:
+          getData('getbaseInfos', ['', ''], (res:any) => {
+            gwmap.fanLayer.load()
+            const data = res.data.slice(0, 25)
+            data.forEach((item:Object) => {
+              gwmap.fanLayer.add(item, 'maker')
+            })
+          })
+          break
+      }
+    }
+    function getData (apiname:string, param:any, calback:any) {
+      return requestApi(
+        apiname,
+        null,
+        (res: any) => {
+          calback(res)
+        }, param)
     }
     onMounted(() => {
       isShow.value = true
