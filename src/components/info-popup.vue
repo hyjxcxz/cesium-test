@@ -2,17 +2,46 @@
   <div
     class="info-popup"
     :class="info.class === 'default' ? '' : info.class"
+    :style="{left: info.x + 5 +'px', top: info.y - info.num +'px'}"
   >
     <div class="info-popup-header">
       {{ info.title }}
     </div>
     <ul class="info-popup-content">
+      <li v-if="info.datas && info.datas.length > 1">
+        <el-select
+          v-model="value"
+          class="m-2"
+          placeholder="Select"
+          size="small"
+          @change="changeData"
+        >
+          <el-option
+            v-for="item in info.datas"
+            :key="item.id"
+            :label="item.project_name"
+            :value="item.id"
+          />
+        </el-select>
+      </li>
       <li
-        v-for="item in info.data"
+        v-for="(item, index) in data"
         :key="item.key"
       >
         <span class="title">{{ item.key }}</span>
+        <el-tooltip
+          class="box-item"
+          effect="dark"
+          :content="item.value"
+          placement="top"
+          v-if="index === 0"
+        >
+          <span
+            class="value ellipsis"
+          >{{ item.value }}</span>
+        </el-tooltip>
         <span
+          v-else
           class="value"
           :class="item.status ? 'value-active' : ''"
         >{{ item.value }}</span>
@@ -23,11 +52,43 @@
 </template>
 
 <script lang="ts">
+import { ref, watchEffect, reactive } from 'vue'
 export default {
   props: {
     info: {
       type: Object,
       default: () => {}
+    }
+  },
+  setup (props:any) {
+    const value = ref(props.info.id)
+    const data:any = reactive(props.info.data)
+    function changeData (val:number) {
+      props.info.datas.forEach((item:any) => {
+        if (item.id === val) {
+          data.forEach((v:any) => {
+            if (props.info.class === 'default') {
+              if (v.key === '风场名称：') {
+                v.value = item.project_name
+              } else if (v.key === '经度：') {
+                v.value = item.longitude
+              } else if (v.key === '纬度：') {
+                v.value = item.latitude
+              }
+            }
+          })
+        }
+      })
+    }
+    watchEffect(() => {
+      if (props.info.datas && props.info.datas.length > 1) {
+        value.value = props.info.datas[0].id
+      }
+    })
+    return {
+      value,
+      changeData,
+      data
     }
   }
 }
@@ -98,14 +159,28 @@ export default {
         font-weight: 400;
         color: #E7EDFF;
       }
-      &:nth-child(1){
-        .value{
-          line-height: 16px;
-        }
-      }
+      // &:nth-child(1){
+      //   .value{
+      //     // line-height: 16px;
+      //     overflow: hidden;
+      //     text-overflow: ellipsis;
+      //     white-space: nowrap;
+      //   }
+      // }
       .value-active{
         color: #47C9AD;
       }
+    }
+    &::before{
+      content: '';
+      display: inline-block;
+      width: 1.4px;
+      height: 14px;
+      background: #C0C8FF;
+      position: absolute;
+      left: -1px;
+      bottom: -16px;
+      transform: rotate(45deg);
     }
   }
   .info-popup-footer{
@@ -131,14 +206,24 @@ export default {
   &::before{
     content: '';
     display: inline-block;
-    width: calc(100% - 40px);
-    height: 40px;
+    width: 0px;
+    height: 60px;
     border-top: 1px solid #C0C8FF;
     border-left: 1px solid #C0C8FF;
     position: absolute;
-    left: -2px;
-    bottom: -44px;
-    border-radius: 4px 0 0 0;
+    left: -6px;
+    bottom: -74px;
+  }
+  &::after{
+    content: '';
+    display: inline-block;
+    width: calc(100% - 46px);
+    height: 0px;
+    border-top: 1px solid #C0C8FF;
+    border-left: 1px solid #C0C8FF;
+    position: absolute;
+    left: 4px;
+    bottom: -4px;
   }
 }
 .factory{

@@ -6,7 +6,7 @@
 //   loadLayerByConfig
 // } from '@/core/cesium/layer-config-util'
 import dataManager from './cesium/data-manager'
-// import MapControlManager from './cesium/map-control-manager'
+import MapControlManager from './cesium/map-control-manager'
 import drawFeature from './cesium/draw-feature'
 import fanLayer from './components/fan-layer' // 地球项目风机
 import scoutingLayer from './components/scouting-layer' // 踏勘
@@ -32,6 +32,7 @@ import meteorologicalLayer from './components/meteorological-layer' // 气象站
 declare const WindEarth: any
 
 const gwmap:any = {}
+gwmap.viewer = null
 gwmap.dataManager = dataManager
 gwmap.mapControlManager = null
 gwmap.fanLayer = fanLayer
@@ -102,6 +103,7 @@ gwmap.init = function (elementId:any, options = {}) {
     }
   })
   const map = new WindEarth.Map(globeView, configMap)
+  gwmap.viewer = map
 
   // 展示国界线
   const url = '/vendors/border_001_v2.geojson' // 纹理数据
@@ -138,6 +140,13 @@ gwmap.init = function (elementId:any, options = {}) {
   }
   readData()
   map.viewer.extend(WindEarth.NavigationMixin, {}) // 展示指南针
+
+  gwmap.mapControlManager = new MapControlManager(map.viewer, {
+    activeChange: () => { }
+    // measureProfileCallback: (positions) => {
+    //   store.commit('profilePoints', positions)
+    // }
+  })
 }
 
 export default gwmap

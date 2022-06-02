@@ -680,13 +680,13 @@ export default {
         }
       }
       #planning-statistics{
-       height: 20vh;
+       height: 22vh;
       }
       #model-distribution{
-        height: 20vh;
+        height: 22vh;
       }
       #project-type{
-        height: 20vh;
+        height: 22vh;
       }
     }
   }
