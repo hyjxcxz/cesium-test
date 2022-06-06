@@ -24,7 +24,7 @@ import ProjectInfo from './project/components/project-info.vue'
 // import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/header.vue'
 // import { windFarmInfo, makerInfo } from '@/config/detile_config'
-import { detileInfor } from './detilets/detilecomponents'
+// import { detileInfor } from './detilets/detilecomponents'
 export default {
   name: 'HomeMapContainer',
   components: {
@@ -37,7 +37,7 @@ export default {
   setup () {
     const isShowPopup = ref(false)
     const store = useStore()
-    let info = reactive({
+    const info = reactive({
       title: '风场基本信息',
       class: 'default', // default 风场 factory 工厂
       data: [
@@ -103,40 +103,25 @@ export default {
         // user_name: "施萍"
         // user_oa: "7796"
         // windtrump_id: 8136
-        info = detileInfor(info, obj)
-        // if (obj.type === 'windFarm') {
-        //   info.title = windFarmInfo.title
-        //   info.data = windFarmInfo.data
-        //   info.num = windFarmInfo.num
-        // } else if (obj.type === 'maker') {
-        //   info.title = makerInfo.title
-        //   info.data = makerInfo.data
-        //   info.num = makerInfo.num
-        // }
-        // info.x = store.state.app.clickFanList.x
-        // info.y = store.state.app.clickFanList.y
-        // info.data.map((item: any) => {
-        //   if (item.key === '风场名称：') {
-        //     item.value = obj.project_name
-        //   } else if (item.key === '经度：') {
-        //     item.value = obj.longitude
-        //   } else if (item.key === '纬度：') {
-        //     item.value = obj.latitude
-        //   } else if (item.key === '工厂名称：') {
-        //     item.value = obj.project_name
-        //   } else if (item.key === '经度：') {
-        //     item.value = obj.longitude
-        //   } else if (item.key === '纬度：') {
-        //     item.value = obj.latitude
-        //   }
-        //   return item
-        // })
-        // info.id = obj.id
-        // info.datas = []
-        // if (store.state.app.clickFanList.arr.length > 1) {
-        //   info.num = 240
-        //   info.datas = store.state.app.clickFanList.arr
-        // }
+        info.x = store.state.app.clickFanList.x
+        info.y = store.state.app.clickFanList.y
+        info.data.map((item: any) => {
+          if (item.key === '风场名称：') {
+            item.value = obj.project_name
+          } else if (item.key === '经度：') {
+            item.value = obj.longitude
+          } else if (item.key === '纬度：') {
+            item.value = obj.latitude
+          }
+          return item
+        })
+        info.id = obj.id
+        info.datas = []
+        info.num = 216
+        if (store.state.app.clickFanList.arr.length > 1) {
+          info.num = 240
+          info.datas = store.state.app.clickFanList.arr
+        }
       } else {
         isShowPopup.value = false
         info.datas = []
