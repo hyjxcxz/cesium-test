@@ -7,7 +7,10 @@
     <div class="info-popup-header">
       {{ info.title }}
     </div>
-    <ul class="info-popup-content">
+    <ul
+      class="info-popup-content"
+      @click="enterProjectPage"
+    >
       <li v-if="info.datas && info.datas.length > 1">
         <el-select
           v-model="value"
@@ -53,6 +56,7 @@
 
 <script lang="ts">
 import { ref, watchEffect, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
   props: {
     info: {
@@ -61,6 +65,7 @@ export default {
     }
   },
   setup (props:any) {
+    const route = useRouter()
     const value = ref(props.info.id)
     const data:any = reactive(props.info.data)
     function changeData (val:number) {
@@ -80,6 +85,16 @@ export default {
         }
       })
     }
+    function enterProjectPage () {
+      if (props.info.class === 'default') {
+        route.push({
+          path: '/project',
+          query: {
+            id: props.info.id
+          }
+        })
+      }
+    }
     watchEffect(() => {
       if (props.info.datas && props.info.datas.length > 1) {
         value.value = props.info.datas[0].id
@@ -88,7 +103,8 @@ export default {
     return {
       value,
       changeData,
-      data
+      data,
+      enterProjectPage
     }
   }
 }

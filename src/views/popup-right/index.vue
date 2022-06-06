@@ -29,6 +29,7 @@ import DataManagement from './data-management.vue'
 import MeasuringTools from './measuring-tools.vue'
 import HomeLegend from './components/home-legend.vue'
 import SearchComponent from '@/composables/search/searchComponent.vue'
+import { useRouter } from 'vue-router'
 
 import { reactive, ref } from 'vue'
 export default {
@@ -41,6 +42,7 @@ export default {
     SearchComponent
   },
   setup () {
+    const router = useRouter()
     const placeholder = ref('输入项目名称查找') // 搜索框placeholder
     const activePage = ref('resourceManagement')
     const tabData = reactive([
@@ -114,8 +116,12 @@ export default {
         }
       })
     }
-    function searchClickItem (value:Object) {
-      console.log('点击搜索结果定位：' + value)
+    function searchClickItem (value:any) {
+      // console.log('点击搜索结果定位：' + value)
+      router.push({
+        path: '/project',
+        query: value.id
+      })
     }
     return {
       placeholder,
@@ -123,7 +129,8 @@ export default {
       changeTab,
       activePage,
       searchOptions,
-      searchClickItem
+      searchClickItem,
+      router
     }
   }
 }

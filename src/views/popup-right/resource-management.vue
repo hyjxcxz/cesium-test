@@ -101,23 +101,23 @@ export default {
     const postEvaluation = ref(false)
     const tabList = reactive([
       {
-        title: '风现场',
+        title: '风电场',
         code: 1
       }, {
         title: '运输监控',
         code: 2
       }, {
-        title: '制造厂',
+        title: '制造工厂',
         code: 3
       }
     ])
     // 风场
     const fanFarmTab = reactive([
       {
-        title: '工厂信息',
+        title: '制造任务',
         code: 1
       }, {
-        title: '原属信息',
+        title: '运输任务',
         code: 2
       }, {
         title: '输变电线路',
@@ -127,7 +127,7 @@ export default {
     // 运输
     const transportTab = reactive([
       {
-        title: '制造工厂',
+        title: '制造任务',
         code: 1
       }, {
         title: '高速路口',
