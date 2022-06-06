@@ -23,6 +23,8 @@ import { useStore } from '@/store/index'
 import ProjectInfo from './project/components/project-info.vue'
 // import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/header.vue'
+// import { windFarmInfo, makerInfo } from '@/config/detile_config'
+// import { detileInfor } from './detilets/detilecomponents'
 export default {
   name: 'HomeMapContainer',
   components: {
@@ -79,7 +81,7 @@ export default {
           setTimeout(() => {
             gwmap.fanLayer.load()
             res.data.forEach((item:Object) => {
-              gwmap.fanLayer.add(item)
+              gwmap.fanLayer.add(item, 'windFarm')
             })
           }, 200)
         }, ['', '']
