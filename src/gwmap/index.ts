@@ -1,14 +1,14 @@
-// import { CesiumConfig } from '../config/map-config'
-// import MapManager from './cesium/map-manager' // 定位
-// import mapStatusBar from './components/map-statusbar'
+import { CesiumConfig } from '../config/map-config' // 三维地图基础配置(地形、影像服务)
+import MapManager from './cesium/map-manager' // 定位
+// import mapStatusBar from './components/map-statusbar' // 地图状态栏信息
 // import ImageLayerGroup from '@/core/cesium/image-layer-group'
 // import {
 //   loadLayerByConfig
 // } from '@/core/cesium/layer-config-util'
-import dataManager from './cesium/data-manager'
-import MapControlManager from './cesium/map-control-manager'
+import dataManager from './cesium/data-manager' // 定位
+import MapControlManager from './cesium/map-control-manager' // 测距、测面等
 import drawFeature from './cesium/draw-feature'
-import fanLayer from './components/fan-layer' // 地球项目风机
+import fanLayer from './components/fan-layer' // 风电场
 import scoutingLayer from './components/scouting-layer' // 踏勘
 import fieldLayer from './components/field-layer' // 风场范围
 import astrictLayer from './components/astrict-layer' // 自定义限制因素
@@ -58,7 +58,7 @@ gwmap.towerLineDatangLayer = towerLineDatangLayer
 gwmap.wtLayerRealtime = wtLayerRealtime
 gwmap.meteorologicalLayer = meteorologicalLayer
 
-// 初始化
+// 首页地图初始化
 gwmap.init = function (elementId:any, options = {}) {
   if (!elementId) {
     return
@@ -82,7 +82,7 @@ gwmap.init = function (elementId:any, options = {}) {
     }
   }
 
-  const globeView = new WindEarth.Viewer('mapContainer', {
+  const globeView = new WindEarth.Viewer(elementId, {
     imageryProvider: new WindEarth.Provider.GaodeImageryProvider({
       layer: 'vec', // #4e70a6
       invertColor: true, // 反向颜色 color.r = 1.0 - color.r
@@ -136,17 +136,24 @@ gwmap.init = function (elementId:any, options = {}) {
         }
       })
     }
-    //  globeView.zoomTo(globeView.entities);
+    // globeView.zoomTo(globeView.entities)
   }
   readData()
-  map.viewer.extend(WindEarth.NavigationMixin, {}) // 展示指南针
+  map.viewer.extend(WindEarth.NavigationMixin, {}) // 传控对象 默认展示指南针/方法缩小等
 
   gwmap.mapControlManager = new MapControlManager(map.viewer, {
     activeChange: () => { }
-    // measureProfileCallback: (positions) => {
-    //   store.commit('profilePoints', positions)
-    // }
   })
+}
+
+// 项目页面地图初始化
+gwmap.initProjectMap = function (elementId:any, options = {}) {
+  if (!elementId) {
+    return
+  }
+
+  gwmap.mapManager = new MapManager(elementId, CesiumConfig)
+  gwmap.viewer = gwmap.mapManager.viewer
 }
 
 export default gwmap
