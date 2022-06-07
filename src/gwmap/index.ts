@@ -154,6 +154,10 @@ gwmap.initProjectMap = function (elementId:any, options = {}) {
 
   gwmap.mapManager = new MapManager(elementId, CesiumConfig)
   gwmap.viewer = gwmap.mapManager.viewer
+  // 初始化测距测面等功能
+  gwmap.mapControlManager = new MapControlManager(gwmap.viewer, {
+    activeChange: () => { }
+  })
 }
 
 export default gwmap
