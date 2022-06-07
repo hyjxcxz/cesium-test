@@ -4,10 +4,8 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'DataManagement'
-}
+<script lang="ts" setup>
+
 </script>
 
 <style scoped lang="scss">

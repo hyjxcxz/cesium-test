@@ -15,39 +15,31 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { reactive } from 'vue'
-export default {
-  name: 'HomeLegend',
-  setup () {
-    const legendData = reactive([
-      {
-        code: 1,
-        num: 200,
-        title: '风电场',
-        icon: 'icon-fengdian1'
-      }, {
-        code: 2,
-        num: 20,
-        title: '制造工厂',
-        icon: 'icon-fl-dian'
-      }, {
-        code: 3,
-        num: 15,
-        title: '高压电站',
-        icon: 'icon-zonghe'
-      }, {
-        code: 4,
-        num: 30,
-        title: '高压线路',
-        icon: 'icon-zonghe'
-      }
-    ])
-    return {
-      legendData
-    }
+const legendData = reactive([
+  {
+    code: 1,
+    num: 200,
+    title: '风电场',
+    icon: 'icon-fengdian1'
+  }, {
+    code: 2,
+    num: 20,
+    title: '制造工厂',
+    icon: 'icon-fl-dian'
+  }, {
+    code: 3,
+    num: 15,
+    title: '高压电站',
+    icon: 'icon-zonghe'
+  }, {
+    code: 4,
+    num: 30,
+    title: '高压线路',
+    icon: 'icon-zonghe'
   }
-}
+])
 </script>
 
 <style scoped lang="scss">

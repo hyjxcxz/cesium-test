@@ -8,11 +8,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/index.vue')
+    component: () => import('../views/home-page.vue')
   }, {
     path: '/project',
     name: 'project',
-    component: () => import('../views/project/index.vue')
+    component: () => import('../views/project/project-page.vue')
   }
 ]
 const router = createRouter({
