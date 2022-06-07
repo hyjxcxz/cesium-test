@@ -50,8 +50,8 @@
 <script lang="ts" >
 import { ref, reactive, watch } from 'vue'
 import { requestApi } from '@/utils/request-util'
-import SearchListComponent from '@/composables/searchList/searchListComponent.vue'
-import nodataComponentVue from '@/composables/nodata/nodataComponent.vue'
+import SearchListComponent from '@/composables/searchList/searchlist-component.vue'
+import nodataComponentVue from '../nodata/nodata-component.vue'
 
 export default {
   name: 'SearchComponent',

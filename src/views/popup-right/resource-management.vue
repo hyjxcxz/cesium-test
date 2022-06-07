@@ -27,7 +27,7 @@
             </el-radio>
           </el-radio-group>
           <el-checkbox
-            v-model="checkList"
+            v-model="electricLine"
             label="输变电线路"
             @change="handleCancel"
           >
@@ -107,6 +107,7 @@ const isShow = ref(true)
 const checkedTab = ref(1)
 const checkList = ref([])
 const checkChangeLine = ref('')
+const electricLine = ref('')
 const windField = ref(false)
 const riskAssessment = ref(false)
 const postEvaluation = ref(false)
@@ -466,6 +467,7 @@ function changeTab (tab:any) {
     checkedTab.value = tab.code
     checkList.value = []
     checkChangeLine.value = ''
+    electricLine.value = ''
   }
   // addDiffrentLayer(tab) // 切换风现场、运输监控、制造厂
 }

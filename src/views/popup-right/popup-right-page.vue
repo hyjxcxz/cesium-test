@@ -28,7 +28,7 @@ import ResourceManagement from './resource-management.vue'
 import DataManagement from './data-management.vue'
 import MeasuringTools from './measuring-tools.vue'
 import HomeLegend from './components/home-legend.vue'
-import SearchComponent from '@/composables/search/searchComponent.vue'
+import SearchComponent from '@/composables/search/search-component.vue'
 import gwmap from '@/gwmap/index'
 import { reactive, ref } from 'vue'
 
