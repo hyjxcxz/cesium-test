@@ -33,8 +33,6 @@ export default {
   emits: ['schear-list-click'],
   setup (props:any, { emit }:any) {
     const documents = document.documentElement
-    // eslint-disable-next-line no-debugger
-    debugger
     const height = ref(documents.offsetHeight - 300)
     const styleObject = reactive({
       height: height.value + 'px'

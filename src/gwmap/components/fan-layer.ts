@@ -66,16 +66,17 @@ fanLayer.load = function () {
   }
 }
 
-fanLayer.add = function (data:any) {
+fanLayer.add = function (data:any, type:string) {
   if (!data) {
     return
   }
+  data.type = type
   featureEntity = new WindEarth.BillboardFeatureEntity({
     name: '' + data.id,
     id: data.id,
     positions: [data.longitude, data.latitude, 0],
     styleOptions: {
-      url: '/images/fan.svg',
+      url: '/images/' + type + 'fan.svg',
       heightReference: 1,
       scale: 1,
       // width: 52,

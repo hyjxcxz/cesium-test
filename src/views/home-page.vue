@@ -70,7 +70,7 @@ function getSearchData () {
       setTimeout(() => {
         gwmap.fanLayer.load()
         res.data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item)
+          gwmap.fanLayer.add(item, 'windFarm')
         })
       }, 200)
     }, ['', '']

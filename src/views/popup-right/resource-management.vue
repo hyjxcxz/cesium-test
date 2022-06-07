@@ -12,16 +12,28 @@
         {{ item.title }}
       </span>
       <div class="resource-management-header-content">
-        <el-checkbox-group
-          v-model="checkList"
-          v-if="checkedTab === 1"
-        >
+        <template v-if="checkedTab === 1">
+          <el-radio-group
+            v-model="checkChangeLine"
+            class="ml-4 gold-radio-group"
+          >
+            <el-radio
+              v-for="item in fanFarmTab"
+              :label="item.title"
+              :key="item.code + item.title"
+              @click.prevent="radioChange(item.title)"
+            >
+              {{ item.title }}
+            </el-radio>
+          </el-radio-group>
           <el-checkbox
-            :label="item.title"
-            v-for="item in fanFarmTab"
-            :key="item.code + item.title"
-          />
-        </el-checkbox-group>
+            v-model="checkList"
+            label="输变电线路"
+            @change="handleCancel"
+          >
+            输变电线路
+          </el-checkbox>
+        </template>
         <el-checkbox-group
           v-model="checkList"
           v-if="checkedTab === 2"
@@ -86,11 +98,15 @@
 </template>
 
 <script lang="ts" setup>
+import { requestApi } from '@/utils/request-util'
+import gwmap from '@/gwmap/index'
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
+
 const isShow = ref(true)
 const checkedTab = ref(1)
 const checkList = ref([])
+const checkChangeLine = ref('')
 const windField = ref(false)
 const riskAssessment = ref(false)
 const postEvaluation = ref(false)
@@ -114,10 +130,11 @@ const fanFarmTab = reactive([
   }, {
     title: '运输任务',
     code: 2
-  }, {
-    title: '输变电线路',
-    code: 3
   }
+  // , {
+  //   title: '输变电线路',
+  //   code: 3
+  // }
 ])
 // 运输
 const transportTab = reactive([
@@ -444,10 +461,78 @@ const projectTypeEchartsOption = {
   ]
 }
 function changeTab (tab:any) {
+  // gwmap.fanLayer.remove()
   if (checkedTab.value !== tab.code) {
     checkedTab.value = tab.code
     checkList.value = []
+    checkChangeLine.value = ''
   }
+  // addDiffrentLayer(tab) // 切换风现场、运输监控、制造厂
+}
+function handleCancel (e:any) {
+  console.log(e, checkList)
+}
+function radioChange (value:any) {
+  checkChangeLine.value = (value === checkChangeLine.value) ? '' : value
+  gwmap.fanLayer.remove()
+  switch (checkChangeLine.value) {
+    case '制造任务':
+      getData('getbaseInfos', ['', ''], (res:any) => {
+        gwmap.fanLayer.load()
+        const data = res.data.slice(0, 25)
+        data.forEach((item:Object) => {
+          gwmap.fanLayer.add(item, 'windFarm')
+        })
+      })
+      break
+    case '运输任务':
+      getData('getbaseInfos', ['', ''], (res:any) => {
+        gwmap.fanLayer.load()
+        const data = res.data.slice(26, 35)
+        data.forEach((item:Object) => {
+          gwmap.fanLayer.add(item, 'windFarm')
+        })
+      })
+      break
+    case '':
+      getData('getbaseInfos', ['', ''], (res:any) => {
+        gwmap.fanLayer.load()
+        const data = res.data
+        data.forEach((item:Object) => {
+          gwmap.fanLayer.add(item, 'windFarm')
+        })
+      })
+  }
+}
+// function addDiffrentLayer (tab:any) {
+//   switch (tab.code) {
+//     case 1:
+//       getData('getbaseInfos', ['', ''], (res:any) => {
+//         gwmap.fanLayer.load()
+//         const data = res.data
+//         data.forEach((item:Object) => {
+//           gwmap.fanLayer.add(item, 'windFarm')
+//         })
+//       })
+//       break
+//     case 3:
+//       getData('getbaseInfos', ['', ''], (res:any) => {
+//         gwmap.fanLayer.load()
+//         const data = res.data.slice(0, 25)
+//         data.forEach((item:Object) => {
+//           gwmap.fanLayer.add(item, 'maker')
+//         })
+//       })
+//       break
+//   }
+// }
+function getData (apiname:string, param:any, calback:any) {
+  return requestApi(
+    apiname,
+    null,
+    (res: any) => {
+      calback(res)
+    }, param)
 }
 onMounted(() => {
   isShow.value = true
