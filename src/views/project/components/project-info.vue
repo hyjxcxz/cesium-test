@@ -50,17 +50,9 @@
   </el-dialog>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
-export default {
-  name: 'ProjectInfo',
-  setup () {
-    const dialogVisible = ref(false)
-    return {
-      dialogVisible
-    }
-  }
-}
+const dialogVisible = ref(false)
 </script>
 
 <style scoped lang="scss">
@@ -79,6 +71,7 @@ export default {
         justify-content: center;
         align-items: center;
         line-height: 26px;
+        list-style-type: none;
         span{
           &:nth-child(1){
             width:100px;

@@ -57,6 +57,7 @@
 <script lang="ts">
 import { ref, watchEffect, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from '@/store/index'
 export default {
   props: {
     info: {
@@ -65,6 +66,7 @@ export default {
     }
   },
   setup (props:any) {
+    const store = useStore()
     const route = useRouter()
     const value = ref(props.info.id)
     const data:any = reactive(props.info.data)
@@ -87,10 +89,11 @@ export default {
     }
     function enterProjectPage () {
       if (props.info.class === 'default') {
+        store.commit('app/changeClickFanList', [])
         route.push({
           path: '/project',
           query: {
-            id: props.info.id
+            id: props.info.odoo_id
           }
         })
       }
@@ -155,12 +158,14 @@ export default {
     width: calc(100% - 22px);
     background: rgba(#081118, 0.7);
     border: 1px solid rgba(192, 200, 255, 0.8);
+    cursor:pointer;
     li{
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       line-height: 20px;
+      list-style-type: none;
       .title{
         width: 75px;
         font-size: 13px;

@@ -16,41 +16,30 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import gwmap from '@/gwmap/index'
-export default {
-  name: 'MeasuringTools',
-  setup () {
-    const checked = ref(null)
-    const tabList = reactive([
-      {
-        title: '测面',
-        code: 1
-      }, {
-        title: '测距',
-        code: 2
-      }, {
-        title: '清除',
-        code: 3
-      }
-    ])
+const checked = ref(null)
+const tabList = reactive([
+  {
+    title: '测面',
+    code: 1
+  }, {
+    title: '测距',
+    code: 2
+  }, {
+    title: '清除',
+    code: 3
+  }
+])
 
-    function controlsClick () {
-      if (checked.value === 1) {
-        gwmap.mapControlManager.active('measureArea')
-      } else if (checked.value === 2) {
-        gwmap.mapControlManager.active('measureLength')
-      } else if (checked.value === 3) {
-        gwmap.mapControlManager.disactive('measure')
-      }
-    }
-
-    return {
-      checked,
-      tabList,
-      controlsClick
-    }
+function controlsClick () {
+  if (checked.value === 1) {
+    gwmap.mapControlManager.active('measureArea')
+  } else if (checked.value === 2) {
+    gwmap.mapControlManager.active('measureLength')
+  } else if (checked.value === 3) {
+    gwmap.mapControlManager.disactive('measure')
   }
 }
 </script>

@@ -40,35 +40,24 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
+
 import userComponentVue from '@/layout/userComponent.vue'
-export default {
-  name: 'DataManagement',
-  components: {
-    userComponentVue
-  },
-  setup () {
-    const isFullScreen = ref(false)
-    function fullScreen () {
-      const element = document.documentElement
-      if (element.requestFullscreen) {
-        element.requestFullscreen()
-      }
-      isFullScreen.value = true
-    }
-    function exitFullscreen () {
-      if (document.exitFullscreen) {
-        document.exitFullscreen()
-      }
-      isFullScreen.value = false
-    }
-    return {
-      isFullScreen,
-      fullScreen,
-      exitFullscreen
-    }
+
+const isFullScreen = ref(false)
+function fullScreen () {
+  const element = document.documentElement
+  if (element.requestFullscreen) {
+    element.requestFullscreen()
   }
+  isFullScreen.value = true
+}
+function exitFullscreen () {
+  if (document.exitFullscreen) {
+    document.exitFullscreen()
+  }
+  isFullScreen.value = false
 }
 </script>
 
