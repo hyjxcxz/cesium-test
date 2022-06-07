@@ -121,13 +121,11 @@
 
 .gold-radio-group {
   .el-radio{
-margin-right: 30px;
+    margin-right: 30px;
   }
   .el-radio__inner {
     border-radius: 0;
-    border: none;
     border-radius: 2px;
-    
   }
 
   .el-radio__input.is-checked .el-radio__inner::after {
