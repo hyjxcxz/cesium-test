@@ -103,7 +103,7 @@ gwmap.init = function (elementId:any, options = {}) {
     }
   })
   const map = new WindEarth.Map(globeView, configMap)
-  gwmap.viewer = map
+  gwmap.viewer = map.viewer
 
   // 展示国界线
   const url = '/vendors/border_001_v2.geojson' // 纹理数据

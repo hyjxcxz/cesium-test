@@ -99,6 +99,7 @@ fanLayer.remove = function () {
   if (!featureEntityLayer) {
     return
   }
+  store.commit('app/changeClickFanList', [])
   for (let i = 0; i <= arr; i++) {
     featureEntityLayer.removeFeatureEntity(arr[i])
   }

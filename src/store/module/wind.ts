@@ -2,17 +2,22 @@ import { Module } from 'vuex'
 import { RootState } from '../index'
 // 定义类型
 export interface windState {
-  projectInfo: any
+  projectInfo: Object,
+  windfarmDetail: Object
 }
 
 export const store: Module<windState, RootState> = {
   namespaced: true,
   state: (): windState => ({
-    projectInfo: {}
+    projectInfo: {},
+    windfarmDetail: {}
   }),
   mutations: {
     changeProjectInfo (state: windState, data: Object) {
       state.projectInfo = data
+    },
+    setWindfarmDetail (state: windState, data: Object) {
+      state.windfarmDetail = data
     }
   },
   actions: {}

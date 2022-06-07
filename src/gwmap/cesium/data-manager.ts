@@ -32,6 +32,14 @@ dataManager.fltToHome = function () {
   })
 }
 
+// 定位到初始地球 - 项目点位
+dataManager.fltToHomeLocation = function (data:Array<number>) {
+  gwmap.viewer.flyToLocation(data, {
+    duration: 1,
+    offset: new WindEarth.HeadingPitchRange(0, 0, 500000)
+  })
+}
+
 // 旋转角度
 dataManager.rotateToHome = function (value: any) {
   WindEarth.CameraOpraHelper.rotate(gwmap.viewer, value)
