@@ -27,7 +27,7 @@
             </el-radio>
           </el-radio-group>
           <el-checkbox
-            v-model="checkList"
+            v-model="electricLine"
             label="输变电线路"
             @change="handleCancel"
           >
@@ -109,6 +109,7 @@ export default {
     const checkedTab = ref(1)
     const checkList = ref([])
     const checkChangeLine = ref('')
+    const electricLine = ref('')
     const windField = ref(false)
     const riskAssessment = ref(false)
     const postEvaluation = ref(false)
@@ -133,10 +134,6 @@ export default {
         title: '运输任务',
         code: 2
       }
-      // , {
-      //   title: '输变电线路',
-      //   code: 3
-      // }
     ])
     // 运输
     const transportTab = reactive([
@@ -468,6 +465,7 @@ export default {
         checkedTab.value = tab.code
         checkList.value = []
         checkChangeLine.value = ''
+        electricLine.value = ''
       }
       // addDiffrentLayer(tab) // 切换风现场、运输监控、制造厂
     }
@@ -568,7 +566,8 @@ export default {
       isShow,
       checkChangeLine,
       radioChange,
-      handleCancel
+      handleCancel,
+      electricLine
     }
   }
 }
