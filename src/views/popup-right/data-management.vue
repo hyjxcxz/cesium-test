@@ -1,7 +1,5 @@
 <template>
-  <div class="data-management">
-    data-management
-  </div>
+  <div class="data-management" />
 </template>
 
 <script lang="ts" setup>
