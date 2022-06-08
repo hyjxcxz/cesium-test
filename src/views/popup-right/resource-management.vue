@@ -102,7 +102,8 @@ import { requestApi } from '@/utils/request-util'
 import gwmap from '@/gwmap/index'
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
-
+import { useStore } from '@/store/index'
+const store = useStore()
 const isShow = ref(true)
 const checkedTab = ref(1)
 const checkList = ref([])
@@ -471,36 +472,69 @@ function changeTab (tab:any) {
   }
   // addDiffrentLayer(tab) // 切换风现场、运输监控、制造厂
 }
+// 输变电线路
 function handleCancel (e:any) {
-  console.log(e, checkList)
+  if (e) {
+    getData('getbaseInfos', ['', ''], (res:any) => {
+      const data = res.data.slice(100, 125)
+      if (data && data.length > 0) {
+        const obj = {
+          type: 'electricStation',
+          data,
+          cluster: false
+        }
+        gwmap.pointLayer.load(obj, (position:any) => {
+          store.commit('app/electricStationClickFanList', position)
+        })
+      }
+    })
+  } else {
+    gwmap.pointLayer.remove('electricStation', (obj:any) => {
+      store.commit('app/electricStationClickFanList', obj)
+    })
+  }
 }
 function radioChange (value:any) {
   checkChangeLine.value = (value === checkChangeLine.value) ? '' : value
+  gwmap.pointLayer.remove('windFarm', (obj:any) => {
+    store.commit('app/windFarmClickFanList', obj)
+  })
   gwmap.fanLayer.remove()
   switch (checkChangeLine.value) {
     case '制造任务':
       getData('getbaseInfos', ['', ''], (res:any) => {
-        gwmap.fanLayer.load()
         const data = res.data.slice(0, 25)
-        data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item, 'windFarm')
-        })
+        if (data && data.length > 0) {
+          const obj = {
+            type: 'windFarm',
+            data,
+            cluster: true
+          }
+          gwmap.pointLayer.load(obj, (position:any) => {
+            store.commit('app/windFarmClickFanList', position)
+          })
+        }
       })
       break
     case '运输任务':
       getData('getbaseInfos', ['', ''], (res:any) => {
-        gwmap.fanLayer.load()
         const data = res.data.slice(26, 35)
-        data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item, 'windFarm')
-        })
+        if (data && data.length > 0) {
+          const obj = {
+            type: 'windFarm',
+            data,
+            cluster: true
+          }
+          gwmap.pointLayer.load(obj, (position:any) => {
+            store.commit('app/windFarmClickFanList', position)
+          })
+        }
       })
       break
     case '':
       getData('getbaseInfos', ['', ''], (res:any) => {
         gwmap.fanLayer.load()
-        const data = res.data
-        data.forEach((item:Object) => {
+        res.data.forEach((item:Object) => {
           gwmap.fanLayer.add(item, 'windFarm')
         })
       })

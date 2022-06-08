@@ -9,6 +9,7 @@ import dataManager from './cesium/data-manager' // 定位
 import MapControlManager from './cesium/map-control-manager' // 测距、测面等
 import drawFeature from './cesium/draw-feature'
 import fanLayer from './components/fan-layer' // 风电场
+import pointLayer from './components/point-layer' // pointLayer
 import scoutingLayer from './components/scouting-layer' // 踏勘
 import fieldLayer from './components/field-layer' // 风场范围
 import astrictLayer from './components/astrict-layer' // 自定义限制因素
@@ -36,6 +37,7 @@ gwmap.viewer = null
 gwmap.dataManager = dataManager
 gwmap.mapControlManager = null
 gwmap.fanLayer = fanLayer
+gwmap.pointLayer = pointLayer
 gwmap.scoutingLayer = scoutingLayer
 gwmap.fieldLayer = fieldLayer
 gwmap.astrictLayer = astrictLayer
