@@ -16,7 +16,7 @@ export const store: Module<windState, RootState> = {
     changeProjectInfo (state: windState, data: Object) {
       state.projectInfo = data
     },
-    setWindfarmDetail (state: windState, data: Object) {
+    setWindfarmDetail (state: windState, data: any) {
       state.windfarmDetail = data
     }
   },

@@ -69,12 +69,15 @@ export default {
     const store = useStore()
     const route = useRouter()
     const value = ref(props.info.id)
+    const routeId = ref(props.info.odoo_id)
     const data:any = reactive(props.info.data)
     function changeData (val:number) {
       props.info.datas.forEach((item:any) => {
         if (item.id === val) {
           data.forEach((v:any) => {
             if (props.info.class === 'default') {
+              routeId.value = item.odoo_id
+              value.value = item.id
               if (v.key === '风场名称：') {
                 v.value = item.project_name
               } else if (v.key === '经度：') {
@@ -93,7 +96,7 @@ export default {
         route.push({
           path: '/project',
           query: {
-            id: props.info.odoo_id
+            id: routeId.value
           }
         })
       }
@@ -101,6 +104,7 @@ export default {
     watchEffect(() => {
       if (props.info.datas && props.info.datas.length > 1) {
         value.value = props.info.datas[0].id
+        routeId.value = props.info.datas[0].odoo_id
       }
     })
     return {
