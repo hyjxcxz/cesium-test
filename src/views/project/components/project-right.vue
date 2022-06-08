@@ -42,17 +42,23 @@
       </li>
     </ul>
   </div>
+  <ProjectInfo
+    :visible="visible"
+    @close="close"
+  />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import gwmap from '@/gwmap/index'
+import ProjectInfo from './project-info.vue'
 
+const visible = ref(false)
 const tabList = reactive([
   {
     title: '项目信息',
     code: 1,
-    checked: true
+    checked: false
   }, {
     title: '机组履历',
     code: 2,
@@ -89,6 +95,11 @@ function changeTab (val:any) {
       item.checked = false
     } else if (item.code === val.code && !val.checked) {
       item.checked = true
+      if (item.title === '项目信息') {
+        visible.value = true
+      } else {
+        visible.value = false
+      }
     }
     return item
   })
@@ -120,6 +131,11 @@ function changeMeasureToolBtn (val:any) {
     }
     return item
   })
+}
+
+const close = () => {
+  visible.value = false
+  tabList[0].checked = false
 }
 </script>
 

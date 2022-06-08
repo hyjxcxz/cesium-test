@@ -1,62 +1,86 @@
 <template>
   <el-dialog
-    v-model="dialogVisible"
     title="项目信息"
     width="24%"
     draggable
+    v-model="visible"
+    :close-on-click-modal="false"
+    @close="changeVisible"
   >
     <ul>
       <li>
         <span>项目名称：</span>
-        <span>山西某某某风电场</span>
+        <span>{{ detail.name }}</span>
       </li>
       <li>
         <span>业主单位：</span>
-        <span>国电投</span>
+        <span>-</span>
       </li>
       <li>
         <span>行政区划：</span>
-        <span>山西太原</span>
+        <span>-</span>
       </li>
       <li>
         <span><span style="letter-spacing:0.8em;">地 形</span><span style="margin-left: -8px;color: #909BEA;">:</span></span>
-        <span>丘陵</span>
+        <span>-</span>
       </li>
       <li>
         <span><span style="letter-spacing:0.8em;">机 型</span><span style="margin-left: -8px;color: #909BEA;">:</span></span>
-        <span>115/2000</span>
+        <span>-</span>
       </li>
       <li>
         <span>轮毂高度：</span>
-        <span>85m</span>
+        <span>- m</span>
       </li>
       <li>
         <span>机组数量：</span>
-        <span>73台</span>
+        <span>- 台</span>
       </li>
       <li>
         <span>项目容量：</span>
-        <span>146WM</span>
+        <span>{{ detail.capacity || '-' }} WM</span>
       </li>
       <li>
         <span>并网日期：</span>
-        <span>2021.08.23</span>
+        <span>-</span>
       </li>
       <li>
         <span style="line-height: 16px;">质保期 <br>开始日期：</span>
-        <span>2021.08.27</span>
+        <span>-</span>
       </li>
     </ul>
   </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-const dialogVisible = ref(false)
+import { toRefs, ref, watchEffect } from 'vue'
+import { useStore } from '@/store/index'
+
+const store = useStore()
+const detail:any = ref(store.state.wind.windfarmDetail)
+
+const props = defineProps({
+  visible: Boolean
+})
+const emits = defineEmits(['close'])
+
+const { visible } = toRefs(props)
+
+function changeVisible () {
+  emits('close')
+}
+
+watchEffect(() => {
+  detail.value = store.state.wind.windfarmDetail
+})
+
 </script>
 
 <style scoped lang="scss">
 .el-dialog{
+  position: fixed;
+  top: 36%;
+  left: 20%;
  .el-dialog__body{
     ul{
       width: 100%;

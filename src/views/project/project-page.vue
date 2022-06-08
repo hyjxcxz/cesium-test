@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import { onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import gwmap from '@/gwmap/index'
 import { useStore } from '@/store/index'
@@ -34,15 +34,25 @@ function getDetail () {
     (res: any) => {
       if (res.code === 200) {
         store.commit('wind/setWindfarmDetail', res.data)
+        gwmap.dataManager.flyToLocation(res.data.lng, res.data.lat)
       } else {
         store.commit('wind/setWindfarmDetail', {})
       }
     }, [route.query.id]
   )
 }
+
+function projectPageClose () {
+  store.commit('wind/setWindfarmDetail', {})
+}
+
 onMounted(() => {
   gwmap.initProjectMap('ProjectMapContainer')
   getDetail()
+})
+
+onBeforeUnmount(() => {
+  projectPageClose()
 })
 </script>
 

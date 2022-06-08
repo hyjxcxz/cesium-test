@@ -1,7 +1,19 @@
 <template>
   <div class="project-left">
     <div class="project-left-header">
-      <span>河北张家口红松风电场</span>
+      <el-tooltip
+        v-if="detail.name && detail.name.length > 13"
+        class="box-item"
+        effect="dark"
+        :content="detail.name"
+        placement="bottom"
+      >
+        <span class="ellipsis">{{ detail.name || '-' }}</span>
+      </el-tooltip>
+      <span
+        v-else
+        class="ellipsis"
+      >{{ detail.name || '-' }}</span>
       <span>
         <i class="iconfont icon-zonghe" />
       </span>
@@ -53,10 +65,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref, reactive, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 // import gwmap from '@/gwmap/index'
+import { useStore } from '@/store/index'
+
+const store = useStore()
 const route = useRouter()
+const detail:any = ref(store.state.wind.windfarmDetail)
 const tabList = reactive([
   {
     title: '风场基础信息',
@@ -115,6 +131,11 @@ function changeTab (val: any) {
     return item
   })
 }
+
+watchEffect(() => {
+  detail.value = store.state.wind.windfarmDetail
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -147,6 +168,9 @@ function changeTab (val: any) {
         border-left: 1px solid #8D96DB;
         line-height: 40px;
         cursor:pointer;
+        position: absolute;
+        right:-40px;
+        top: 0;
         i{
           height: 40px;
           color: #30FBFE;
@@ -159,6 +183,9 @@ function changeTab (val: any) {
         border-left: 1px solid #8D96DB;
         line-height: 40px;
         cursor:pointer;
+        position: absolute;
+        right:-80px;
+        top: 0;
         i{
           color: #FFFFFF;
           font-size: 16px;
