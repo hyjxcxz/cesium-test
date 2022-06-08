@@ -1,6 +1,6 @@
 <template>
   <div class="measuring-tools">
-    <el-radio-group
+    <!-- <el-radio-group
       v-model="checked"
       @change="controlsClick"
     >
@@ -12,36 +12,36 @@
       >
         {{ item.title }}
       </el-radio>
-    </el-radio-group>
+    </el-radio-group> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import gwmap from '@/gwmap/index'
-const checked = ref(null)
-const tabList = reactive([
-  {
-    title: '测面',
-    code: 1
-  }, {
-    title: '测距',
-    code: 2
-  }, {
-    title: '清除',
-    code: 3
-  }
-])
+// import { ref, reactive } from 'vue'
+// import gwmap from '@/gwmap/index'
+// const checked = ref(null)
+// const tabList = reactive([
+//   {
+//     title: '测面',
+//     code: 1
+//   }, {
+//     title: '测距',
+//     code: 2
+//   }, {
+//     title: '清除',
+//     code: 3
+//   }
+// ])
 
-function controlsClick () {
-  if (checked.value === 1) {
-    gwmap.mapControlManager.active('measureArea')
-  } else if (checked.value === 2) {
-    gwmap.mapControlManager.active('measureLength')
-  } else if (checked.value === 3) {
-    gwmap.mapControlManager.disactive('measure')
-  }
-}
+// function controlsClick () {
+//   if (checked.value === 1) {
+//     gwmap.mapControlManager.active('measureArea')
+//   } else if (checked.value === 2) {
+//     gwmap.mapControlManager.active('measureLength')
+//   } else if (checked.value === 3) {
+//     gwmap.mapControlManager.disactive('measure')
+//   }
+// }
 </script>
 
 <style scoped lang="scss">

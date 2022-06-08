@@ -1,7 +1,19 @@
 <template>
   <div class="project-left">
     <div class="project-left-header">
-      <span>河北张家口红松风电场</span>
+      <el-tooltip
+        v-if="detail.name && detail.name.length > 13"
+        class="box-item"
+        effect="dark"
+        :content="detail.name"
+        placement="bottom"
+      >
+        <span class="ellipsis">{{ detail.name || '-' }}</span>
+      </el-tooltip>
+      <span
+        v-else
+        class="ellipsis"
+      >{{ detail.name || '-' }}</span>
       <span>
         <i class="iconfont icon-zonghe" />
       </span>
@@ -20,43 +32,27 @@
           :class="item.checked ? 'project-left-content-item-active' : ''"
           @click="changeTab(item)"
         >{{ item.title }}</span>
-        <ul
-          v-if="item.code === 1 && item.checked"
-          class="project-left-content-item-content"
-        >
-          <li
-            v-for="v in fanInfoTab"
-            :key="v.title + v.code"
-            class="project-left-content-item-content-first"
-          >
-            <el-checkbox
-              v-model="v.checked"
-              :label="v.title"
-            />
-          </li>
-        </ul>
-        <ul
-          v-if="item.code === 2 && item.checked"
-          class="project-left-content-item-content"
-        >
-          <li> {{ item.title }} </li>
-        </ul>
-        <ul
-          v-if="item.code === 3 && item.checked"
-          class="project-left-content-item-content"
-        >
-          <li> {{ item.title }} </li>
-        </ul>
+        <BasicInformation v-if="item.code === 1 && item.checked" />
+        <OperationInformation v-if="item.code === 2 && item.checked" />
+        <RiskDeduction v-if="item.code === 3 && item.checked" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref, reactive, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 // import gwmap from '@/gwmap/index'
+import { useStore } from '@/store/index'
+
+import BasicInformation from './components/basic-information.vue'
+import OperationInformation from './components/operation-information.vue'
+import RiskDeduction from './components/risk-deduction.vue'
+
+const store = useStore()
 const route = useRouter()
+const detail:any = ref(store.state.wind.windfarmDetail)
 const tabList = reactive([
   {
     title: '风场基础信息',
@@ -69,34 +65,6 @@ const tabList = reactive([
   }, {
     title: '风险推演仿真',
     code: 3,
-    checked: false
-  }
-])
-
-const fanInfoTab = reactive([
-  {
-    title: '道路',
-    code: 1,
-    checked: false
-  }, {
-    title: '线路',
-    code: 2,
-    checked: false
-  }, {
-    title: '升压站',
-    code: 3,
-    checked: false
-  }, {
-    title: '测风雷达',
-    code: 4,
-    checked: false
-  }, {
-    title: '规划风机',
-    code: 5,
-    checked: false
-  }, {
-    title: '规划地形',
-    code: 6,
     checked: false
   }
 ])
@@ -115,6 +83,11 @@ function changeTab (val: any) {
     return item
   })
 }
+
+watchEffect(() => {
+  detail.value = store.state.wind.windfarmDetail
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -147,6 +120,9 @@ function changeTab (val: any) {
         border-left: 1px solid #8D96DB;
         line-height: 40px;
         cursor:pointer;
+        position: absolute;
+        right:-40px;
+        top: 0;
         i{
           height: 40px;
           color: #30FBFE;
@@ -159,6 +135,9 @@ function changeTab (val: any) {
         border-left: 1px solid #8D96DB;
         line-height: 40px;
         cursor:pointer;
+        position: absolute;
+        right:-80px;
+        top: 0;
         i{
           color: #FFFFFF;
           font-size: 16px;
@@ -187,21 +166,59 @@ function changeTab (val: any) {
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: #FFFFFF;
+        position: relative;
         cursor:pointer;
+         &::before{
+          content: '';
+          display: inline-block;
+          width: 0px;
+          height: 0px;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 5px solid #30FBFE;
+          position: absolute;
+          left: 170px;
+          top: 12px;
+        }
+        &::after{
+          content: '';
+          display: inline-block;
+          width: 0px;
+          height: 0px;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 5px solid rgba(#30FBFE,0.2);
+          position: absolute;
+          left: 167px;
+          top: 12px;
+        }
       }
       .project-left-content-item-active{
         border-left:2px solid #2DE7F2;
         width: calc(100% - 2px);
-      }
-      .project-left-content-item-content{
-        margin: 0;
-        padding: 0;
-        color: #fff;
-        li{
-          list-style-type: none;
+        &::before{
+          content: '';
+          display: inline-block;
+          width: 0px;
+          height: 0px;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-bottom: 5px solid #30FBFE;
+          position: absolute;
+          left: 164px;
+          top: 8px;
         }
-        .project-left-content-item-content-first{
-          padding: 0 16px;
+        &::after{
+          content: '';
+          display: inline-block;
+          width: 0px;
+          height: 0px;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-bottom: 5px solid rgba(#30FBFE,0.2);
+          position: absolute;
+          left: 164px;
+          top: 11px;
         }
       }
     }

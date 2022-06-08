@@ -8,7 +8,6 @@
     :info="info"
     v-if="isShowPopup"
   />
-  <ProjectInfo />
   <!-- 接口实验（长青线接口路径对，没登录会报500） -->
   <!-- <testComponetVue /> -->
 </template>
@@ -20,7 +19,7 @@ import gwmap from '@/gwmap/index'
 import popupRightBox from './popup-right/popup-right-page.vue'
 import infoPopup from '@/components/info-popup.vue'
 import { useStore } from '@/store/index'
-import ProjectInfo from './project/components/project-info.vue'
+// import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/home-header.vue'
 // import { detileInfor } from '@/v'
 import { detileInfor } from './detilets/detilecomponents.ts'
