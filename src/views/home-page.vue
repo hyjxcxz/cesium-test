@@ -25,7 +25,7 @@ import Header from '@/components/home/home-header.vue'
 import { detileInfor } from './detilets/detilecomponents.ts'
 const isShowPopup = ref(false)
 const store = useStore()
-const info = reactive({
+let info = reactive({
   title: '风场基本信息',
   class: 'default', // default 风场 factory 工厂
   data: [
@@ -119,11 +119,11 @@ watchEffect(() => {
   } else if (storeApp.windFarmclickFanList.arr && storeApp.windFarmclickFanList.arr.length > 0) {
     const obj:any = reactive(storeApp.windFarmclickFanList.arr[0])
     isShowPopup.value = true
-    detileInfor(info, obj)
+    info = detileInfor(info, obj)
   } else if (storeApp.electricStationclickFanList.arr && storeApp.electricStationclickFanList.arr.length > 0) {
     const obj:any = reactive(storeApp.electricStationclickFanList.arr[0])
     isShowPopup.value = true
-    detileInfor(info, obj)
+    info = detileInfor(info, obj)
   } else {
     isShowPopup.value = false
     info.datas = []

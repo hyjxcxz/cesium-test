@@ -12,15 +12,18 @@ export function detileInfor (info: any, obj: any) {
     info.title = windFarmInfo.title
     info.data = windFarmInfo.data
     info.num = windFarmInfo.num
+    info.class = windFarmInfo.class
     info = setnum(info, windFarmInfo.maxnum, List)
     info = getString(info, obj)
   } else if (obj.type === 'maker') {
     info.title = makerInfo.title
     info.data = makerInfo.data
     info.num = makerInfo.num
+    info.class = makerInfo.class
     info = setnum(info, makerInfo.maxnum, List)
     info = getString(info, obj)
   } else if (obj.type === 'electricStation') {
+    info.class = electricStationInfo.class
     info.title = electricStationInfo.title
     info.data = electricStationInfo.data
     info.num = electricStationInfo.num
