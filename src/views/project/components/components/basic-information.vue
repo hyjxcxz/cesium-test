@@ -17,7 +17,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, watchEffect } from 'vue'
+import gwmap from '@/gwmap/index'
+import { useStore } from '@/store/index'
+
+const store = useStore()
+const detail:any = reactive({
+  data: {}
+})
+
 const fanInfoTab = reactive([
   {
     title: '道路',
@@ -46,19 +54,20 @@ const fanInfoTab = reactive([
   }
 ])
 function changeFanTab (val:any) {
-  fanInfoTab.forEach(item => {
-    if (val.code === item.code) {
-      val = item
-    }
-  })
+  // 升压站
   if (val.code === 3) {
     if (val.checked) {
-      console.log(1)
+      gwmap.stationLayer.load({ lon: detail.data.lng, lat: detail.data.lat })
     } else {
-      console.log(2)
+      gwmap.stationLayer.remove()
     }
   }
 }
+
+watchEffect(() => {
+  detail.data = store.state.wind.windfarmDetail
+})
+
 </script>
 
 <style scoped lang="scss">
