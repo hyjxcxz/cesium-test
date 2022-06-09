@@ -32,9 +32,9 @@
           :class="item.checked ? 'project-left-content-item-active' : ''"
           @click="changeTab(item)"
         >{{ item.title }}</span>
-        <BasicInformation v-if="item.code === 1 && item.checked" />
-        <OperationInformation v-if="item.code === 2 && item.checked" />
-        <RiskDeduction v-if="item.code === 3 && item.checked" />
+        <BasicInformation v-show="item.code === 1 && item.checked" />
+        <OperationInformation v-show="item.code === 2 && item.checked" />
+        <RiskDeduction v-show="item.code === 3 && item.checked" />
       </div>
     </div>
   </div>
