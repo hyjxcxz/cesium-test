@@ -476,8 +476,8 @@ function changeTab (tab:any) {
 function handleCancel (e:any) {
   if (e) {
     getData('getbaseInfos', ['', ''], (res:any) => {
-      const data = res.data.slice(100, 125)
-      if (data && data.length > 0) {
+      if (res.data && res.data.length > 0) {
+        const data = res.data.slice(100, 125)
         const obj = {
           type: 'electricStation',
           data,
@@ -486,13 +486,62 @@ function handleCancel (e:any) {
         gwmap.pointLayer.load(obj, (position:any) => {
           store.commit('app/electricStationClickFanList', position)
         })
+        stationLine(data)
+        const objs = {
+          type: 'electricStation',
+          id: 'test1',
+          data: null,
+          width: 3,
+          color: '#409eff',
+          clampToGround: false,
+          layerName: 'electricStation'
+        }
+        gwmap.polylineLayer.load(objs)
       }
     })
+    // const obj = {
+    //   type: 'electricStation',
+    //   id: 'test',
+    //   data: null,
+    //   width: 3,
+    //   color: '#fff172',
+    //   clampToGround: false,
+    //   layerName: 'electricStation'
+    // }
+    // gwmap.polylineLayer.load(obj)
   } else {
     gwmap.pointLayer.remove('electricStation', (obj:any) => {
       store.commit('app/electricStationClickFanList', obj)
     })
+    gwmap.polylineLayer.removeAll()
   }
+}
+function stationLine (data: any) {
+  const lineArryTotl:Array = [[], [], [], [], []]
+  data.forEach((element, index) => {
+    const itemArry:Array = [element.longitude, element.latitude, 0]
+    if (index > 0 && index <= 5) {
+      lineArryTotl[0].push(itemArry)
+    } else if (index > 5 && index <= 10) {
+      lineArryTotl[1].push(itemArry)
+    } else if (index > 10 && index <= 15) {
+      lineArryTotl[2].push(itemArry)
+    } else if (index > 15 && index <= 20) {
+      lineArryTotl[3].push(itemArry)
+    } else if (index > 20 && index <= 25) {
+      lineArryTotl[4].push(itemArry)
+    }
+  })
+  const lineobj = {
+    type: 'electricStation',
+    id: 'test',
+    data: lineArryTotl,
+    width: 3,
+    color: '#fff172',
+    clampToGround: false,
+    layerName: 'electricStation'
+  }
+  gwmap.polylineLayer.load(lineobj)
 }
 function radioChange (value:any) {
   checkChangeLine.value = (value === checkChangeLine.value) ? '' : value
