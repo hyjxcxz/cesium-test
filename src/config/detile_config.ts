@@ -69,3 +69,20 @@ export const makerInfo = {
   maxnum: 324,
   id: 1
 }
+// 高压电站
+export const electricStationInfo = {
+  title: '高压电站信息',
+  class: 'electricStation', // factory 工厂
+  data: [
+    {
+      key: '高压电站：',
+      value: ''
+    }
+  ],
+  datas: [], // 聚合点位后的多个数据
+  x: 0, // 弹窗定位位置
+  y: 0,
+  num: 180,
+  maxnum: 180,
+  id: 2
+}
