@@ -46,12 +46,14 @@
     :visible="visible"
     @close="close"
   />
+  <EventBar v-if="tabList[3].checked" />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import gwmap from '@/gwmap/index'
 import ProjectInfo from './project-info.vue'
+import EventBar from './components/event-bar/event-bar.vue'
 
 const visible = ref(false)
 const tabList = reactive([
@@ -70,7 +72,7 @@ const tabList = reactive([
   }, {
     title: '风险评估',
     code: 4,
-    checked: false
+    checked: true
   }
 ])
 const isShowMeasureTool = ref(false)

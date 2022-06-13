@@ -17,11 +17,14 @@
       <span>
         <i class="iconfont icon-zonghe" />
       </span>
-      <span @click="changPage">
+      <span @click="changShowFun">
         <i class="iconfont icon-fanhui" />
       </span>
     </div>
-    <div class="project-left-content">
+    <div
+      v-show="isShowFun"
+      class="project-left-content"
+    >
       <div
         v-for="item in tabList"
         :key="item.code"
@@ -42,7 +45,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive, watchEffect } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 // import gwmap from '@/gwmap/index'
 import { useStore } from '@/store/index'
 
@@ -51,7 +54,7 @@ import OperationInformation from './components/operation-information.vue'
 import RiskDeduction from './components/risk-deduction.vue'
 
 const store = useStore()
-const route = useRouter()
+// const route = useRouter()
 const detail:any = ref(store.state.wind.windfarmDetail)
 const tabList = reactive([
   {
@@ -68,9 +71,10 @@ const tabList = reactive([
     checked: false
   }
 ])
+const isShowFun = ref(true)
 
-function changPage () {
-  route.push('/')
+function changShowFun () {
+  isShowFun.value = !isShowFun.value
 }
 
 function changeTab (val: any) {
