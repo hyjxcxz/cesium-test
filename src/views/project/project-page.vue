@@ -1,6 +1,6 @@
 <template>
   <div class="project-page">
-    <Header />
+    <Header :back="true" />
     <div id="ProjectMapContainer" />
     <!-- 应该每次进入这个页面调接口获取一次项目信息，不然刷新就啥也没有了 -->
     <ProjectLeft />

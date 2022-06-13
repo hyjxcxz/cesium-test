@@ -7,7 +7,14 @@
         alt=""
       >
       <div class="division" />
-      <span class="project-title">风场信息化数据平台</span>
+      <span class="project-title">
+        风场信息化数据平台
+        <i
+          class="iconfont icon-home-s go-back"
+          v-if="goBack"
+          @click="changPage"
+        />
+      </span>
     </div>
     <div class="home-header-right">
       <div class="home-header-right-title">
@@ -42,10 +49,17 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import userComponentVue from '@/layout/userComponent.vue'
 
+const route = useRouter()
+const props = defineProps({
+  back: Boolean
+})
+
 const isFullScreen = ref(false)
+const goBack = ref(props.back)
 function fullScreen () {
   const element = document.documentElement
   if (element.requestFullscreen) {
@@ -58,6 +72,9 @@ function exitFullscreen () {
     document.exitFullscreen()
   }
   isFullScreen.value = false
+}
+function changPage () {
+  route.push('/')
 }
 </script>
 
@@ -96,8 +113,14 @@ function exitFullscreen () {
       font-weight: 500;
       color: #BCCCFF;
       letter-spacing: 1px;
+      .go-back{
+        color: #EBEEE7;
+        position: absolute;
+        left: 180px;
+        font-size: 24px;
+        cursor:pointer;
+      }
     }
-
   }
   .home-header-right{
     flex:1;
