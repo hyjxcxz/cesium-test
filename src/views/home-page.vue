@@ -21,9 +21,11 @@ import infoPopup from '@/components/info-popup.vue'
 import { useStore } from '@/store/index'
 // import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/home-header.vue'
+// import { detileInfor } from '@/v'
+import { detileInfor } from './detilets/detilecomponents.ts'
 const isShowPopup = ref(false)
 const store = useStore()
-const info = reactive({
+let info = reactive({
   title: '风场基本信息',
   class: 'default', // default 风场 factory 工厂
   data: [
@@ -82,7 +84,8 @@ onMounted(() => {
   getSearchData()
 })
 watchEffect(() => {
-  if (store.state.app.clickFanList.arr && store.state.app.clickFanList.arr.length > 0) {
+  const storeApp = store.state.app
+  if (storeApp.clickFanList.arr && storeApp.clickFanList.arr.length > 0) {
     const obj:any = reactive(store.state.app.clickFanList.arr[0])
     isShowPopup.value = true
     // contractno: "false"
@@ -113,6 +116,14 @@ watchEffect(() => {
       info.num = 240
       info.datas = store.state.app.clickFanList.arr
     }
+  } else if (storeApp.windFarmclickFanList.arr && storeApp.windFarmclickFanList.arr.length > 0) {
+    const obj:any = reactive(storeApp.windFarmclickFanList.arr[0])
+    isShowPopup.value = true
+    info = detileInfor(info, obj)
+  } else if (storeApp.electricStationclickFanList.arr && storeApp.electricStationclickFanList.arr.length > 0) {
+    const obj:any = reactive(storeApp.electricStationclickFanList.arr[0])
+    isShowPopup.value = true
+    info = detileInfor(info, obj)
   } else {
     isShowPopup.value = false
     info.datas = []

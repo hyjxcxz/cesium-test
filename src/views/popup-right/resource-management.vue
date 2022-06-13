@@ -102,7 +102,8 @@ import { requestApi } from '@/utils/request-util'
 import gwmap from '@/gwmap/index'
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
-
+import { useStore } from '@/store/index'
+const store = useStore()
 const isShow = ref(true)
 const checkedTab = ref(1)
 const checkList = ref([])
@@ -471,36 +472,118 @@ function changeTab (tab:any) {
   }
   // addDiffrentLayer(tab) // 切换风现场、运输监控、制造厂
 }
+// 输变电线路
 function handleCancel (e:any) {
-  console.log(e, checkList)
+  if (e) {
+    getData('getbaseInfos', ['', ''], (res:any) => {
+      if (res.data && res.data.length > 0) {
+        const data = res.data.slice(100, 125)
+        const obj = {
+          type: 'electricStation',
+          data,
+          cluster: false
+        }
+        gwmap.pointLayer.load(obj, (position:any) => {
+          store.commit('app/electricStationClickFanList', position)
+        })
+        stationLine(data)
+        const objs = {
+          type: 'electricStation',
+          id: 'test1',
+          data: null,
+          width: 3,
+          color: '#409eff',
+          clampToGround: false,
+          layerName: 'electricStation'
+        }
+        gwmap.polylineLayer.load(objs)
+      }
+    })
+    // const obj = {
+    //   type: 'electricStation',
+    //   id: 'test',
+    //   data: null,
+    //   width: 3,
+    //   color: '#fff172',
+    //   clampToGround: false,
+    //   layerName: 'electricStation'
+    // }
+    // gwmap.polylineLayer.load(obj)
+  } else {
+    gwmap.pointLayer.remove('electricStation', (obj:any) => {
+      store.commit('app/electricStationClickFanList', obj)
+    })
+    gwmap.polylineLayer.removeAll()
+  }
+}
+function stationLine (data: any) {
+  const lineArryTotl:Array = [[], [], [], [], []]
+  data.forEach((element, index) => {
+    const itemArry:Array = [element.longitude, element.latitude, 0]
+    if (index > 0 && index <= 5) {
+      lineArryTotl[0].push(itemArry)
+    } else if (index > 5 && index <= 10) {
+      lineArryTotl[1].push(itemArry)
+    } else if (index > 10 && index <= 15) {
+      lineArryTotl[2].push(itemArry)
+    } else if (index > 15 && index <= 20) {
+      lineArryTotl[3].push(itemArry)
+    } else if (index > 20 && index <= 25) {
+      lineArryTotl[4].push(itemArry)
+    }
+  })
+  const lineobj = {
+    type: 'electricStation',
+    id: 'test',
+    data: lineArryTotl,
+    width: 3,
+    color: '#fff172',
+    clampToGround: false,
+    layerName: 'electricStation'
+  }
+  gwmap.polylineLayer.load(lineobj)
 }
 function radioChange (value:any) {
   checkChangeLine.value = (value === checkChangeLine.value) ? '' : value
+  gwmap.pointLayer.remove('windFarm', (obj:any) => {
+    store.commit('app/windFarmClickFanList', obj)
+  })
   gwmap.fanLayer.remove()
   switch (checkChangeLine.value) {
     case '制造任务':
       getData('getbaseInfos', ['', ''], (res:any) => {
-        gwmap.fanLayer.load()
         const data = res.data.slice(0, 25)
-        data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item, 'windFarm')
-        })
+        if (data && data.length > 0) {
+          const obj = {
+            type: 'windFarm',
+            data,
+            cluster: true
+          }
+          gwmap.pointLayer.load(obj, (position:any) => {
+            store.commit('app/windFarmClickFanList', position)
+          })
+        }
       })
       break
     case '运输任务':
       getData('getbaseInfos', ['', ''], (res:any) => {
-        gwmap.fanLayer.load()
         const data = res.data.slice(26, 35)
-        data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item, 'windFarm')
-        })
+        if (data && data.length > 0) {
+          const obj = {
+            type: 'windFarm',
+            data,
+            cluster: true
+          }
+          gwmap.pointLayer.load(obj, (position:any) => {
+            store.commit('app/windFarmClickFanList', position)
+          })
+        }
       })
       break
     case '':
       getData('getbaseInfos', ['', ''], (res:any) => {
         gwmap.fanLayer.load()
-        const data = res.data
-        data.forEach((item:Object) => {
+        res.data.forEach((item:Object) => {
           gwmap.fanLayer.add(item, 'windFarm')
         })
       })
