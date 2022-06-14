@@ -41,8 +41,6 @@ const tabData = reactive([
     checked: true,
     icon: 'icon-fengdian1',
     class: 'resourceManagement',
-    img: '/images/home/resourceManagement.svg',
-    imgActive: '/images/home/resourceManagementActive.svg',
     dom: 'resource-management'
   }, {
     code: 2,
@@ -50,8 +48,6 @@ const tabData = reactive([
     checked: false,
     icon: 'icon-shuju',
     class: 'dataManagement',
-    img: '/images/home/dataManagement.svg',
-    imgActive: '/images/home/dataManagementActive.svg',
     dom: 'data-management'
   }, {
     code: 3,
@@ -59,8 +55,6 @@ const tabData = reactive([
     checked: false,
     icon: 'icon-gongjuxiang',
     class: 'measuringTools',
-    img: '/images/home/measuringTools.svg',
-    imgActive: '/images/home/measuringToolsActive.svg',
     dom: 'measuring-tools'
   }
 ])
