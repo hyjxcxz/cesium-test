@@ -17,33 +17,33 @@
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("/images/home/resourceManagement.svg") no-repeat center/100%;
+  background: url("./images/home/resourceManagement.svg") no-repeat center/100%;
 }
 
 .resourceManagement:hover {
-  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
+  background: url("./images/home/resourceManagementText.svg") no-repeat center/100%;
 }
 
 .dataManagement {
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("/images/home/dataManagement.svg") no-repeat center/100%;
+  background: url("./images/home/dataManagement.svg") no-repeat center/100%;
 }
 
 .dataManagement:hover {
-  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
+  background: url("./images/home/dataManagementText.svg") no-repeat center/100%;
 }
 
 .measuringTools {
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("/images/home/measuringTools.svg") no-repeat center/100%;
+  background: url("./images/home/measuringTools.svg") no-repeat center/100%;
 }
 
 .measuringTools:hover {
-  background: url("/images/home/measuringToolsText.svg") no-repeat center/100%;
+  background: url("./images/home/measuringToolsText.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked {
@@ -52,11 +52,11 @@
   width: 51px;
   height: 45px;
   margin-bottom: 5px;
-  background: url("/images/home/resourceManagementActive.svg") no-repeat center/100%;
+  background: url("./images/home/resourceManagementActive.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked:hover {
-  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
+  background: url("./images/home/resourceManagementText.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked::before {
@@ -77,11 +77,11 @@
   width: 51px;
   height: 45px;
   margin-bottom: 5px;
-  background: url("/images/home/dataManagementActive.svg") no-repeat center/100%;
+  background: url("./images/home/dataManagementActive.svg") no-repeat center/100%;
 }
 
 .dataManagementChecked:hover {
-  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
+  background: url("./images/home/dataManagementText.svg") no-repeat center/100%;
 }
 
 .dataManagementChecked::before {
@@ -152,4 +152,53 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.gold-radio-group .el-radio {
+  margin-right: 30px;
+}
+
+.gold-radio-group .el-radio__inner {
+  border-radius: 0;
+  border-radius: 2px;
+}
+
+.gold-radio-group .el-radio__input.is-checked .el-radio__inner::after {
+  transform: rotate(45deg) scaleY(1);
+}
+
+.gold-radio-group .el-radio__input.is-checked .el-radio__inner {
+  background-color: #3049FE;
+  border-color: #3049FE;
+  border-radius: 1px;
+}
+
+.gold-radio-group .is-checked .el-radio__label {
+  color: #409eff;
+}
+
+.gold-radio-group .el-radio__label {
+  color: #BCCCFF;
+  padding-left: 8px !important;
+}
+
+.gold-radio-group .el-radio__inner::after {
+  box-sizing: content-box;
+  content: "";
+  border: 1px solid #fff;
+  border-left: 0;
+  border-top: 0;
+  height: 7px;
+  left: 6px;
+  position: absolute;
+  top: 1px;
+  width: 3px;
+  transition: transform .15s ease-in .05s;
+  transform-origin: center;
+  border-radius: 0;
+  background-color: transparent !important;
+}
+
+.gold-radio-group .el-radio__label {
+  padding-left: 16px;
 }
