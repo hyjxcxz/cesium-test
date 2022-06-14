@@ -1,6 +1,6 @@
 const earthRadius = 6371008.8
 
-function degreesToRadians (degrees) {
+function degreesToRadians (degrees:any) {
   const radians = degrees % 360
   return radians * Math.PI / 180
 }
@@ -10,7 +10,7 @@ function degreesToRadians (degrees) {
  * @param {Array} coordinates1 [lng,lat]
  * @param {Array} coordinates2 [lng,lat]
  */
-export function distanceTo (coordinates1, coordinates2) {
+export function distanceTo (coordinates1:any, coordinates2:any) {
   const dLon = degreesToRadians((coordinates2[0] - coordinates1[0]))
   const dLat = degreesToRadians((coordinates2[1] - coordinates1[1]))
   const lat1 = degreesToRadians(coordinates1[1])
@@ -24,7 +24,7 @@ export function distanceTo (coordinates1, coordinates2) {
  * @param {*} coordinatess 坐标数组
  * @param {*} fixed 结果保留位数
  */
-export function getDistance (coordinatess, fixed = 2) {
+export function getDistance (coordinatess:any, fixed = 2) {
   let distance = 0
   if (!coordinatess || coordinatess.length === 0) return distance
   for (let i = 0; i < coordinatess.length - 1; i++) {
@@ -37,7 +37,7 @@ export function getDistance (coordinatess, fixed = 2) {
  * 计算多边形面积，返回单位为平方米
  * @param {Array} latLngs [[lng,lat],[lng,lat]]
  */
-export function getArea (latLngs, fixed = 2) {
+export function getArea (latLngs:any, fixed = 2) {
   const pointsCount = latLngs.length
   let area = 0.0
   const d2r = Math.PI / 180
@@ -61,7 +61,7 @@ export function getArea (latLngs, fixed = 2) {
  * @param {Number} area 面积，单位为平方米
  * @param {Number} fixed 保留小数位数
  */
-export function getReadableArea (area, fixed = 2, cn = true) {
+export function getReadableArea (area:any, fixed = 2, cn = true) {
   if (isNaN(area) || area < 0) return area
 
   if (area < 10000) {
@@ -80,7 +80,7 @@ export function getReadableArea (area, fixed = 2, cn = true) {
  * @param {Number} distance 面积，单位为平方米
  * @param {Number} fixed 保留小数位数
  */
-export function getReadableDistance (distance, fixed = 2, cn = true) {
+export function getReadableDistance (distance:any, fixed = 2, cn = true) {
   if (isNaN(distance) || distance < 0) return distance
 
   if (distance < 1000) {

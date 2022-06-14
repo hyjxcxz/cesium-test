@@ -4,7 +4,7 @@
  * @param {*} oldText 待替换字符串
  * @param {*} newText 新字符串，默认为空
  */
-export const replaceText = function (source, oldText, newText = '') {
+export const replaceText = function (source:any, oldText:any, newText = '') {
   if (!source || !oldText) return source
   while (source.indexOf(oldText) >= 0) {
     source = source.replace(oldText, newText)
