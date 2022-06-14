@@ -22,7 +22,7 @@ import { useStore } from '@/store/index'
 // import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/home-header.vue'
 // import { detileInfor } from '@/v'
-import { detileInfor } from './detilets/detilecomponents.ts'
+import { detileInfor } from './detilets/detilecomponents'
 const isShowPopup = ref(false)
 const store = useStore()
 let info = reactive({

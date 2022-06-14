@@ -517,9 +517,9 @@ function handleCancel (e:any) {
   }
 }
 function stationLine (data: any) {
-  const lineArryTotl:Array = [[], [], [], [], []]
-  data.forEach((element, index) => {
-    const itemArry:Array = [element.longitude, element.latitude, 0]
+  const lineArryTotl:Array<Array<Array<number>>> = [[], [], [], [], []]
+  data.forEach((element:any, index:number) => {
+    const itemArry:Array<number> = [element.longitude, element.latitude, 0]
     if (index > 0 && index <= 5) {
       lineArryTotl[0].push(itemArry)
     } else if (index > 5 && index <= 10) {
