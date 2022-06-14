@@ -4,7 +4,8 @@ import path from 'path'
 import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'true' ? './' : '',
+  // base: process.env.NODE_ENV === 'true' ? './' : '/',
+  base: './',
   plugins: [vue(), eslintPlugin()], // 注册插件
   server: {
     proxy: {
