@@ -794,7 +794,7 @@ onUnmounted(() => {
       .img-title{
         height: 20px;
         margin: 10px 0 0 0;
-        background: url("./images/home/title.svg") no-repeat center / 100%;
+        background: url("/images/home/title.svg") no-repeat center / 100%;
         &::before{
           content: '';
           display: inline-block;

@@ -17,33 +17,33 @@
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("./images/home/resourceManagement.svg") no-repeat center/100%;
+  background: url("/images/home/resourceManagement.svg") no-repeat center/100%;
 }
 
 .resourceManagement:hover {
-  background: url("./images/home/resourceManagementText.svg") no-repeat center/100%;
+  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
 }
 
 .dataManagement {
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("./images/home/dataManagement.svg") no-repeat center/100%;
+  background: url("/images/home/dataManagement.svg") no-repeat center/100%;
 }
 
 .dataManagement:hover {
-  background: url("./images/home/dataManagementText.svg") no-repeat center/100%;
+  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
 }
 
 .measuringTools {
   display: inline-block;
   width: 51px;
   height: 45px;
-  background: url("./images/home/measuringTools.svg") no-repeat center/100%;
+  background: url("/images/home/measuringTools.svg") no-repeat center/100%;
 }
 
 .measuringTools:hover {
-  background: url("./images/home/measuringToolsText.svg") no-repeat center/100%;
+  background: url("/images/home/measuringToolsText.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked {
@@ -52,11 +52,11 @@
   width: 51px;
   height: 45px;
   margin-bottom: 5px;
-  background: url("./images/home/resourceManagementActive.svg") no-repeat center/100%;
+  background: url("/images/home/resourceManagementActive.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked:hover {
-  background: url("./images/home/resourceManagementText.svg") no-repeat center/100%;
+  background: url("/images/home/resourceManagementText.svg") no-repeat center/100%;
 }
 
 .resourceManagementChecked::before {
@@ -77,11 +77,11 @@
   width: 51px;
   height: 45px;
   margin-bottom: 5px;
-  background: url("./images/home/dataManagementActive.svg") no-repeat center/100%;
+  background: url("/images/home/dataManagementActive.svg") no-repeat center/100%;
 }
 
 .dataManagementChecked:hover {
-  background: url("./images/home/dataManagementText.svg") no-repeat center/100%;
+  background: url("/images/home/dataManagementText.svg") no-repeat center/100%;
 }
 
 .dataManagementChecked::before {
