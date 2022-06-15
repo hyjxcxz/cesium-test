@@ -26,8 +26,8 @@
 
 .navigation-controls {
   z-index: 999;
-  right: 448px;
-  top: unset;
+  right: 448px !important;
+  top: unset !important;
   bottom: 240px;
   border: none !important;
   .navigation-control {
