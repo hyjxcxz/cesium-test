@@ -92,10 +92,10 @@ function changeTab (val:any) {
         }
       })
       if (width) {
-        dom.style.right = width + 30 + 'px'
+        dom.setAttribute('style', `right: ${width + 30}px !important`)
       }
     } else {
-      dom.style.right = '30px'
+      dom.setAttribute('style', 'right: 30px !important')
     }
   })
 }
