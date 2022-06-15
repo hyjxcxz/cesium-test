@@ -72,7 +72,7 @@ const tabList = reactive([
   }, {
     title: '风险评估',
     code: 4,
-    checked: true
+    checked: false
   }
 ])
 const isShowMeasureTool = ref(false)
