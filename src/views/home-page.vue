@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <Header />
-    <div id="mapContainer" />
-    <popupRightBox />
+    <!-- <div id="mapContainer" /> -->
+    <!-- <popupRightBox /> -->
   </div>
   <infoPopup
     :info="info"
@@ -15,13 +15,9 @@
 <script lang="ts" setup>
 import { ref, onMounted, reactive, watchEffect } from 'vue'
 import { requestApi } from '@/utils/request-util'
-import gwmap from '@/gwmap/index'
-import popupRightBox from './popup-right/popup-right-page.vue'
 import infoPopup from '@/components/info-popup.vue'
 import { useStore } from '@/store/index'
-// import testComponetVue from '@/components/right/testComponet.vue'
 import Header from '@/components/home/home-header.vue'
-// import { detileInfor } from '@/v'
 import { detileInfor } from './detilets/detilecomponents'
 const isShowPopup = ref(false)
 const store = useStore()
@@ -68,10 +64,10 @@ function getSearchData () {
     null,
     (res: any) => {
       setTimeout(() => {
-        gwmap.fanLayer.load()
-        res.data.forEach((item:Object) => {
-          gwmap.fanLayer.add(item, 'windFarm')
-        })
+        // gwmap.fanLayer.load()
+        // res.data.forEach((item:Object) => {
+        //   gwmap.fanLayer.add(item, 'windFarm')
+        // })
       }, 200)
     }, ['', '']
   )
@@ -80,7 +76,7 @@ function getSearchData () {
 
 // }
 onMounted(() => {
-  gwmap.init('mapContainer')
+  // gwmap.init('mapContainer')
   getSearchData()
 })
 watchEffect(() => {

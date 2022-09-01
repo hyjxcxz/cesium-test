@@ -5,6 +5,7 @@ export interface appState {
   clickFanList: any,
   windFarmclickFanList: any,
   electricStationclickFanList: any
+  headerTitle: String
 }
 
 export const store: Module<appState, RootState> = {
@@ -12,7 +13,8 @@ export const store: Module<appState, RootState> = {
   state: (): appState => ({
     clickFanList: {},
     windFarmclickFanList: {},
-    electricStationclickFanList: {}
+    electricStationclickFanList: {},
+    headerTitle: '基础数据服务'
   }),
   mutations: {
     changeClickFanList (state: appState, data: Object) {
@@ -25,6 +27,9 @@ export const store: Module<appState, RootState> = {
     // 风电场-输变电站
     electricStationClickFanList (state: appState, data: Object) {
       state.electricStationclickFanList = data
+    },
+    headerTitle (state: appState, data: String) {
+      state.headerTitle = data
     }
   },
   actions: {}
