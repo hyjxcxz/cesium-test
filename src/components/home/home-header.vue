@@ -1,20 +1,49 @@
 <template>
   <div class="home-header">
     <div class="home-header-left">
-      <img
-        class="logo"
-        src="favicon.ico"
-        alt=""
-      >
-      <!-- <div class="division" /> -->
-      <span class="project-title">
-        {{ store.state.app.headerTitle }}
-        <i
-          class="iconfont icon-home-s go-back"
-          v-if="goBack"
-          @click="changPage"
-        />
-      </span>
+      <div class="home-header-log">
+        <img
+          class="logo"
+          src="favicon.ico"
+          alt=""
+        >
+        <!-- <div class="division" /> -->
+        <span class="project-title">
+          {{ store.state.app.headerTitle }}
+          <i
+            class="iconfont icon-home-s go-back"
+            v-if="goBack"
+            @click="changPage"
+          />
+        </span>
+      </div>
+      <div class="home-header-menue">
+        <router-link to="/">
+          <span
+            class="fa iconfont icon-shouyefill"
+          />
+          首页
+        </router-link>
+        <router-link to="/summary">
+          <span
+            class="fa iconfont icon-map"
+          />
+          概述
+        </router-link>
+        <router-link to="/guide">
+          <span
+            class="fa iconfont icon-zhinan2x"
+          />
+          开发指南
+        </router-link>
+        <router-link to="/about">
+          <span
+            class="fa iconfont icon-ziyuan"
+          />
+          关于
+        </router-link>
+      <!-- <userinfor></userinfor> -->
+      </div>
     </div>
     <div class="home-header-right" />
   </div>
@@ -48,6 +77,37 @@ function changPage () {
     flex:1;
     height: 100%;
     line-height: 60px;
+    .home-header-log{
+      width: 250px;
+      height: 100%;
+      float: left;
+    }
+    .home-header-menue{
+      a{
+        color: #ffffff;
+        text-decoration:none;
+        height:100%;
+        width:50px;
+        .el-icon{
+          display:inline-block;
+          width:40px;
+          height:40px;
+          color:#fff;
+        }
+      }
+      .fa{
+        display: inline-block;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        width: 20px;
+        height: 20px;
+        margin-left:10px
+      }
+      .router-link-active{
+        background: #4f4d4d;
+      }
+    }
     .logo{
       // height: 26px;
       // margin:11.5px 18px;
