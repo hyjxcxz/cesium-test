@@ -9,8 +9,15 @@
       :key="index+'d'"
     >
       <el-table-column
+        v-if="item.label==='含义'||item.label==='规则说明'"
         :prop="item.prop"
         :label="item.label"
+      />
+      <el-table-column
+        v-else
+        :prop="item.prop"
+        :label="item.label"
+        width="100px"
       />
     </template>
   </el-table>
