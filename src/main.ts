@@ -4,7 +4,7 @@ import router from './router'
 import { store, key } from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
-// import './assets/style/element-publice-style.scss'
+import './assets/style/public.css'
 // import './assets/style/compass.scss'
 
 const app = createApp(App)

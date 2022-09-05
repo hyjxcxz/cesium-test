@@ -68,7 +68,6 @@ function changPage () {
   width: 100%;
   height: 60px;
   background: #1c2531;
-  border-bottom:1px solid;
   border-image: linear-gradient(to bottom right,#C8C8C8 40%,#979797 100%,#C2C2C2 40%) 1;
   display: flex;
   flex-direction: row;

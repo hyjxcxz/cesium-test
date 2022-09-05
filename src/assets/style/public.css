@@ -1,0 +1,4 @@
+/* elementplus默认样式修改 */
+.el-menu .el-sub-menu .el-sub-menu__title{
+    background-color: #000000 !important;
+}

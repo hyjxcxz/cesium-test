@@ -1,12 +1,13 @@
 export const apiPathConfigs = {
-  // 获取全部风场基础数据
-  getbaseInfos: {
-    url: '/windfarm/baseInfos?projectName={0}&projectNo={1}',
+  // 基础数据服务
+  // 开发指南菜单
+  developGuideMenu: {
+    url: '/basedata/developGuide',
     method: 'get'
   },
-  // 获取单个风场基础数据 odoo_id
-  getWindfarmDetail: {
-    url: '/windfarm/detail?id={0}',
+  // 根据ID获取API文档
+  apiDocument: {
+    url: '/basedata/apiDocument?id={0}',
     method: 'get'
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <Header />
   <div class="content">
-    关于
+    概述
   </div>
 </template>
 <script setup lang="ts">
