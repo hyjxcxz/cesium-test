@@ -44,11 +44,48 @@
       :datatable="props.dataobj.paramList"
       :data-hearder="tableObj"
     />
+    <h3><ul><li>服务示例</li></ul></h3>
+    <div class>
+      {{ apiURL }}
+    </div>
+    <template v-if="props.dataobj.mode.indexOf('Post')!==-1">
+      <el-input
+        v-model="exampleString"
+        autosize
+        type="textarea"
+        placeholder="Please input"
+      />
+    </template>
+    <template v-else>
+      <Editetable
+        :datatable="props.dataobj.exampleList"
+        :data-hearder="exmpletableObj"
+      />
+    </template>
+    <el-button
+      type="primary"
+      :loading="loading"
+      @click="clickRun()"
+    >
+      运行
+    </el-button>
+    <json-viewer
+      v-if="resultData"
+      :value="resultData"
+    />
+    <h3><ul><li>返回结果参数说明</li></ul></h3>
+    <Treetable
+      :datatable="props.dataobj.returnList"
+      :data-hearder="childtableObj"
+    />
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import Table from '@/components/utils/table-component.vue'
+import Treetable from '@/components/utils/tree-table-component.vue'
+import Editetable from '@/components/utils/edite-table-component.vue'
+import { requestApi } from '@/utils/request-util'
 const tableObj = reactive([
   { label: '参数名', prop: 'name' },
   { label: '类型', prop: 'type' },
@@ -57,6 +94,23 @@ const tableObj = reactive([
   { label: '是否必填', prop: 'required' },
   { label: '缺省值', prop: 'defaultValue' }
 ])
+const exmpletableObj = reactive([
+  { label: '参数名', prop: 'name' },
+  { label: '类型', prop: 'type' },
+  { label: '值', prop: 'value' },
+  { label: '备注', prop: 'note' }
+])
+const childtableObj = reactive([
+  { label: '名称', prop: 'name' },
+  { label: '含义', prop: 'mean' },
+  { label: '规则说明', prop: 'rule' }
+])
+// const exampleStrings = ref('')
+const apiURL = ref('')
+const loading = ref(false)
+let apiMAne:any = reactive([])
+const apiName:string = ref('')
+let resultData:any = reactive()
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -65,6 +119,51 @@ const props = defineProps({
     }
   }
 })
+getURL()
+function getURL () {
+  apiURL.value = props.dataobj.address
+  if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
+    props.dataobj.exampleList.forEach((item, index) => {
+      if (index === 0) {
+        apiURL.value += '?'
+      }
+      apiURL.value += item.name + '=' + item.value + '&'
+    })
+    apiURL.value += 'key=<用户的key>'
+  }
+}
+function clickRun () {
+  apiMAne = props.dataobj.address.split('/')
+  apiName.value = apiMAne[apiMAne.lenght - 1]
+  loading.value = true
+  if (props.dataobj.mode.indexOf('Post') !== -1) {
+    postQuery()
+  } else {
+    getQuery()
+  }
+}
+function getQuery () {
+  requestApi(
+    apiName,
+    null,
+    (res:any) => {
+      if (res.message === 'OK' && res.data) {
+        resultData = res.data
+        loading.value = false
+      }
+    }, null)
+}
+function postQuery () {
+  requestApi(
+    apiName,
+    null,
+    (res:any) => {
+      if (res.message === 'OK' && res.data) {
+        resultData = res.data
+        loading.value = false
+      }
+    }, null)
+}
 </script>
 <style lang="scss" scoped>
 .API-content {

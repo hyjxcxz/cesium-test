@@ -6,6 +6,10 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+declare module 'vue3-json-viewer' {
+  const vis: any
+ export default vis
+}
 interface ImportMetaEnv extends Readonly<Record<string, string>> {
   readonly VITE_APP_API_IP: string,
   readonly VITE_APP_API_USER: string

@@ -1,7 +1,7 @@
 export const apiPathConfigs = {
   // 基础数据服务
   // 开发指南菜单
-  developGuideMenu: {
+  developGuide: {
     url: '/basedata/developGuide',
     method: 'get'
   },

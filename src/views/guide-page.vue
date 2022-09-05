@@ -2,6 +2,7 @@
   <Header />
   <div class="content">
     <Menu
+      v-if="guidemenu.data.length>0"
       :guidemenu="guidemenu.data"
       @menu-id="menuid"
     />
@@ -31,15 +32,30 @@ const utilitiesAPI:Object = reactive({ data: {} })
 const APIname = ref('apiDocument')
 const apiID = ref('')
 requestApi(
-  'developGuideMenu',
+  'developGuide',
   null,
   (res:any) => {
     if (res.message === 'OK' && res.data) {
-      guidemenu.data = res.data
+      guidemenu.data = dealreturnList(res.data)
       apiID.value = guidemenu.data[0].children[0].id
       queryAPi()
     }
   }, null)
+function dealreturnList (data) {
+  // const datalist = JSON.parse(JSON.stringify(data))
+  const datalist = data
+  getchildren(datalist)
+  function getchildren (arry) {
+    arry.forEach((item) => {
+      if (item.children === null) {
+        delete item.children
+      } else {
+        getchildren(item.children)
+      }
+    })
+  }
+  return datalist
+}
 function menuid (obj:Object) {
   switch (obj.parent) {
     case 'apiDocument':
@@ -60,6 +76,7 @@ function queryAPi () {
       if (res.message === 'OK' && res.data) {
         if (APIname.value === 'apiDocument') {
           guideAPIdata.data = res.data
+          guideAPIdata.data.returnList = dealreturnList(res.data.returnList)
         } else if (APIname.value === 'utilities') {
           utilitiesAPI.data = res.data
         }
