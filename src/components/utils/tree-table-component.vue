@@ -1,7 +1,7 @@
 <template>
   <el-table
     :data="props.datatable"
-    style="width: 100%; margin-bottom: 20px"
+    style="width: 100%;"
     row-key="name"
     border
     default-expand-all

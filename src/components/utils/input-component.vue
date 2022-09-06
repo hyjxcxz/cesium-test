@@ -2,6 +2,7 @@
   <el-input
     v-model="exampleStrings"
     type="textarea"
+    autosize
     placeholder="请输入参数"
     @input="changeContent"
   />

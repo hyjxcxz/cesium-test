@@ -14,5 +14,10 @@ export const apiPathConfigs = {
   queryDataByPolygon: {
     url: 'basedata/queryDataByPolygon',
     method: 'post'
+  },
+  // 点查询
+  queryDataByPoint: {
+    url: '/basedata/queryDataByPoint?lon={0}&lat={1}&code={2}',
+    method: 'get'
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <el-table
     :data="props.datatable"
-    style="width: 100%; margin-right: 10px;"
+    style="width: 100%;"
     border
   >
     <template
@@ -22,6 +22,7 @@
           <el-input
             v-model="scope.row.value"
             :placeholder="'请输入'+scope.row.name"
+            @input="changeParam(scope)"
           />
         </template>
       </el-table-column>
@@ -39,4 +40,8 @@ const props = defineProps({
   datatable: { type: Array, default () { return [] } },
   dataHearder: { type: Array, default () { return [] } }
 })
+const emits = defineEmits(['paraminput'])
+function changeParam (scope) {
+  emits('paraminput', props.datatable)
+}
 </script>

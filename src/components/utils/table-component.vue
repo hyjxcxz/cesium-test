@@ -1,7 +1,7 @@
 <template>
   <el-table
     :data="props.datatable"
-    style="width: 100%; margin-right: 10px;"
+    style="width: 100%;"
     border
   >
     <template
