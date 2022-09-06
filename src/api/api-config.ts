@@ -9,5 +9,10 @@ export const apiPathConfigs = {
   apiDocument: {
     url: '/basedata/apiDocument?id={0}',
     method: 'get'
+  },
+  // 面查询
+  queryDataByPolygon: {
+    url: 'basedata/queryDataByPolygon',
+    method: 'post'
   }
 }

@@ -44,16 +44,25 @@
       :datatable="props.dataobj.paramList"
       :data-hearder="tableObj"
     />
+    <h3><ul><li>返回结果参数说明</li></ul></h3>
+    <Treetable
+      :datatable="props.dataobj.returnList"
+      :data-hearder="childtableObj"
+    />
     <h3><ul><li>服务示例</li></ul></h3>
     <div class>
       {{ apiURL }}
     </div>
     <template v-if="props.dataobj.mode.indexOf('Post')!==-1">
-      <el-input
-        v-model="exampleString"
-        autosize
+      <!-- <el-input
+        v-model="exampleStrings"
         type="textarea"
-        placeholder="Please input"
+        placeholder="请输入参数"
+      /> -->
+      <Input
+        v-if="exampleStrings"
+        :example-string="exampleStrings"
+        @param="changeParam"
       />
     </template>
     <template v-else>
@@ -70,22 +79,18 @@
       运行
     </el-button>
     <json-viewer
-      v-if="resultData"
-      :value="resultData"
-    />
-    <h3><ul><li>返回结果参数说明</li></ul></h3>
-    <Treetable
-      :datatable="props.dataobj.returnList"
-      :data-hearder="childtableObj"
+      v-if="Object.keys(resultData.data).length!==0"
+      :value="resultData.data"
     />
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onUpdated } from 'vue'
 import Table from '@/components/utils/table-component.vue'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import Editetable from '@/components/utils/edite-table-component.vue'
 import { requestApi } from '@/utils/request-util'
+import Input from '@/components/utils/input-component.vue'
 const tableObj = reactive([
   { label: '参数名', prop: 'name' },
   { label: '类型', prop: 'type' },
@@ -105,12 +110,11 @@ const childtableObj = reactive([
   { label: '含义', prop: 'mean' },
   { label: '规则说明', prop: 'rule' }
 ])
-// const exampleStrings = ref('')
 const apiURL = ref('')
 const loading = ref(false)
 let apiMAne:any = reactive([])
 const apiName:string = ref('')
-let resultData:any = reactive()
+const resultData:any = reactive({ data: {} })
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -118,6 +122,12 @@ const props = defineProps({
       return {}
     }
   }
+})
+const exampleStrings:string = ref('')
+const exampleParam:string = ref('')
+onUpdated(() => {
+  exampleStrings.value = JSON.parse(JSON.stringify(props.dataobj.exampleJson))
+  exampleParam.value = exampleStrings.value
 })
 getURL()
 function getURL () {
@@ -132,9 +142,12 @@ function getURL () {
     apiURL.value += 'key=<用户的key>'
   }
 }
+function changeParam (e) {
+  exampleParam.value = e
+}
 function clickRun () {
   apiMAne = props.dataobj.address.split('/')
-  apiName.value = apiMAne[apiMAne.lenght - 1]
+  apiName.value = apiMAne[apiMAne.length - 1]
   loading.value = true
   if (props.dataobj.mode.indexOf('Post') !== -1) {
     postQuery()
@@ -144,22 +157,23 @@ function clickRun () {
 }
 function getQuery () {
   requestApi(
-    apiName,
+    apiName.value,
     null,
     (res:any) => {
+      loading.value = false
       if (res.message === 'OK' && res.data) {
-        resultData = res.data
+        resultData.data = res
         loading.value = false
       }
     }, null)
 }
 function postQuery () {
   requestApi(
-    apiName,
-    null,
+    apiName.value,
+    JSON.parse(exampleParam.value),
     (res:any) => {
       if (res.message === 'OK' && res.data) {
-        resultData = res.data
+        resultData.data = res
         loading.value = false
       }
     }, null)
