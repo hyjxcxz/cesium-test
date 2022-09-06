@@ -18,7 +18,7 @@
         </span>
       </div>
       <div class="home-header-menue">
-        <router-link to="/">
+        <!-- <router-link to="/">
           <span
             class="fa iconfont icon-shouyefill"
           />
@@ -29,7 +29,7 @@
             class="fa iconfont icon-map"
           />
           概述
-        </router-link>
+        </router-link> -->
         <router-link to="/guide">
           <span
             class="fa iconfont icon-zhinan2x"
