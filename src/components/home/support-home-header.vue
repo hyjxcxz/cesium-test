@@ -9,7 +9,7 @@
         >
         <!-- <div class="division" /> -->
         <span class="project-title">
-          {{ store.state.app.headerTitle }}
+          决策支持服务
           <i
             class="iconfont icon-home-s go-back"
             v-if="goBack"
@@ -18,31 +18,18 @@
         </span>
       </div>
       <div class="home-header-menue">
-        <!-- <router-link to="/">
-          <span
-            class="fa iconfont icon-shouyefill"
-          />
-          首页
-        </router-link>
-        <router-link to="/summary">
-          <span
-            class="fa iconfont icon-map"
-          />
-          概述
-        </router-link> -->
-        <router-link to="/basedata-guide">
+        <router-link to="/support-guide">
           <span
             class="fa iconfont icon-zhinan2x"
           />
           开发指南
         </router-link>
-        <router-link to="/basedata-about">
+        <router-link to="/support-about">
           <span
             class="fa iconfont icon-ziyuan"
           />
           关于
         </router-link>
-      <!-- <userinfor></userinfor> -->
       </div>
     </div>
     <div class="home-header-right" />
@@ -52,9 +39,9 @@
 <script lang="ts" setup>
 // import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from '@/store/index'
+// import { useStore } from '@/store/index'
 // import userComponentVue from '@/layout/userComponent.vue'
-const store = useStore()
+// const store = useStore()
 const route = useRouter()
 
 function changPage () {
