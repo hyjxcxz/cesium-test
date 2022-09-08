@@ -12,6 +12,7 @@ declare module 'vue3-json-viewer' {
 }
 interface ImportMetaEnv extends Readonly<Record<string, string>> {
   readonly VITE_APP_API_IP: string,
+  readonly VITE_APP_apiKey: string,
   readonly VITE_APP_API_USER: string
   // 更多环境变量...
 }

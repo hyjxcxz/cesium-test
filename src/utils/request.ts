@@ -16,7 +16,8 @@ service.interceptors.request.use(
     // const token = util.cookies.get('token')
     //
     // const token = getToken()
-    // config.headers.Authorization = 'Bearer ' + token
+    config.headers = config.headers || {}
+    config.headers.apiKey = import.meta.env.VITE_APP_apiKey
     return config
   },
   error => {

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="dataobj"
-    class="API-content"
+    class="guide-content API-content"
   >
     <h1>
       {{ props.dataobj.name }}
@@ -44,6 +44,9 @@
         <li>
           <span>请求方式</span><span>{{ props.dataobj.mode }}</span>
         </li>
+        <li>
+          <span>请求头</span><span>{{ hearders }}</span>
+        </li>
       </ul>
     </div>
     <h3>
@@ -70,7 +73,9 @@
       </ul>
     </h3>
     <div class="API-apiurl">
-      {{ apiURL }}
+      <span>{{ apiURL }}</span>
+      <br>
+      <span>{{ hearders }}</span>
     </div>
     <template
       v-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post') !== -1"
@@ -131,6 +136,7 @@ const childtableObj = reactive([
   { title: '规则说明', id: 'rule' }
 ])
 const apiURL = ref('')
+const hearders = ref('headers.apiKey=<用户的key>')
 const loading = ref(false)
 let apiMAne: any = reactive([])
 const apiName: string = ref('')
@@ -161,11 +167,13 @@ function getURL () {
     props.dataobj.exampleList.forEach((item, index) => {
       exampleParamget.push(item.value)
       if (index === 0) {
-        apiURL.value += '?'
+        apiURL.value += '?' + item.name + '=' + item.value + '&'
+      } else if (index === props.dataobj.exampleList.length - 1) {
+        apiURL.value += item.name + '=' + item.value
+      } else {
+        apiURL.value += item.name + '=' + item.value + '&'
       }
-      apiURL.value += item.name + '=' + item.value + '&'
     })
-    apiURL.value += 'key=<用户的key>'
   }
 }
 function changeParam (e) {
@@ -284,6 +292,11 @@ function postQuery () {
     margin: 10px 0;
     padding: 5px 10px;
     color: #767676;
+    span{
+      padding: 5px 10px;
+      color: #767676;
+      font-size: 14px;
+    }
   }
   .API-run {
     margin: 10px auto 20px 10px;
