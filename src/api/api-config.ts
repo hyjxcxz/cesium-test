@@ -17,7 +17,7 @@ export const apiPathConfigs = {
   },
   // 点查询
   queryDataByPoint: {
-    url: '/basedata/queryDataByPoint?lon={0}&lat={1}&code={2}',
+    url: '/basedata/queryDataByPoint?code={0}&lon={1}&lat={2}',
     method: 'get'
   },
   // 实用工具查询

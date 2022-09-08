@@ -1,13 +1,13 @@
 <template>
   <el-table
-    :data="props.datatable"
+    :data="datatable"
     style="width: 100%;"
     row-key="name"
     border
     default-expand-all
   >
     <template
-      v-for="(item, index) in props.dataHearder"
+      v-for="(item, index) in dataHearder"
       :key="index+'d'"
     >
       <el-table-column
@@ -24,14 +24,13 @@
     </template>
   </el-table>
 </template>
-<script lang="ts" setup>
-const props = defineProps({
-  datatable: { type: Array, default () { return [] } },
-  dataHearder: { type: Array, default () { return [] } }
-})
+<script lang="ts">
+export default {
+  props: {
+    datatable: { type: Array, default () { return [] } },
+    dataHearder: { type: Array, default () { return [] } }
+  }
+}
 </script>
 <style>
-.el-table__expand-icon{
-/* display:none !important; */
-}
 </style>
