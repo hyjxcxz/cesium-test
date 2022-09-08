@@ -4,7 +4,7 @@
       <div class="home-header-log">
         <img
           class="logo"
-          src="../../../public/favicon.ico"
+          src="/favicon.ico"
           alt=""
         >
         <!-- <div class="division" /> -->

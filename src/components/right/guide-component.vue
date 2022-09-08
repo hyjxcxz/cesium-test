@@ -88,6 +88,7 @@
     </template>
     <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1">
       <Editetable
+        v-if="props.dataobj.exampleList.length>0"
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
