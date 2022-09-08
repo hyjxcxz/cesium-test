@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="menu in props.menuData">
+    <template v-for="menu in menuData">
       <el-menu-item
         class="menu-item"
         v-if="!menu.children"
@@ -12,7 +12,7 @@
       </el-menu-item>
       <el-sub-menu
         class="submenu"
-        :key="menu.id"
+        :key="menu.id+'q'"
         :index="menu.id"
         v-if="menu.children"
       >
@@ -25,10 +25,12 @@
     </template>
   </div>
 </template>
-<script setup lang="ts">
-const props = defineProps({
-  menuData: { type: Array, default () { return [] } }
-})
+<script lang="ts">
+export default {
+  props: {
+    menuData: { type: Array, default () { return [] } }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .submenu,

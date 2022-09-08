@@ -26,9 +26,9 @@ import Header from '@/components/home/support-home-header.vue'
 import Menu from '@/components/menu/menu-component.vue'
 import GuideAPI from '@/components/right/guide-component.vue'
 import { requestApi } from '@/utils/request-util'
-const guidemenu = reactive({ data: [] })
-const guideAPIdata:Object = reactive({ data: {} })
-const utilitiesAPI:Object = reactive({ data: {} })
+const guidemenu = reactive({ data: [{ children: [{ id: '' }] }] })
+const guideAPIdata = reactive({ data: { returnList: [], name: '' } })
+const utilitiesAPI = reactive({ data: {} })
 const APIname = ref('apiDocument')
 const apiID = ref('')
 requestApi(
@@ -41,12 +41,12 @@ requestApi(
       queryAPi()
     }
   }, null)
-function dealreturnList (data) {
+function dealreturnList <Y> (data:Y) :Y {
   // const datalist = JSON.parse(JSON.stringify(data))
   const datalist = data
   getchildren(datalist)
-  function getchildren (arry) {
-    arry.forEach((item) => {
+  function getchildren (arry:any) {
+    arry.forEach((item:any) => {
       if (item.children === null) {
         delete item.children
       } else {
@@ -56,7 +56,7 @@ function dealreturnList (data) {
   }
   return datalist
 }
-function menuid (obj:Object) {
+function menuid (obj:any) {
   switch (obj.parent) {
     case 'apiDocument':
       APIname.value = 'apiDocument'

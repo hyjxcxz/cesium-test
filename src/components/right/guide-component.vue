@@ -86,7 +86,7 @@
         @param="changeParam"
       />
     </template>
-    <template v-else>
+    <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1">
       <Editetable
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
@@ -139,7 +139,7 @@ const apiURL = ref('')
 const hearders = ref('headers.apiKey=<用户的key>')
 const loading = ref(false)
 let apiMAne: any = reactive([])
-const apiName: string = ref('')
+const apiName = ref('')
 const resultData: any = reactive({
   data: { discription: '此处显示运行结果信息' }
 })
@@ -151,9 +151,9 @@ const props = defineProps({
     }
   }
 })
-const exampleStrings: string = ref('')
-const exampleParam: string = ref('')
-let exampleParamget: Array = reactive([])
+const exampleStrings = ref('')
+const exampleParam = ref('')
+let exampleParamget = reactive([] as any)
 onUpdated(() => {
   exampleStrings.value = JSON.parse(JSON.stringify(props.dataobj.exampleJson))
   exampleParam.value = exampleStrings.value
@@ -164,7 +164,7 @@ function getURL () {
   exampleParamget = []
   apiURL.value = props.dataobj.address
   if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
-    props.dataobj.exampleList.forEach((item, index) => {
+    props.dataobj.exampleList.forEach((item:any, index:number) => {
       exampleParamget.push(item.value)
       if (index === 0) {
         apiURL.value += '?' + item.name + '=' + item.value + '&'
@@ -176,12 +176,12 @@ function getURL () {
     })
   }
 }
-function changeParam (e) {
+function changeParam (e:string) {
   exampleParam.value = e
 }
-function paraminput (e) {
+function paraminput (e:any) {
   exampleParamget = []
-  e.forEach((item, index) => {
+  e.forEach((item:any) => {
     exampleParamget.push(item.value)
   })
 }
