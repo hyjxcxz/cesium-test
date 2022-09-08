@@ -112,23 +112,23 @@ import Editetable from '@/components/utils/edite-table-component.vue'
 import { requestApi } from '@/utils/request-util'
 import Input from '@/components/utils/input-component.vue'
 const tableObj = reactive([
-  { label: '参数名', prop: 'name' },
-  { label: '类型', prop: 'type' },
-  { label: '含义', prop: 'mean' },
-  { label: '规则说明', prop: 'rule' },
-  { label: '是否必填', prop: 'required' },
-  { label: '缺省值', prop: 'defaultValue' }
+  { title: '参数名', id: 'name' },
+  { title: '类型', id: 'type' },
+  { title: '含义', id: 'mean' },
+  { title: '规则说明', id: 'rule' },
+  { title: '是否必填', id: 'required' },
+  { title: '缺省值', id: 'defaultValue' }
 ])
 const exmpletableObj = reactive([
-  { label: '参数名', prop: 'name' },
-  { label: '类型', prop: 'type' },
-  { label: '值', prop: 'value' },
-  { label: '备注', prop: 'note' }
+  { title: '参数名', id: 'name' },
+  { title: '类型', id: 'type' },
+  { title: '值', id: 'value' },
+  { title: '备注', id: 'note' }
 ])
 const childtableObj = reactive([
-  { label: '名称', prop: 'name' },
-  { label: '含义', prop: 'mean' },
-  { label: '规则说明', prop: 'rule' }
+  { title: '名称', id: 'name' },
+  { title: '含义', id: 'mean' },
+  { title: '规则说明', id: 'rule' }
 ])
 const apiURL = ref('')
 const loading = ref(false)
@@ -214,7 +214,6 @@ function postQuery () {
 .API-content {
   width: calc(100% - 221px);
   float: left;
-  height: 100%;
   overflow: auto;
   margin-left: 10px;
   margin-right: 10px;

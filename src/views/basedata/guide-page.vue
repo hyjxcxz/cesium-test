@@ -13,9 +13,15 @@
       />
     </template>
     <template v-else-if="APIname==='utilities'">
-      <Guide-API
-        v-if="utilitiesAPI.data"
-        :dataobj="utilitiesAPI"
+      <GuideUtils
+        v-if="utilitiesAPI.data.titleList"
+        :dataobj="utilitiesAPI.data"
+        :utilities-nmae="utilitiesNmae"
+      />
+      <GuideUtilsDown
+        v-else-if="utilitiesAPI.data.length>0"
+        :dataobj="utilitiesAPI.data"
+        :utilities-nmae="utilitiesNmae"
       />
     </template>
   </div>
@@ -25,12 +31,16 @@ import { reactive, ref } from 'vue'
 import Header from '@/components/home/home-header.vue'
 import Menu from '@/components/menu/menu-component.vue'
 import GuideAPI from '@/components/right/guide-component.vue'
+import GuideUtils from '@/components/right/guide-utils-component.vue'
+import GuideUtilsDown from '@/components/right/guide-utils-down-component.vue'
 import { requestApi } from '@/utils/request-util'
 const guidemenu = reactive({ data: [] })
 const guideAPIdata:Object = reactive({ data: {} })
 const utilitiesAPI:Object = reactive({ data: {} })
+// const utilitiesDownload:Object = reactive({ data: {} })
 const APIname = ref('apiDocument')
 const apiID = ref('')
+const utilitiesNmae = ref('')
 requestApi(
   'developGuide',
   null,
@@ -66,7 +76,22 @@ function menuid (obj:Object) {
       break
   }
   apiID.value = obj.id
+  getMenuName()
   queryAPi()
+}
+function getMenuName () {
+  getMenue(guidemenu.data)
+  function getMenue (arry) {
+    arry.forEach((item) => {
+      if (item.id === apiID.value) {
+        utilitiesNmae.value = item.title
+      } else {
+        if (item.children) {
+          getMenue(item.children)
+        }
+      }
+    })
+  }
 }
 function queryAPi () {
   requestApi(

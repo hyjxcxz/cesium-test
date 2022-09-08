@@ -9,14 +9,14 @@
       :key="index+'d'"
     >
       <el-table-column
-        v-if="item.label==='备注'"
-        :prop="item.prop"
-        :label="item.label"
+        v-if="item.title==='备注'"
+        :prop="item.id"
+        :label="item.title"
       />
       <el-table-column
-        v-else-if="item.label==='值'"
-        :prop="item.prop"
-        :label="item.label"
+        v-else-if="item.title==='值'"
+        :prop="item.id"
+        :label="item.title"
       >
         <template #default="scope">
           <el-input
@@ -28,8 +28,8 @@
       </el-table-column>
       <el-table-column
         v-else
-        :prop="item.prop"
-        :label="item.label"
+        :prop="item.id"
+        :label="item.title"
         width="100px"
       />
     </template>

@@ -2,3 +2,7 @@
 .el-menu .el-sub-menu .el-sub-menu__title{
     background-color: #000000 !important;
 }
+.guide-content{
+    margin-bottom: 10px;
+    height: calc(100% - 10px);
+}

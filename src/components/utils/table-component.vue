@@ -9,15 +9,20 @@
       :key="index+'d'"
     >
       <el-table-column
-        v-if="item.label==='含义'||item.label==='规则说明'"
-        :prop="item.prop"
-        :label="item.label"
+        v-if="item.title==='含义'||item.title==='规则说明'"
+        :prop="item.id"
+        :label="item.title"
+      />
+      <el-table-column
+        v-else-if="item.title==='code'||item.title==='参数名'||item.title==='类型'||item.title==='是否必填'||item.title==='缺省值'"
+        :prop="item.id"
+        :label="item.title"
+        width="100px"
       />
       <el-table-column
         v-else
-        :prop="item.prop"
-        :label="item.label"
-        width="100px"
+        :prop="item.id"
+        :label="item.title"
       />
     </template>
   </el-table>

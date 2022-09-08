@@ -19,5 +19,10 @@ export const apiPathConfigs = {
   queryDataByPoint: {
     url: '/basedata/queryDataByPoint?lon={0}&lat={1}&code={2}',
     method: 'get'
+  },
+  // 实用工具查询
+  utilities: {
+    url: '/basedata/utilities?id={0}',
+    method: 'get'
   }
 }

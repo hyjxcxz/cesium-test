@@ -11,15 +11,15 @@
       :key="index+'d'"
     >
       <el-table-column
-        v-if="item.label==='名称'"
-        :prop="item.prop"
-        :label="item.label"
+        v-if="item.title==='名称'"
+        :prop="item.id"
+        :label="item.title"
         width="200px"
       />
       <el-table-column
         v-else
-        :prop="item.prop"
-        :label="item.label"
+        :prop="item.id"
+        :label="item.title"
       />
     </template>
   </el-table>
