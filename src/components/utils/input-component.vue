@@ -13,7 +13,8 @@ const props = defineProps({
   exampleString: { type: String, default: '' }
 })
 const emits = defineEmits(['param'])
-const exampleStrings:string = ref(props.exampleString)
+const exampleStrings:any = ref()
+exampleStrings.value = JSON.parse(JSON.stringify(props.exampleString))
 function changeContent () {
   emits('param', exampleStrings.value)
 }

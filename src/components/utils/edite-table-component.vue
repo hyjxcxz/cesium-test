@@ -1,11 +1,11 @@
 <template>
   <el-table
-    :data="props.datatable"
+    :data="datatable"
     style="width: 100%;"
     border
   >
     <template
-      v-for="(item, index) in props.dataHearder"
+      v-for="(item, index) in dataHearder"
       :key="index+'d'"
     >
       <el-table-column
@@ -22,7 +22,7 @@
           <el-input
             v-model="scope.row.value"
             :placeholder="'请输入'+scope.row.name"
-            @input="changeParam(scope)"
+            @input="changeParam()"
           />
         </template>
       </el-table-column>
@@ -35,13 +35,24 @@
     </template>
   </el-table>
 </template>
-<script lang="ts" setup>
-const props = defineProps({
-  datatable: { type: Array, default () { return [] } },
-  dataHearder: { type: Array, default () { return [] } }
-})
-const emits = defineEmits(['paraminput'])
-function changeParam (scope) {
-  emits('paraminput', props.datatable)
+<script lang="ts" >
+export default {
+  props: {
+    datatable: { type: Array, default () { return [] } },
+    dataHearder: { type: Array, default () { return [] } }
+  },
+  emits: ['paraminput'],
+  setup (props: any, { emit }: any) {
+    console.log(props.datatable)
+    console.log(props.dataHearder)
+    function changeParam () {
+      emit('paraminput', props.datatable)
+    }
+    return {
+      changeParam
+    }
+  }
+
 }
+
 </script>

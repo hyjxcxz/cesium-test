@@ -4,7 +4,7 @@
       <div class="home-header-log">
         <img
           class="logo"
-          src="favicon.ico"
+          src="../../../public/favicon.ico"
           alt=""
         >
         <!-- <div class="division" /> -->
@@ -12,7 +12,6 @@
           {{ store.state.app.headerTitle }}
           <i
             class="iconfont icon-home-s go-back"
-            v-if="goBack"
             @click="changPage"
           />
         </span>

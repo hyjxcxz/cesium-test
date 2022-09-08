@@ -8,18 +8,18 @@
     />
     <template v-if="APIname==='apiDocument'">
       <Guide-API
-        v-if="guideAPIdata.data.name"
+        v-if="guideAPIdata.data"
         :dataobj="guideAPIdata.data"
       />
     </template>
     <template v-else-if="APIname==='utilities'">
       <GuideUtils
-        v-if="utilitiesAPI.data.titleList"
+        v-if="utilitiesAPI.data.titleList.length>0"
         :dataobj="utilitiesAPI.data"
         :utilities-nmae="utilitiesNmae"
       />
       <GuideUtilsDown
-        v-else-if="utilitiesAPI.data.length>0"
+        v-else
         :dataobj="utilitiesAPI.data"
         :utilities-nmae="utilitiesNmae"
       />
@@ -34,9 +34,9 @@ import GuideAPI from '@/components/right/guide-component.vue'
 import GuideUtils from '@/components/right/guide-utils-component.vue'
 import GuideUtilsDown from '@/components/right/guide-utils-down-component.vue'
 import { requestApi } from '@/utils/request-util'
-const guidemenu = reactive({ data: [] })
-const guideAPIdata:Object = reactive({ data: {} })
-const utilitiesAPI:Object = reactive({ data: {} })
+const guidemenu = reactive({ data: [{ children: [{ id: '' }] }] })
+const guideAPIdata = reactive({ data: { returnList: [] } })
+const utilitiesAPI = reactive({ data: { titleList: [] } })
 // const utilitiesDownload:Object = reactive({ data: {} })
 const APIname = ref('apiDocument')
 const apiID = ref('')
@@ -51,12 +51,11 @@ requestApi(
       queryAPi()
     }
   }, null)
-function dealreturnList (data) {
-  // const datalist = JSON.parse(JSON.stringify(data))
+function dealreturnList <T> (data:T):T {
   const datalist = data
   getchildren(datalist)
-  function getchildren (arry) {
-    arry.forEach((item) => {
+  function getchildren (arry:any) {
+    arry.forEach((item:any) => {
       if (item.children === null) {
         delete item.children
       } else {
@@ -66,7 +65,7 @@ function dealreturnList (data) {
   }
   return datalist
 }
-function menuid (obj:Object) {
+function menuid (obj:any) {
   switch (obj.parent) {
     case 'apiDocument':
       APIname.value = 'apiDocument'
@@ -81,8 +80,8 @@ function menuid (obj:Object) {
 }
 function getMenuName () {
   getMenue(guidemenu.data)
-  function getMenue (arry) {
-    arry.forEach((item) => {
+  function getMenue (arry:any) {
+    arry.forEach((item: any) => {
       if (item.id === apiID.value) {
         utilitiesNmae.value = item.title
       } else {
