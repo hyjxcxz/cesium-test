@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-const history = createWebHashHistory()
+const history = createWebHashHistory(process.env.BASE_URL)
 const routes: Array<RouteRecordRaw> = [
 //   {
 //     path: "/",
