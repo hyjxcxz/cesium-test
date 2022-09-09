@@ -32,6 +32,7 @@ const utilitiesAPI = reactive({ data: {} })
 const APIname = ref('apiDocument')
 const apiID = ref('')
 requestApi(
+  '',
   'developGuide',
   null,
   (res:any) => {
@@ -70,6 +71,7 @@ function menuid (obj:any) {
 }
 function queryAPi () {
   requestApi(
+    '',
     APIname.value,
     null,
     (res:any) => {

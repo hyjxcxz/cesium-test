@@ -208,18 +208,21 @@ function clickRun () {
   }
 }
 function getQuery () {
+  getURL()
   requestApi(
+    apiURL.value,
     apiName.value,
     null,
     (res: any) => {
       loading.value = false
       resultData.data = res
     },
-    exampleParamget
+    null
   )
 }
 function postQuery () {
   requestApi(
+    apiURL.value,
     apiName.value,
     JSON.parse(exampleParam.value),
     (res: any) => {
