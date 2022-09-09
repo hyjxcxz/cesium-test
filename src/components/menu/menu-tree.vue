@@ -12,7 +12,7 @@
       </el-menu-item>
       <el-sub-menu
         class="submenu"
-        :key="menu.id+'q'"
+        :key="menu.id"
         :index="menu.id"
         v-if="menu.children"
       >

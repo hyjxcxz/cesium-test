@@ -2,7 +2,7 @@
   <Header />
   <div class="content">
     <Menu
-      v-if="guidemenu.data.length>0"
+      v-if="guidemenu.data[0].children[0].id"
       :guidemenu="guidemenu.data"
       @menu-id="menuid"
     />
@@ -13,16 +13,21 @@
       />
     </template>
     <template v-else-if="APIname==='utilities'">
-      <GuideUtils
-        v-if="utilitiesAPI.data.titleList.length>0"
-        :dataobj="utilitiesAPI.data"
-        :utilities-nmae="utilitiesNmae"
-      />
-      <GuideUtilsDown
-        v-else
-        :dataobj="utilitiesAPI.data"
-        :utilities-nmae="utilitiesNmae"
-      />
+      <template v-if="utilitiesAPI.data">
+        <GuideUtils
+          v-if="(utilitiesAPI.data.titleList&&utilitiesAPI.data.titleList.length>0)"
+          :dataobj="utilitiesAPI.data"
+          :utilities-nmae="utilitiesNmae"
+        />
+        <GuideUtilsDown
+          v-else
+          :dataobj="utilitiesAPI.data"
+          :utilities-nmae="utilitiesNmae"
+        />
+      </template>
+      <template v-else>
+        <nodataComponentVue :data="nodata" />
+      </template>
     </template>
   </div>
 </template>
@@ -34,10 +39,12 @@ import GuideAPI from '@/components/right/guide-component.vue'
 import GuideUtils from '@/components/right/guide-utils-component.vue'
 import GuideUtilsDown from '@/components/right/guide-utils-down-component.vue'
 import { requestApi } from '@/utils/request-util'
+import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
 const guidemenu = reactive({ data: [{ children: [{ id: '' }] }] })
 const guideAPIdata = reactive({ data: { returnList: [] } })
 const utilitiesAPI = reactive({ data: { titleList: [] } })
-// const utilitiesDownload:Object = reactive({ data: {} })
+// const utilitiesDownload = reactive({ data: {} })
+const nodata = ref('暂无数据')
 const APIname = ref('apiDocument')
 const apiID = ref('')
 const utilitiesNmae = ref('')
@@ -101,6 +108,12 @@ function queryAPi () {
         if (APIname.value === 'apiDocument') {
           guideAPIdata.data = res.data
           guideAPIdata.data.returnList = dealreturnList(res.data.returnList)
+        } else if (APIname.value === 'utilities') {
+          utilitiesAPI.data = res.data
+        }
+      } else {
+        if (APIname.value === 'apiDocument') {
+          guideAPIdata.data = res.data
         } else if (APIname.value === 'utilities') {
           utilitiesAPI.data = res.data
         }
