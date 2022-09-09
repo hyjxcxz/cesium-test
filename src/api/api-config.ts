@@ -10,16 +10,6 @@ export const apiPathConfigs = {
     url: '/basedata/apiDocument?id={0}',
     method: 'get'
   },
-  // 面查询
-  queryDataByPolygon: {
-    url: 'basedata/queryDataByPolygon',
-    method: 'post'
-  },
-  // 点查询
-  queryDataByPoint: {
-    url: '/basedata/queryDataByPoint?code={0}&lon={1}&lat={2}',
-    method: 'get'
-  },
   // 实用工具查询
   utilities: {
     url: '/basedata/utilities?id={0}',

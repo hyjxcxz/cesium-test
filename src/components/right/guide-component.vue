@@ -5,7 +5,7 @@
   >
     <h1>
       {{ props.dataobj.name }}
-      <span>更新时间：2022年09月06日</span>
+      <span>更新时间：2022年09月07日</span>
     </h1>
     <h2>产品说明</h2>
     <div
@@ -88,6 +88,7 @@
     </template>
     <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1">
       <Editetable
+        v-if="props.dataobj.exampleList.length>0"
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
@@ -108,14 +109,19 @@
       />
     </div>
   </div>
+  <div v-else>
+    <nodataComponentVue :data="nodata" />
+  </div>
 </template>
 <script lang="ts" setup>
-import { ref, reactive, onUpdated } from 'vue'
+import { ref, reactive, watchEffect } from 'vue'
 import Table from '@/components/utils/table-component.vue'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import Editetable from '@/components/utils/edite-table-component.vue'
 import { requestApi } from '@/utils/request-util'
 import Input from '@/components/utils/input-component.vue'
+import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
+const nodata = ref('暂无数据')
 const tableObj = reactive([
   { title: '参数名', id: 'name' },
   { title: '类型', id: 'type' },
@@ -143,6 +149,11 @@ const apiName = ref('')
 const resultData: any = reactive({
   data: { discription: '此处显示运行结果信息' }
 })
+// onRenderTracked(() => {
+//   resultData = reactive({
+//     data: { discription: '此处显示运行结果信息' }
+//   })
+// })
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -154,10 +165,13 @@ const props = defineProps({
 const exampleStrings = ref('')
 const exampleParam = ref('')
 let exampleParamget = reactive([] as any)
-onUpdated(() => {
-  exampleStrings.value = JSON.parse(JSON.stringify(props.dataobj.exampleJson))
-  exampleParam.value = exampleStrings.value
-  getURL()
+watchEffect(() => {
+  if (props.dataobj) {
+    exampleStrings.value = props.dataobj.exampleJson
+    exampleParam.value = exampleStrings.value
+    resultData.data = { discription: '此处显示运行结果信息' }
+    getURL()
+  }
 })
 getURL()
 function getURL () {
@@ -167,11 +181,9 @@ function getURL () {
     props.dataobj.exampleList.forEach((item:any, index:number) => {
       exampleParamget.push(item.value)
       if (index === 0) {
-        apiURL.value += '?' + item.name + '=' + item.value + '&'
-      } else if (index === props.dataobj.exampleList.length - 1) {
-        apiURL.value += item.name + '=' + item.value
+        apiURL.value += '?' + item.name + '=' + item.value
       } else {
-        apiURL.value += item.name + '=' + item.value + '&'
+        apiURL.value += '&' + item.name + '=' + item.value
       }
     })
   }
@@ -196,18 +208,21 @@ function clickRun () {
   }
 }
 function getQuery () {
+  getURL()
   requestApi(
+    apiURL.value,
     apiName.value,
     null,
     (res: any) => {
       loading.value = false
       resultData.data = res
     },
-    exampleParamget
+    null
   )
 }
 function postQuery () {
   requestApi(
+    apiURL.value,
     apiName.value,
     JSON.parse(exampleParam.value),
     (res: any) => {

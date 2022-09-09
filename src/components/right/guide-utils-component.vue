@@ -5,7 +5,7 @@
   >
     <h1>
       {{ utilitiesNmae }}
-      <span>更新时间：2022年09月06日</span>
+      <span>更新时间：2022年09月08日</span>
     </h1>
     <Table
       :datatable="props.dataobj.contentList"
