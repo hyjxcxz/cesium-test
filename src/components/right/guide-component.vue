@@ -149,6 +149,11 @@ const apiName = ref('')
 const resultData: any = reactive({
   data: { discription: '此处显示运行结果信息' }
 })
+// onRenderTracked(() => {
+//   resultData = reactive({
+//     data: { discription: '此处显示运行结果信息' }
+//   })
+// })
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -164,6 +169,7 @@ watchEffect(() => {
   if (props.dataobj) {
     exampleStrings.value = props.dataobj.exampleJson
     exampleParam.value = exampleStrings.value
+    resultData.data = { discription: '此处显示运行结果信息' }
     getURL()
   }
 })
