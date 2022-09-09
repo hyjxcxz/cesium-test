@@ -1,7 +1,7 @@
-# http://10.35.191.98:82/GIS-Projects/dataBaseEarth.git
+# http://10.35.191.98:82/GW-GIS/GOLDMAP-server.git
 
 # 测试环境地址
-  http://10.12.3.47:30176/
+  
 # 工程准备启动等
 ## 启动
 npm install

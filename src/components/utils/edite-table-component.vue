@@ -43,8 +43,6 @@ export default {
   },
   emits: ['paraminput'],
   setup (props: any, { emit }: any) {
-    console.log(props.datatable)
-    console.log(props.dataHearder)
     function changeParam () {
       emit('paraminput', props.datatable)
     }

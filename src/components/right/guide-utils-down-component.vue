@@ -5,7 +5,7 @@
   >
     <h1>
       {{ utilitiesNmae }}
-      <span>更新时间：2022年09月06日</span>
+      <span>更新时间：2022年09月09日</span>
     </h1>
     <div
       v-for="(item,index) in props.dataobj"

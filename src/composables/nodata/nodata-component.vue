@@ -14,7 +14,8 @@ const props = defineProps({
 </script>
 <style scoped lang="scss">
  .standing-book-content{
-    width: 100%;
+  width: calc(100% - 221px);
+  float: left;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -24,7 +25,7 @@ const props = defineProps({
     text-align: center;
     img{
       max-height: 50%;
-      margin: 4% auto 0;
+      margin: 10% auto 0;
     }
     span{
       color: #BCCCFF;
