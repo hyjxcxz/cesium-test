@@ -19,13 +19,13 @@
       <div class="home-header-menue">
         <router-link to="/support-guide">
           <span
-            class="fa iconfont icon-zhinan2x"
+            class="fa iconfont icon-kaifazhinan"
           />
           开发指南
         </router-link>
         <router-link to="/support-about">
           <span
-            class="fa iconfont icon-ziyuan"
+            class="fa iconfont icon-guanyu"
           />
           关于
         </router-link>
