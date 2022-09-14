@@ -169,6 +169,7 @@ const props = defineProps({
   }
 })
 const exampleStrings = ref('')
+const exportFile = ref(false)
 const exampleParam = ref('')
 let exampleParamget = reactive([] as any)
 let formData = reactive({} as any)
@@ -185,17 +186,21 @@ getURL()
 function getURL () {
   exampleParamget = []
   apiURL.value = props.dataobj.address
-  if (props.dataobj.mode === 'Get') {
-    if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
-      props.dataobj.exampleList.forEach((item:any, index:number) => {
+
+  if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
+    props.dataobj.exampleList.forEach((item:any, index:number) => {
+      if (item.name === 'outputExt') {
+        exportFile.value = true
+      }
+      if (props.dataobj.mode === 'Get') {
         exampleParamget.push(item.value)
         if (index === 0) {
           apiURL.value += '?' + item.name + '=' + item.value
         } else {
           apiURL.value += '&' + item.name + '=' + item.value
         }
-      })
-    }
+      }
+    })
   }
 }
 function changeParam (e:string) {
@@ -278,6 +283,20 @@ function postQueryformData () {
     apiName.value,
     formData,
     (res: any) => {
+      if (exportFile.value && res.data) {
+        const a = document.createElement('a')
+        const urls = res.data.split('/')
+        a.download = urls[urls.length - 1]
+        a.href = 'http://' + res.data
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        // window.open('http://' + res.data)
+        // const link = document.createElement('a')
+        // link.href = 'http://' + res.data
+        // link.download = urls[urls.length - 1]
+        // link.click()
+      }
       resultData.data = res
       loading.value = false
     },
