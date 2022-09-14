@@ -10,7 +10,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://10.11.56.245:51011/', // 测试
-        target: 'http://gis-server-1289574391.cn-northwest-1.elb.amazonaws.com.cn:9527/goldmap/', // 测试
+        // target: 'http://gis-server-1289574391.cn-northwest-1.elb.amazonaws.com.cn:9527/goldmap/', // 测试
+        target: 'http://10.11.57.69:9527/goldmap/', // 测试
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
