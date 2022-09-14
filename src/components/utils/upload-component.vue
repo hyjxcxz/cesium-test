@@ -33,15 +33,15 @@ import type { UploadInstance, UploadRawFile } from 'element-plus'
 // const vm = getCurrentInstance().ctx
 const emits = defineEmits(['uploaded'])
 const upload = ref<UploadInstance>()
-function handleExceed (files, fileList) {
+function handleExceed (files:any) {
   const file = files[0] as UploadRawFile
   updata(file)
 }
-function uploadRequest (option) {
+function uploadRequest (option:any) {
   const file = option.file as UploadRawFile
   updata(file)
 }
-function updata (file) {
+function updata (file:Object) {
   upload.value!.clearFiles()
   file.uid = genFileId()
   upload.value!.handleStart(file)
