@@ -50,6 +50,7 @@ const apiID = ref('')
 const utilitiesNmae = ref('')
 requestApi(
   '',
+  '',
   'analysisdevelopGuide',
   null,
   (res:any) => {
@@ -102,6 +103,7 @@ function getMenuName () {
 }
 function queryAPi () {
   requestApi(
+    '',
     '',
     'analysis' + APIname.value,
     null,
