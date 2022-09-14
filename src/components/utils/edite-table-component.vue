@@ -19,11 +19,16 @@
         :label="item.title"
       >
         <template #default="scope">
-          <el-input
-            v-model="scope.row.value"
-            :placeholder="'请输入'+scope.row.name"
-            @input="changeParam()"
-          />
+          <template v-if="scope.row.name==='file'">
+            <Upload @uploaded="fileUploadSuccess" />
+          </template>
+          <template v-else>
+            <el-input
+              v-model="scope.row.value"
+              :placeholder="'请输入'+scope.row.name"
+              @input="changeParam()"
+            />
+          </template>
         </template>
       </el-table-column>
       <el-table-column
@@ -36,18 +41,26 @@
   </el-table>
 </template>
 <script lang="ts" >
+import Upload from '@/components/utils/upload-component.vue'
+
 export default {
   props: {
     datatable: { type: Array, default () { return [] } },
     dataHearder: { type: Array, default () { return [] } }
   },
-  emits: ['paraminput'],
+  components: { Upload },
+  emits: ['paraminput', 'undateFile'],
   setup (props: any, { emit }: any) {
     function changeParam () {
       emit('paraminput', props.datatable)
     }
+
+    function fileUploadSuccess (file) {
+      emit('undateFile', file)
+    }
     return {
-      changeParam
+      changeParam,
+      fileUploadSuccess
     }
   }
 
