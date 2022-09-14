@@ -12,7 +12,7 @@ import { requestService } from '@/utils/util.request'
  * @param {Array} apiUrlParams 用于填充API的url中须动态设置的值，如[110,'110']
  * @returns {Promise} Promise
  */
-export function requestApi (url:string, apiName: any, data: any, callback: any, apiUrlParams: any) {
+export function requestApi (url:string, method:string, apiName: any, data: any, callback: any, apiUrlParams: any) {
   const obj:any = {
     request,
     apisConfig: apiPathConfigs,
@@ -20,6 +20,7 @@ export function requestApi (url:string, apiName: any, data: any, callback: any, 
     apiUrlParams,
     data,
     url,
+    method,
     callback
   }
   return requestService(obj)

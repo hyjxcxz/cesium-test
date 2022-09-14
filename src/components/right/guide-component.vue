@@ -248,6 +248,7 @@ function getQuery () {
   getURL()
   requestApi(
     apiURL.value,
+    'get',
     apiName.value,
     null,
     (res: any) => {
@@ -260,6 +261,7 @@ function getQuery () {
 function postQuery () {
   requestApi(
     apiURL.value,
+    '',
     apiName.value,
     JSON.parse(exampleParam.value),
     (res: any) => {
@@ -272,6 +274,7 @@ function postQuery () {
 function postQueryformData () {
   requestApi(
     apiURL.value,
+    '',
     apiName.value,
     formData,
     (res: any) => {
