@@ -78,7 +78,7 @@
       <span>{{ hearders }}</span>
     </div>
     <template
-      v-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post') !== -1"
+      v-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post/json') !== -1"
     >
       <Input
         v-if="exampleStrings"
@@ -92,6 +92,15 @@
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
+      />
+    </template>
+    <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post/form-data') !== -1">
+      <Editetable
+        v-if="props.dataobj.exampleList.length>0"
+        :datatable="props.dataobj.exampleList"
+        :data-hearder="exmpletableObj"
+        @paraminput="paraminput"
+        @undateFile="undateFile"
       />
     </template>
     <el-button
@@ -115,12 +124,14 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, watchEffect } from 'vue'
+import { ElMessage } from 'element-plus'
 import Table from '@/components/utils/table-component.vue'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import Editetable from '@/components/utils/edite-table-component.vue'
 import { requestApi } from '@/utils/request-util'
 import Input from '@/components/utils/input-component.vue'
 import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
+
 const nodata = ref('暂无数据')
 const tableObj = reactive([
   { title: '参数名', id: 'name' },
@@ -149,11 +160,6 @@ const apiName = ref('')
 const resultData: any = reactive({
   data: { discription: '此处显示运行结果信息' }
 })
-// onRenderTracked(() => {
-//   resultData = reactive({
-//     data: { discription: '此处显示运行结果信息' }
-//   })
-// })
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -165,8 +171,10 @@ const props = defineProps({
 const exampleStrings = ref('')
 const exampleParam = ref('')
 let exampleParamget = reactive([] as any)
+let formData = reactive({} as any)
 watchEffect(() => {
   if (props.dataobj) {
+    formData = new FormData()
     exampleStrings.value = props.dataobj.exampleJson
     exampleParam.value = exampleStrings.value
     resultData.data = { discription: '此处显示运行结果信息' }
@@ -177,34 +185,63 @@ getURL()
 function getURL () {
   exampleParamget = []
   apiURL.value = props.dataobj.address
-  if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
-    props.dataobj.exampleList.forEach((item:any, index:number) => {
-      exampleParamget.push(item.value)
-      if (index === 0) {
-        apiURL.value += '?' + item.name + '=' + item.value
-      } else {
-        apiURL.value += '&' + item.name + '=' + item.value
-      }
-    })
+  if (props.dataobj.mode === 'Get') {
+    if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
+      props.dataobj.exampleList.forEach((item:any, index:number) => {
+        exampleParamget.push(item.value)
+        if (index === 0) {
+          apiURL.value += '?' + item.name + '=' + item.value
+        } else {
+          apiURL.value += '&' + item.name + '=' + item.value
+        }
+      })
+    }
   }
 }
 function changeParam (e:string) {
   exampleParam.value = e
 }
+
 function paraminput (e:any) {
   exampleParamget = []
-  e.forEach((item:any) => {
-    exampleParamget.push(item.value)
-  })
+  formData = new FormData()
+  if (props.dataobj.mode === 'Post/form-data') {
+    // e.forEach((item:any) => {
+    //   formData.append(item.name, item.value)
+    // })
+  } else {
+    e.forEach((item:any) => {
+      exampleParamget.push(item.value)
+    })
+  }
+}
+
+function undateFile (file:any) {
+  formData = new FormData()
+  formData.append('file', file)
 }
 function clickRun () {
   apiMAne = props.dataobj.address.split('/')
   apiName.value = apiMAne[apiMAne.length - 1]
   loading.value = true
-  if (props.dataobj.mode.indexOf('Post') !== -1) {
+  if (props.dataobj.mode.indexOf('Post/json') !== -1) {
     postQuery()
-  } else {
+  } else if (props.dataobj.mode === 'Get') {
     getQuery()
+  } else {
+    props.dataobj.exampleList.forEach((item:any) => {
+      if (item.name !== 'file') {
+        formData.append(item.name, item.value)
+      }
+    })
+    if (formData.get('file')) {
+      postQueryformData()
+    } else {
+      ElMessage({
+        message: '请上传文件',
+        type: 'warning'
+      })
+    }
   }
 }
 function getQuery () {
@@ -225,6 +262,18 @@ function postQuery () {
     apiURL.value,
     apiName.value,
     JSON.parse(exampleParam.value),
+    (res: any) => {
+      resultData.data = res
+      loading.value = false
+    },
+    null
+  )
+}
+function postQueryformData () {
+  requestApi(
+    apiURL.value,
+    apiName.value,
+    formData,
     (res: any) => {
       resultData.data = res
       loading.value = false
