@@ -100,7 +100,7 @@
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
-        @undateFile="undateFile"
+        @undate-file="undateFile"
       />
     </template>
     <el-button
