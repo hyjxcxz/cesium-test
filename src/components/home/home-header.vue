@@ -31,13 +31,13 @@
         </router-link> -->
         <router-link to="/basedata-guide">
           <span
-            class="fa iconfont icon-zhinan2x"
+            class="fa iconfont icon-kaifazhinan"
           />
           开发指南
         </router-link>
         <router-link to="/basedata-about">
           <span
-            class="fa iconfont icon-ziyuan"
+            class="fa iconfont icon-guanyu"
           />
           关于
         </router-link>
