@@ -11,7 +11,7 @@
  * @param {Function} callback 可选，请求完成回调函数
  * @returns {Promise} Promise
  */
-export function requestService (param: { request: any; apisConfig:any; apiName: any; apiRootUrl: String; apiUrlParams: any; data: Object; url:string, callback: Function }) {
+export function requestService (param: { request: any; apisConfig:any; apiName: any; apiRootUrl: String; apiUrlParams: any; data: Object; url:string, method:string, callback: Function }) {
   // // 判断是否有该api配置信息
   // if (!param.request || !param.apisConfig || !param.apiName || (!Object.prototype.hasOwnProperty.call(param.apisConfig, param.apiName)) || !param.apisConfig[param.apiName]) {
   //   const error = new Error('警告：没有找到“' + param.apiName + '”对应的API配置信息，请确认拼写正确。')
@@ -32,7 +32,7 @@ export function requestService (param: { request: any; apisConfig:any; apiName: 
     apisConfigs[item] = apiConfigObj[item]
   }
   const requestConfig = {
-    method: param.apisConfig.method || 'post',
+    method: apiConfigObj ? apiConfigObj.method : (param.method || 'post'),
     data: param.data,
     ...apiConfig,
     url: getRequestUrl({
