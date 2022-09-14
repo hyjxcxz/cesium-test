@@ -49,14 +49,14 @@ export default {
     dataHearder: { type: Array, default () { return [] } }
   },
   components: { Upload },
-  emits: ['paraminput', 'undateFile'],
+  emits: ['paraminput', 'undate-file'],
   setup (props: any, { emit }: any) {
     function changeParam () {
       emit('paraminput', props.datatable)
     }
 
     function fileUploadSuccess (file) {
-      emit('undateFile', file)
+      emit('undate-file', file)
     }
     return {
       changeParam,
