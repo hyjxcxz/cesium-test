@@ -41,7 +41,7 @@ function uploadRequest (option:any) {
   const file = option.file as UploadRawFile
   updata(file)
 }
-function updata (file:Object) {
+function updata (file:any) {
   upload.value!.clearFiles()
   file.uid = genFileId()
   upload.value!.handleStart(file)
