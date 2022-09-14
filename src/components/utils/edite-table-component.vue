@@ -55,7 +55,7 @@ export default {
       emit('paraminput', props.datatable)
     }
 
-    function fileUploadSuccess (file) {
+    function fileUploadSuccess (file:Object) {
       emit('undate-file', file)
     }
     return {
