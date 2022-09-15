@@ -78,7 +78,9 @@
       <span>{{ hearders }}</span>
     </div>
     <template
-      v-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post/json') !== -1"
+      v-if="
+        props.dataobj.mode && props.dataobj.mode.indexOf('Post/json') !== -1
+      "
     >
       <Input
         v-if="exampleStrings"
@@ -86,17 +88,24 @@
         @param="changeParam"
       />
     </template>
-    <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1">
+    <template
+      v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1"
+    >
       <Editetable
-        v-if="props.dataobj.exampleList.length>0"
+        v-if="props.dataobj.exampleList.length > 0"
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
       />
     </template>
-    <template v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Post/form-data') !== -1">
+    <template
+      v-else-if="
+        props.dataobj.mode &&
+          props.dataobj.mode.indexOf('Post/form-data') !== -1
+      "
+    >
       <Editetable
-        v-if="props.dataobj.exampleList.length>0"
+        v-if="props.dataobj.exampleList.length > 0"
         :datatable="props.dataobj.exampleList"
         :data-hearder="exmpletableObj"
         @paraminput="paraminput"
@@ -169,7 +178,6 @@ const props = defineProps({
   }
 })
 const exampleStrings = ref('')
-const exportFile = ref(false)
 const exampleParam = ref('')
 let exampleParamget = reactive([] as any)
 let formData = reactive({} as any)
@@ -186,28 +194,28 @@ getURL()
 function getURL () {
   exampleParamget = []
   apiURL.value = props.dataobj.address
+  if (props.dataobj.mode === 'Get') {
+    if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
+      props.dataobj.exampleList.forEach((item: any, index: number) => {
+        // if (item.name === 'outputExt') {
+        //   exportFile.value = true
+        // }
 
-  if (props.dataobj.exampleList && props.dataobj.exampleList.length > 0) {
-    props.dataobj.exampleList.forEach((item:any, index:number) => {
-      if (item.name === 'outputExt') {
-        exportFile.value = true
-      }
-      if (props.dataobj.mode === 'Get') {
         exampleParamget.push(item.value)
         if (index === 0) {
           apiURL.value += '?' + item.name + '=' + item.value
         } else {
           apiURL.value += '&' + item.name + '=' + item.value
         }
-      }
-    })
+      })
+    }
   }
 }
-function changeParam (e:string) {
+function changeParam (e: string) {
   exampleParam.value = e
 }
 
-function paraminput (e:any) {
+function paraminput (e: any) {
   exampleParamget = []
   formData = new FormData()
   if (props.dataobj.mode === 'Post/form-data') {
@@ -215,13 +223,13 @@ function paraminput (e:any) {
     //   formData.append(item.name, item.value)
     // })
   } else {
-    e.forEach((item:any) => {
+    e.forEach((item: any) => {
       exampleParamget.push(item.value)
     })
   }
 }
 
-function undateFile (file:any) {
+function undateFile (file: any) {
   formData = new FormData()
   formData.append('file', file)
 }
@@ -234,7 +242,7 @@ function clickRun () {
   } else if (props.dataobj.mode === 'Get') {
     getQuery()
   } else {
-    props.dataobj.exampleList.forEach((item:any) => {
+    props.dataobj.exampleList.forEach((item: any) => {
       if (item.name !== 'file') {
         formData.append(item.name, item.value)
       }
@@ -283,20 +291,20 @@ function postQueryformData () {
     apiName.value,
     formData,
     (res: any) => {
-      if (exportFile.value && res.data) {
-        const a = document.createElement('a')
-        const urls = res.data.split('/')
-        a.download = urls[urls.length - 1]
-        a.href = 'http://' + res.data
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        // window.open('http://' + res.data)
-        // const link = document.createElement('a')
-        // link.href = 'http://' + res.data
-        // link.download = urls[urls.length - 1]
-        // link.click()
-      }
+      // if (exportFile.value && res.data) {
+      //   const a = document.createElement('a')
+      //   const urls = res.data.split('/')
+      //   a.download = urls[urls.length - 1]
+      //   a.href = 'http://' + res.data
+      //   document.body.appendChild(a)
+      //   a.click()
+      //   document.body.removeChild(a)
+      //   // window.open('http://' + res.data)
+      //   // const link = document.createElement('a')
+      //   // link.href = 'http://' + res.data
+      //   // link.download = urls[urls.length - 1]
+      //   // link.click()
+      // }
       resultData.data = res
       loading.value = false
     },
@@ -378,7 +386,7 @@ function postQueryformData () {
     margin: 10px 0;
     padding: 5px 10px;
     color: #767676;
-    span{
+    span {
       padding: 5px 10px;
       color: #767676;
       font-size: 14px;
