@@ -1,7 +1,12 @@
 <template>
   <Header />
   <div class="content">
-    关于
+    <iframe
+      src="src/assets/html/baseserver.html"
+      frameborder="0"
+      style="width: 100%; height: 100%"
+      id="iframeBox"
+    />
   </div>
 </template>
 <script setup lang="ts">
