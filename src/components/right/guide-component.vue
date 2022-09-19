@@ -314,25 +314,30 @@ function postQueryformData () {
 </script>
 <style lang="scss" scoped>
 .API-content {
+  font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
   width: calc(100% - 221px);
   float: left;
   overflow: auto;
   margin-left: 10px;
   margin-right: 10px;
   .API-description {
+    margin: 0.8rem 0;
     span {
-      color: #767676;
+      // color: #767676;
+      color: rgb(51, 51, 51);
       font-size: 14px;
     }
   }
   h1 {
-    font-size: 1.4em;
-    color: #292929;
-    font-weight: 400;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(51, 51, 51);
+    white-space: normal;
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
     span {
-      color: #afb1b0;
+      color: #949695;
       font-size: 12px;
-      font-weight: 400;
+      font-weight: bold;
       display: block;
       margin: 17px 0 0;
     }
@@ -341,13 +346,13 @@ function postQueryformData () {
     border-bottom: 1px solid #ddddde;
     // font-size: 1.2em;
     // color: #000;
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 1em;
+    font-weight: bold;
     color: #3c3d3f;
   }
   h3 {
     font-size: 1em;
-    font-weight: 400;
+    font-weight: bold;
     color: #3c3d3f;
   }
   .API-URL {
@@ -368,7 +373,8 @@ function postQueryformData () {
         height: 37px;
         line-height: 37px;
         padding: 2px 5px;
-        color: #767676;
+        // color: #767676;
+        color: rgb(51, 51, 51);
         font-size: 14px;
       }
       span:first-child {
@@ -385,10 +391,11 @@ function postQueryformData () {
     width: calc(100% - 20px);
     margin: 10px 0;
     padding: 5px 10px;
-    color: #767676;
+    color: rgb(51, 51, 51);;
     span {
       padding: 5px 10px;
-      color: #767676;
+      // color: #767676;
+      color: rgb(51, 51, 51);
       font-size: 14px;
     }
   }
