@@ -116,6 +116,7 @@ export default {
     function getSearchData <T> (param: T, calback:any) : T {
       return requestApi(
         '',
+        '',
         'getbaseInfos',
         null,
         (res: any) => {
