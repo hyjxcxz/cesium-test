@@ -36,13 +36,6 @@ const routes: Array<RouteRecordRaw> = [
       title: '首页'
     }
   }, {
-    path: '/basedata-summary',
-    name: 'basedata-summary',
-    component: () => import('@/views/basedata/summary-page.vue'),
-    meta: {
-      title: '概述'
-    }
-  }, {
     path: '/basedata-guide',
     name: 'basedata-guide',
     component: () => import('@/views/basedata/guide-page.vue'),
