@@ -42,6 +42,8 @@ function uploadRequest (option:any) {
   updata(file)
 }
 function updata (file:any) {
+  // eslint-disable-next-line no-debugger
+  debugger
   upload.value!.clearFiles()
   file.uid = genFileId()
   upload.value!.handleStart(file)
