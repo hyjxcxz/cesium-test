@@ -4,6 +4,7 @@
     <Menu
       v-if="guidemenu.data[0].children[0].id"
       :guidemenu="guidemenu.data"
+      :defaultid="guidemenu.data[0].children[0].id"
       @menu-id="menuid"
     />
     <template v-if="APIname==='apiDocument'">

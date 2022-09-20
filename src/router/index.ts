@@ -6,6 +6,14 @@ const routes: Array<RouteRecordRaw> = [
 //     redirect: { name: 'index' },
 //   },
   {
+    path: '/control',
+    name: 'control',
+    component: () => import('@/views/servercontrol/control-page.vue'),
+    meta: {
+      title: '服务管理'
+    }
+  },
+  {
     path: '/support',
     name: 'home1',
     component: () => import('@/views/support/guide-page.vue'),

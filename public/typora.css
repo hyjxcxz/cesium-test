@@ -223,6 +223,11 @@ body {
     overflow-x: hidden;
     padding: 10px 0 10px 20px;
 }
+.child-content p span{
+    font-size: 14px!important;
+    color: rgb(51, 51, 51)!important;
+    /* font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", sans-serif; */
+}
 .md-toc-content {
     margin-block-start: 0;
     margin-block-end: 0;
@@ -230,6 +235,7 @@ body {
 
 .md-toc-content a {
     color: #fff;
+    font-weight: 700 !important;
 }
 /* 菜单过宽时 */
 .md-toc-api{
