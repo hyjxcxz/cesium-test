@@ -4,9 +4,10 @@
     class="upload-demo"
     action="https://jsonplaceholder.typicode.com/posts/"
     :limit="1"
+    :on-remove="handleRemove"
     :on-exceed="handleExceed"
-    :auto-upload="true"
-    :http-request="uploadRequest"
+    :auto-upload="false"
+    :on-change="handleChange"
   >
     <template #trigger>
       <el-tooltip
@@ -29,28 +30,20 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { genFileId } from 'element-plus'
-import type { UploadInstance, UploadRawFile } from 'element-plus'
+import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 // const vm = getCurrentInstance().ctx
 const emits = defineEmits(['uploaded'])
 const upload = ref<UploadInstance>()
-function handleExceed (files:any) {
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
   const file = files[0] as UploadRawFile
-  updata(file)
-}
-function uploadRequest (option:any) {
-  const file = option.file as UploadRawFile
-  updata(file)
-}
-function updata (file:any) {
-  // eslint-disable-next-line no-debugger
-  debugger
-  if (upload.value) {
-    upload.value.clearFiles()
-  }
   file.uid = genFileId()
-  if (upload.value) {
-    upload.value.handleStart(file)
-  }
-  emits('uploaded', file)
+  upload.value!.handleStart(file)
+}
+const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
+  emits('uploaded', uploadFiles[0])
+}
+const handleChange: UploadProps['onChange'] = (uploadFile, uploadFiles) => {
+  emits('uploaded', uploadFiles[0])
 }
 </script>
