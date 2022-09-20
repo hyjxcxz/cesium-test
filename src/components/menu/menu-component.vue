@@ -2,7 +2,7 @@
   <div class="example-content-menu">
     <el-menu
       class="el-menu-vertical-demo"
-      :default-active="guidemenu[0].children[0].id"
+      :default-active="defaultid"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -17,7 +17,8 @@
 import MenuTree from '@/components/menu/menu-tree.vue'
 export default {
   props: {
-    guidemenu: { type: Array, default () { return [] } }
+    guidemenu: { type: Array, default () { return [] } },
+    defaultid: { type: String, default: '' }
   },
   components: { MenuTree },
   emits: ['menu-id'],

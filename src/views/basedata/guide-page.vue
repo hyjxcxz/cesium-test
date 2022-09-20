@@ -4,6 +4,7 @@
     <Menu
       v-if="guidemenu.data[0].children[0].id"
       :guidemenu="guidemenu.data"
+      :defaultid="guidemenu.data[0].children[0].id"
       @menu-id="menuid"
     />
     <template v-if="APIname==='apiDocument'">
@@ -33,7 +34,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import Header from '@/components/home/home-header.vue'
+import Header from '@/components/home/base-header.vue'
 import Menu from '@/components/menu/menu-component.vue'
 import GuideAPI from '@/components/right/guide-component.vue'
 import GuideUtils from '@/components/right/guide-utils-component.vue'

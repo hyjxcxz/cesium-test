@@ -10,7 +10,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import Header from '@/components/home/home-header.vue'
+import Header from '@/components/home/base-header.vue'
 </script>
 <style>
 .content{
