@@ -45,11 +45,11 @@ function updata (file:any) {
   // eslint-disable-next-line no-debugger
   debugger
   if (upload.value) {
-    upload.value!.clearFiles()
+    upload.value.clearFiles()
   }
   file.uid = genFileId()
   if (upload.value) {
-   upload.value!.handleStart(file)
+    upload.value.handleStart(file)
   }
   emits('uploaded', file)
 }
