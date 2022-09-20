@@ -47,6 +47,16 @@ const utilitiesAPI = reactive({ data: { titleList: [] } })
 const nodata = ref('暂无数据')
 const APIname = ref('apiDocument')
 const utilitiesNmae = ref('')
+function menuid (obj:any) {
+  switch (obj.parent) {
+    case 'apiDocument':
+      APIname.value = 'apiDocument'
+      break
+    case 'utilities':
+      APIname.value = 'utilities'
+      break
+  }
+}
 </script>
 <style>
 .content{
