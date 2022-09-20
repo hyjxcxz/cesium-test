@@ -44,9 +44,13 @@ function uploadRequest (option:any) {
 function updata (file:any) {
   // eslint-disable-next-line no-debugger
   debugger
-  upload.value!.clearFiles()
+  if (upload.value) {
+    upload.value!.clearFiles()
+  }
   file.uid = genFileId()
-  upload.value!.handleStart(file)
+  if (upload.value) {
+   upload.value!.handleStart(file)
+  }
   emits('uploaded', file)
 }
 </script>
