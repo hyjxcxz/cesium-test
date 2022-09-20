@@ -18,14 +18,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home1',
     component: () => import('@/views/support/guide-page.vue'),
     meta: {
-      title: '首页'
+      title: '分析决策服务'
     }
   }, {
     path: '/support-guide',
     name: 'support-guide',
     component: () => import('@/views/support/guide-page.vue'),
     meta: {
-      title: '开发指南'
+      title: '分析决策服务-开发指南'
     }
   },
   {
@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'support-about',
     component: () => import('@/views/support/about-page.vue'),
     meta: {
-      title: '关于'
+      title: '分析决策服务-关于'
     }
   },
   {
@@ -41,14 +41,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: () => import('@/views/basedata/guide-page.vue'),
     meta: {
-      title: '首页'
+      title: '基础数据服务'
     }
   }, {
     path: '/basedata-guide',
     name: 'basedata-guide',
     component: () => import('@/views/basedata/guide-page.vue'),
     meta: {
-      title: '开发指南'
+      title: '基础数据服务-开发指南'
     }
   },
   {
@@ -56,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'basedata-about',
     component: () => import('@/views/basedata/about-page.vue'),
     meta: {
-      title: '关于'
+      title: '基础数据服务-关于'
     }
   }
 ]
