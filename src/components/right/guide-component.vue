@@ -247,13 +247,14 @@ function clickRun () {
         formData.append(item.name, item.value)
       }
     })
-    if (formData.get('file')) {
+    if (formData.get('file') && formData.get('file') !== 'undefined') {
       postQueryformData()
     } else {
       ElMessage({
         message: '请上传文件',
         type: 'warning'
       })
+      loading.value = false
     }
   }
 }

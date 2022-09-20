@@ -29,8 +29,6 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response: any) => {
-    // eslint-disable-next-line no-debugger
-    debugger
     if (response.config.url.includes('/file/download')) {
       return response
     } else {

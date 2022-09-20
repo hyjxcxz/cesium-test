@@ -44,6 +44,6 @@ const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
   emits('uploaded', uploadFiles[0])
 }
 const handleChange: UploadProps['onChange'] = (uploadFile, uploadFiles) => {
-  emits('uploaded', uploadFiles[0])
+  emits('uploaded', uploadFiles[0].raw)
 }
 </script>
