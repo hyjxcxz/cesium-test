@@ -11,6 +11,7 @@
       <Guide-API
         v-if="guideAPIdata.data"
         :dataobj="guideAPIdata.data"
+        :api-name-string="'您现在的位置：决策支持服务,开发指南,'+apiNameString"
       />
     </template>
     <template v-else-if="APIname==='utilities'">
@@ -19,11 +20,13 @@
           v-if="(utilitiesAPI.data.titleList&&utilitiesAPI.data.titleList.length>0)"
           :dataobj="utilitiesAPI.data"
           :utilities-nmae="utilitiesNmae"
+          :api-name-string="'您现在的位置：决策支持服务,开发指南,'+apiNameString"
         />
         <GuideUtilsDown
           v-else
           :dataobj="utilitiesAPI.data"
           :utilities-nmae="utilitiesNmae"
+          :api-name-string="'您现在的位置：决策支持服务,开发指南,'+apiNameString"
         />
       </template>
       <template v-else>
@@ -41,13 +44,15 @@ import GuideUtils from '@/components/right/guide-utils-component.vue'
 import GuideUtilsDown from '@/components/right/guide-utils-down-component.vue'
 import { requestApi } from '@/utils/request-util'
 import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
-const guidemenu = reactive({ data: [{ children: [{ id: '' }] }] })
+const guidemenu = reactive({ data: [{ title: '', children: [{ title: '', id: '' }] }] })
 const guideAPIdata = reactive({ data: { returnList: [] } })
 const utilitiesAPI = reactive({ data: { titleList: [] } })
 // const utilitiesDownload = reactive({ data: {} })
 const nodata = ref('暂无数据')
 const APIname = ref('apiDocument')
 const apiID = ref('')
+const apiparentID = ref('')
+const apiNameString = ref('')
 const utilitiesNmae = ref('')
 requestApi(
   '',
@@ -58,6 +63,7 @@ requestApi(
     if (res.message === 'OK' && res.data) {
       guidemenu.data = dealreturnList(res.data)
       apiID.value = guidemenu.data[0].children[0].id
+      apiNameString.value = guidemenu.data[0].title + ',' + guidemenu.data[0].children[0].title
       queryAPi()
     }
   }, null)
@@ -85,6 +91,7 @@ function menuid (obj:any) {
       break
   }
   apiID.value = obj.id
+  apiparentID.value = obj.parent
   getMenuName()
   queryAPi()
 }
@@ -92,7 +99,11 @@ function getMenuName () {
   getMenue(guidemenu.data)
   function getMenue (arry:any) {
     arry.forEach((item: any) => {
+      if (item.id === apiparentID.value) {
+        apiNameString.value = item.title + ','
+      }
       if (item.id === apiID.value) {
+        apiNameString.value = apiNameString.value + item.title
         utilitiesNmae.value = item.title
       } else {
         if (item.children) {
