@@ -25,8 +25,6 @@ const guidemenu = reactive({ data: [{ id: '1', title: '服务列表' }, { id: '2
 // const utilitiesDownload = reactive({ data: {} })
 const APIname = ref('1')
 function menuid (obj:any) {
-  // eslint-disable-next-line no-debugger
-  debugger
   APIname.value = obj.id
 }
 </script>
