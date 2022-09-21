@@ -1,138 +1,145 @@
 <template>
-  <div
-    v-if="dataobj"
-    class="guide-content API-content"
-  >
-    <h1>
-      {{ props.dataobj.name }}
-      <span>更新时间：2022年09月07日</span>
-    </h1>
-    <h2>产品说明</h2>
-    <div
-      class="API-description"
-      v-for="(item, index) in props.dataobj.descriptionList"
-      :key="index + 'a'"
-    >
-      <span>{{ item }}</span>
-    </div>
-    <h2>适用场景</h2>
-    <div
-      class="API-description"
-      v-for="(item, index) in props.dataobj.scenesList"
-      :key="index + 'b'"
-    >
-      <span>{{ item }}</span>
-    </div>
-    <h2>使用说明</h2>
-    <div
-      class="API-description"
-      v-for="(item, index) in props.dataobj.introductionList"
-      :key="index + 'c'"
-    >
-      <span>{{ item }}</span>
-    </div>
-    <h3>
-      <ul>
-        <li>{{ props.dataobj.name }}API URL</li>
-      </ul>
-    </h3>
-    <div class="API-URL">
-      <ul>
-        <li>
-          <span>URL</span><span>{{ props.dataobj.address }}</span>
-        </li>
-        <li>
-          <span>请求方式</span><span>{{ props.dataobj.mode }}</span>
-        </li>
-        <li>
-          <span>请求头</span><span>{{ hearders }}</span>
-        </li>
-      </ul>
-    </div>
-    <h3>
-      <ul>
-        <li>请求参数</li>
-      </ul>
-    </h3>
-    <Table
-      :datatable="props.dataobj.paramList"
-      :data-hearder="tableObj"
+  <div class="API-content">
+    <Breadcrumb
+      v-if="props.apiNameString!==''"
+      :breads="props.apiNameString"
     />
-    <h3>
-      <ul>
-        <li>返回结果参数说明</li>
-      </ul>
-    </h3>
-    <Treetable
-      :datatable="props.dataobj.returnList"
-      :data-hearder="childtableObj"
-    />
-    <h3>
-      <ul>
-        <li>服务示例</li>
-      </ul>
-    </h3>
-    <div class="API-apiurl">
-      <span>{{ apiURL }}</span>
-      <br>
-      <span>{{ hearders }}</span>
+    <div
+      v-if="dataobj"
+      class="guide-content"
+    >
+      <h1>
+        {{ props.dataobj.name }}
+        <span>更新时间：2022年09月07日</span>
+      </h1>
+      <h2>产品说明</h2>
+      <div
+        class="API-description"
+        v-for="(item, index) in props.dataobj.descriptionList"
+        :key="index + 'a'"
+      >
+        <span>{{ item }}</span>
+      </div>
+      <h2>适用场景</h2>
+      <div
+        class="API-description"
+        v-for="(item, index) in props.dataobj.scenesList"
+        :key="index + 'b'"
+      >
+        <span>{{ item }}</span>
+      </div>
+      <h2>使用说明</h2>
+      <div
+        class="API-description"
+        v-for="(item, index) in props.dataobj.introductionList"
+        :key="index + 'c'"
+      >
+        <span>{{ item }}</span>
+      </div>
+      <h3>
+        <ul>
+          <li>{{ props.dataobj.name }}API URL</li>
+        </ul>
+      </h3>
+      <div class="API-URL">
+        <ul>
+          <li>
+            <span>URL</span><span>{{ props.dataobj.address }}</span>
+          </li>
+          <li>
+            <span>请求方式</span><span>{{ props.dataobj.mode }}</span>
+          </li>
+          <li>
+            <span>请求头</span><span>{{ hearders }}</span>
+          </li>
+        </ul>
+      </div>
+      <h3>
+        <ul>
+          <li>请求参数</li>
+        </ul>
+      </h3>
+      <Table
+        :datatable="props.dataobj.paramList"
+        :data-hearder="tableObj"
+      />
+      <h3>
+        <ul>
+          <li>返回结果参数说明</li>
+        </ul>
+      </h3>
+      <Treetable
+        :datatable="props.dataobj.returnList"
+        :data-hearder="childtableObj"
+      />
+      <h3>
+        <ul>
+          <li>服务示例</li>
+        </ul>
+      </h3>
+      <div class="API-apiurl">
+        <span>{{ apiURL }}</span>
+        <br>
+        <span>{{ hearders }}</span>
+      </div>
+      <template
+        v-if="
+          props.dataobj.mode && props.dataobj.mode.indexOf('Post/json') !== -1
+        "
+      >
+        <Input
+          v-if="exampleStrings"
+          :example-string="exampleStrings"
+          @param="changeParam"
+        />
+      </template>
+      <template
+        v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1"
+      >
+        <Editetable
+          v-if="props.dataobj.exampleList.length > 0"
+          :datatable="props.dataobj.exampleList"
+          :data-hearder="exmpletableObj"
+          @paraminput="paraminput"
+        />
+      </template>
+      <template
+        v-else-if="
+          props.dataobj.mode &&
+            props.dataobj.mode.indexOf('Post/form-data') !== -1
+        "
+      >
+        <Editetable
+          v-if="props.dataobj.exampleList.length > 0"
+          :datatable="props.dataobj.exampleList"
+          :data-hearder="exmpletableObj"
+          @paraminput="paraminput"
+          @undate-file="undateFile"
+        />
+      </template>
+      <el-button
+        class="API-run"
+        type="primary"
+        :loading="loading"
+        @click="clickRun()"
+      >
+        运行
+      </el-button>
+      <div class="API-result">
+        <json-viewer
+          v-if="Object.keys(resultData.data).length !== 0"
+          :value="resultData.data"
+        />
+      </div>
     </div>
-    <template
-      v-if="
-        props.dataobj.mode && props.dataobj.mode.indexOf('Post/json') !== -1
-      "
-    >
-      <Input
-        v-if="exampleStrings"
-        :example-string="exampleStrings"
-        @param="changeParam"
-      />
-    </template>
-    <template
-      v-else-if="props.dataobj.mode && props.dataobj.mode.indexOf('Get') !== -1"
-    >
-      <Editetable
-        v-if="props.dataobj.exampleList.length > 0"
-        :datatable="props.dataobj.exampleList"
-        :data-hearder="exmpletableObj"
-        @paraminput="paraminput"
-      />
-    </template>
-    <template
-      v-else-if="
-        props.dataobj.mode &&
-          props.dataobj.mode.indexOf('Post/form-data') !== -1
-      "
-    >
-      <Editetable
-        v-if="props.dataobj.exampleList.length > 0"
-        :datatable="props.dataobj.exampleList"
-        :data-hearder="exmpletableObj"
-        @paraminput="paraminput"
-        @undate-file="undateFile"
-      />
-    </template>
-    <el-button
-      class="API-run"
-      type="primary"
-      :loading="loading"
-      @click="clickRun()"
-    >
-      运行
-    </el-button>
-    <div class="API-result">
-      <json-viewer
-        v-if="Object.keys(resultData.data).length !== 0"
-        :value="resultData.data"
-      />
+    <div v-else>
+      <nodataComponentVue :data="nodata" />
     </div>
-  </div>
-  <div v-else>
-    <nodataComponentVue :data="nodata" />
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, reactive, watchEffect } from 'vue'
+import Breadcrumb from '@/components/utils/breadcrumb-component.vue'
 import { ElMessage } from 'element-plus'
 import Table from '@/components/utils/table-component.vue'
 import Treetable from '@/components/utils/tree-table-component.vue'
@@ -175,6 +182,10 @@ const props = defineProps({
     default () {
       return {}
     }
+  },
+  apiNameString: {
+    type: String,
+    default: ''
   }
 })
 const exampleStrings = ref('')
@@ -318,7 +329,6 @@ function postQueryformData () {
   font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
   width: calc(100% - 221px);
   float: left;
-  overflow: auto;
   margin-left: 10px;
   margin-right: 10px;
   .API-description {
