@@ -28,18 +28,18 @@
   </el-upload>
 </template>
 <script lang="ts" setup>
-import { getCurrentInstance } from 'vue'
-import { genFileId } from 'element-plus'
-import type { UploadProps, UploadRawFile } from 'element-plus'
-const vms:any = getCurrentInstance()
-const vm:any = vms.ctx
+import { ref } from 'vue'
+// import { genFileId } from 'element-plus'
+import type { UploadProps, UploadInstance, UploadRawFile } from 'element-plus'
+// const vms:any = getCurrentInstance()
+// const vm:any = vms.ctx
 const emits = defineEmits(['uploaded'])
-// const upload = ref<UploadInstance>()
+const upload:any = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
-  vm._.refs.upload.clearFiles(files[0])
+  upload.value.clearFiles()
   const file = files[0] as UploadRawFile
-  file.uid = genFileId()
-  vm._.refs.upload.handleStart(file)
+  upload.value.handleStart(file)
+  // file.uid = genFileId()
   // upload.value!.submit()
 }
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
