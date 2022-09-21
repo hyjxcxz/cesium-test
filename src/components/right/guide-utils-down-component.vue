@@ -23,9 +23,11 @@
         placement="top"
       >
         <el-button
-          class="iconfont icon-yunduanxiazai download"
+          class="iconfont download"
           @click="download(item.url)"
-        />
+        >
+          下载
+        </el-button>
       </el-tooltip>
     </div>
   </div>
@@ -60,7 +62,7 @@ function download (url:string) {
   .download{
     float:right;
     color:#fff;
-    font-size:20px;
+    font-size:16px;
     background:#42a5f5;
     margin-right:40px;
   }
