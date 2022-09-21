@@ -31,7 +31,8 @@
 import { getCurrentInstance } from 'vue'
 import { genFileId } from 'element-plus'
 import type { UploadProps, UploadRawFile } from 'element-plus'
-const vm = getCurrentInstance().ctx
+const vms:any = getCurrentInstance()
+const vm:any = vms.ctx
 const emits = defineEmits(['uploaded'])
 // const upload = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
