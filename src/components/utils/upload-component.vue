@@ -1,51 +1,42 @@
 <template>
-  <el-upload
-    ref="upload"
-    class="upload-demo"
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-    :limit="1"
-    :on-remove="handleRemove"
-    :on-exceed="handleExceed"
-    :auto-upload="false"
-    :on-change="handleChange"
+  <el-tooltip
+    class="box-item"
+    effect="dark"
+    content="kmz/kml/map/dxf/json/shp（shp格式需要压缩为zip）"
+    placement="top-start"
   >
-    <template #trigger>
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        content="kmz/kml/map/dxf/json/shp（shp格式需要压缩为zip）"
-        placement="top-start"
-      >
-        <el-button
-          size="small"
-          type="primary"
-        >
-          上传
-        </el-button>
-      </el-tooltip>
-    </template>
-    <!-- <span class="file-name">{{ filename }}</span> -->
-  </el-upload>
+    <input
+      class="taskFile"
+      id="taskFile"
+      type="file"
+      @change="importTask($event)"
+      accept=".kmz,.kml,.map,.dxf,.json,.zip"
+    >
+  </el-tooltip>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 // import { genFileId } from 'element-plus'
-import type { UploadProps, UploadInstance, UploadRawFile } from 'element-plus'
+// import type { UploadProps, UploadInstance, UploadRawFile } from 'element-plus'
 // const vms:any = getCurrentInstance()
 // const vm:any = vms.ctx
 const emits = defineEmits(['uploaded'])
-const upload:any = ref<UploadInstance>()
-const handleExceed: UploadProps['onExceed'] = (files) => {
-  upload.value.clearFiles()
-  const file = files[0] as UploadRawFile
-  upload.value.handleStart(file)
-  // file.uid = genFileId()
-  // upload.value!.submit()
-}
-const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-  emits('uploaded', uploadFiles[0])
-}
-const handleChange: UploadProps['onChange'] = (uploadFile, uploadFiles) => {
-  emits('uploaded', uploadFiles[0].raw)
+// const upload:any = ref<UploadInstance>()
+// const handleExceed: UploadProps['onExceed'] = (files) => {
+//   upload.value.clearFiles()
+//   const file = files[0] as UploadRawFile
+//   upload.value.handleStart(file)
+//   // file.uid = genFileId()
+//   // upload.value!.submit()
+// }
+// const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
+//   emits('uploaded', uploadFiles[0])
+// }
+// const handleChange: UploadProps['onChange'] = (uploadFile, uploadFiles) => {
+//   emits('uploaded', uploadFiles[0].raw)
+// }
+function importTask (file:any) {
+  const fileObj = file.target.files[0]
+  emits('uploaded', fileObj)
 }
 </script>
