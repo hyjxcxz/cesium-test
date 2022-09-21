@@ -54,7 +54,7 @@ import { ref, reactive } from 'vue'
 const descriptionList = ref('')
 const scenesList = ref('')
 const introductionList = ref('')
-const form = reactive(
+const form :any = reactive(
   {
     name: '', // 服务名称
     descriptionList: [], // 服务描述
@@ -183,13 +183,13 @@ const form = reactive(
 //     ],
 //     exampleJson: null
 //   })
-function descriptionListChange (value: string | number) {
+function descriptionListChange (value: string) {
   form.descriptionList = value.split('\n')
 }
-function scenesListChange (value: string | number) {
+function scenesListChange (value: string) {
   form.scenesList = value.split('\n')
 }
-function introductionListChange (value: string | number) {
+function introductionListChange (value: string) {
   form.introductionList = value.split('\n')
 }
 </script>
