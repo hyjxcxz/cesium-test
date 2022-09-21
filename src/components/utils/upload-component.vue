@@ -36,10 +36,10 @@ const vm:any = vms.ctx
 const emits = defineEmits(['uploaded'])
 // const upload = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
-  vm.$refs.upload.clearFiles()
+  vm._.refs.upload.clearFiles()
   const file = files[0] as UploadRawFile
   file.uid = genFileId()
-  vm.$refs.upload.handleStart(file)
+  vm._.refs.upload.handleStart(file)
   // upload.value!.submit()
 }
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
