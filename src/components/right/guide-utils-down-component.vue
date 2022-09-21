@@ -1,38 +1,45 @@
 <template>
-  <div
-    v-if="dataobj"
-    class="guide-content API-content"
-  >
-    <h1>
-      {{ utilitiesNmae }}
-      <span>更新时间：2022年09月09日</span>
-    </h1>
+  <div class="API-content">
+    <Breadcrumb
+      v-if="props.apiNameString!==''"
+      :breads="props.apiNameString"
+    />
     <div
-      v-for="(item,index) in props.dataobj"
-      :key="index"
+      v-if="dataobj"
+      class="guide-content"
     >
-      <h2>
-        {{ item.name }}
-      </h2>
-      <div class="API-description">
-        <span>{{ item.description }}</span>
-      </div>
-      <el-tooltip
-        class="box-item"
-        :content="item.name+'下载'"
-        placement="top"
+      <h1>
+        {{ utilitiesNmae }}
+        <span>更新时间：2022年09月09日</span>
+      </h1>
+      <div
+        v-for="(item,index) in props.dataobj"
+        :key="index"
       >
-        <el-button
-          class="iconfont download"
-          @click="download(item.url)"
+        <h2>
+          {{ item.name }}
+        </h2>
+        <div class="API-description">
+          <span>{{ item.description }}</span>
+        </div>
+        <el-tooltip
+          class="box-item"
+          :content="item.name+'下载'"
+          placement="top"
         >
-          下载
-        </el-button>
-      </el-tooltip>
+          <el-button
+            class="iconfont download"
+            @click="download(item.url)"
+          >
+            下载
+          </el-button>
+        </el-tooltip>
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import Breadcrumb from '@/components/utils/breadcrumb-component.vue'
 const props = defineProps({
   dataobj: {
     type: Object,
@@ -40,7 +47,11 @@ const props = defineProps({
       return {}
     }
   },
-  utilitiesNmae: { type: String, default: '' }
+  utilitiesNmae: { type: String, default: '' },
+  apiNameString: {
+    type: String,
+    default: ''
+  }
 })
 function download (url:string) {
   window.location.href = url
@@ -50,7 +61,7 @@ function download (url:string) {
 .API-content {
   width: calc(100% - 221px);
   float: left;
-  overflow: auto;
+  // overflow: auto;
   margin-left: 10px;
   margin-right: 10px;
   .API-description {
