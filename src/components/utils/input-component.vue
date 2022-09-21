@@ -8,13 +8,18 @@
   />
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 const props = defineProps({
   exampleString: { type: String, default: '' }
 })
-const emits = defineEmits(['param'])
 const exampleStrings:any = ref()
-exampleStrings.value = JSON.parse(JSON.stringify(props.exampleString))
+watchEffect(() => {
+  if (props.exampleString) {
+    exampleStrings.value = JSON.parse(JSON.stringify(props.exampleString))
+  }
+})
+const emits = defineEmits(['param'])
+
 function changeContent () {
   emits('param', exampleStrings.value)
 }
