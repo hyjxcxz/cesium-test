@@ -2,7 +2,9 @@
   <el-table
     :data="datatable"
     style="width: 100%;"
+    row-key="name"
     border
+    default-expand-all
   >
     <template
       v-for="(item, index) in dataHearder"
@@ -23,7 +25,7 @@
         v-else-if="item.title==='参数名'"
         :prop="item.id"
         :label="item.title"
-        width="200px"
+        width="210px"
       />
       <el-table-column
         v-else
