@@ -32,6 +32,12 @@
         </template>
       </el-table-column>
       <el-table-column
+        v-else-if="item.title==='参数名'"
+        :prop="item.id"
+        :label="item.title"
+        width="200px"
+      />
+      <el-table-column
         v-else
         :prop="item.id"
         :label="item.title"

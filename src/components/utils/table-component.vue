@@ -14,10 +14,16 @@
         :label="item.title"
       />
       <el-table-column
-        v-else-if="item.title==='code'||item.title==='参数名'||item.title==='类型'||item.title==='是否必填'||item.title==='缺省值'"
+        v-else-if="item.title==='code'||item.title==='类型'||item.title==='是否必填'||item.title==='缺省值'"
         :prop="item.id"
         :label="item.title"
         width="120px"
+      />
+      <el-table-column
+        v-else-if="item.title==='参数名'"
+        :prop="item.id"
+        :label="item.title"
+        width="200px"
       />
       <el-table-column
         v-else
