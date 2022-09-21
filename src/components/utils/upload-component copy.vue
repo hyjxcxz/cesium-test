@@ -2,7 +2,7 @@
   <el-upload
     ref="upload"
     class="upload-demo"
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+    action="https://jsonplaceholder.typicode.com/posts/"
     :limit="1"
     :on-remove="handleRemove"
     :on-exceed="handleExceed"
@@ -39,7 +39,7 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
   const file = files[0] as UploadRawFile
   file.uid = genFileId()
   upload.value!.handleStart(file)
-  // upload.value!.submit()
+  upload.value!.submit()
 }
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
   emits('uploaded', uploadFiles[0])
