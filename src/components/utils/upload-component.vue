@@ -8,7 +8,6 @@
     :on-exceed="handleExceed"
     :auto-upload="false"
     :on-change="handleChange"
-    :on-success="handlesuccess"
   >
     <template #trigger>
       <el-tooltip
@@ -35,7 +34,7 @@ import type { UploadProps, UploadInstance, UploadRawFile } from 'element-plus'
 // const vms:any = getCurrentInstance()
 // const vm:any = vms.ctx
 const emits = defineEmits(['uploaded'])
-const upload = ref<UploadInstance>()
+const upload:any = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
   upload.value.clearFiles()
   const file = files[0] as UploadRawFile
