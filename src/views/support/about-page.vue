@@ -15,8 +15,6 @@ import Header from '@/components/home/support-home-header.vue'
 <style>
 .content{
   width: 100vw;
-  height: calc(100vh - 60px);
-  top:60px;
-  position:fixed;
+  flex:1;
 }
 </style>
