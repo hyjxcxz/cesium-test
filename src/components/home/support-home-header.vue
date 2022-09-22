@@ -50,7 +50,7 @@ function changPage () {
 
 <style scoped lang="scss">
 .home-header{
-  position: fixed;
+  // position: fixed;
   width: 100%;
   height: 60px;
   background: #1c2531;

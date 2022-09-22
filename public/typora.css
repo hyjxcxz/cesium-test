@@ -1,204 +1,23 @@
-/*适应高度*/
-/* mac电脑 */
-@media screen and (min-height: 900px) and (max-height: 1440px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 1184px ;
-    }
-
-    .child-content {
-        max-height: 1184px ;
-    }
-
-    .md-toc-menu {
-        height: 1184px;
-    }
-
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-/* @media screen and (min-height: 861px) and (max-height: 1431px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 1246px ;
-    }
-
-    .child-content {
-        max-height: 1246px ;
-    }
-
-    .md-toc-menu {
-        height: 1246px;
-    }
-
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-} */
-@media screen and (min-height: 1280px) and (max-height: 1380px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 1380px!important;
-    }
-
-    .child-content {
-        max-height: 1380px!important;
-    }
-
-    .md-toc-menu {
-        height: 1380px!important;
-    }
-
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-/* 中型电脑 */
-@media screen and (min-height: 886px) and (max-height: 900px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 886px !important;
-    }
-
-    .child-content {
-        max-height: 886px !important;
-    }
-    .md-toc-menu {
-        height: 886px!important;
-    }
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-@media screen and (min-height: 877px) and (max-height: 891px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 877px;
-    }
-
-    .child-content {
-        max-height: 877px;
-    }
-    .md-toc-menu {
-        height: 877px;
-    }
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-/* 中型电脑全屏 */
-@media screen and (min-height: 680px) and (max-height: 840px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 826px;
-    }
-    .md-toc-menu {
-        height: 826px;
-    }
-    .child-content {
-        max-height: 826px;
-    }
-
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-@media screen and (min-height: 680px) and (max-height: 830px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 818px;
-    }
-    .md-toc-menu {
-        height: 818px;
-    }
-    .child-content {
-        max-height: 818px;
-    }
-
-    .md-toc-content {
-        padding: 13px 10px 20px 10px;
-    }
-}
-/* 小电脑 */
-@media only screen and (min-height: 648px) and (max-height: 768px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 708px !important;
-    }
-
-    .child-content {
-        max-height: 708px!important;
-    }
-
-    .md-toc-menu {
-        height: 708px!important;
-    }
-
-    .md-toc-content {
-        padding: 14px 10px 20px 10px;
-    }
-}
-/* 小电脑全屏 */
-@media only screen and (min-height: 528px) and (max-height: 708px) {
-    body {
-        font-size: 16px;
-    }
-
-    .md-toc {
-        max-height: 597px;
-    }
-
-    .child-content {
-        max-height: 597px;
-    }
-
-    .md-toc-menu {
-        height: 597px;
-    }
-
-    .md-toc-content {
-        padding: 14px 10px 20px 10px;
-    }
-}
-
 body {
+    height: 100%!important;
     padding: unset;
     padding-left: unset !important;
     padding-right: unset !important;
 }
 
 #write {
-    max-width: 100% !important;
+    height: 100%!important;
+    width: 100% !important;
     margin: unset !important;
     padding: unset !important;
+    display: flex;
+    flex-direction: row;
 }
-
+html {
+    height: 100%;
+}
 .md-toc {
+    height: 100%!important;
     border-top-left-radius: unset !important;
     border-top-right-radius: unset !important;
     border-bottom-right-radius: unset !important;
@@ -209,19 +28,20 @@ body {
     margin-top: unset !important;
     padding-bottom: unset !important;
     float: left;
-    min-height: 580px;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #000000;
+    overscroll-behavior: contain;
 }
 
 .child-content {
-    max-width: calc(100% - 230px);
-    /* float: right; */
-    min-height: 580px;
+    min-width: calc(100% - 230px);
+    float: right;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     padding: 10px 0 10px 20px;
+    overscroll-behavior: contain;
+    
 }
 .child-content p span{
     font-size: 14px!important;

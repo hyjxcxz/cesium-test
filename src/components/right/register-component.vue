@@ -38,13 +38,22 @@
         />
       </el-form-item>
       <el-form-item label="服务类型：">
-        <el-input
-          v-model="introductionList"
-          autosize
-          type="textarea"
-          placeholder="按步骤输入使用说明，每一步完成后请换行"
-          @change="introductionListChange"
-        />
+        <el-dropdown
+          split-button
+          type="primary"
+          @click="handleClick"
+        >
+          Dropdown List
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>Action 1</el-dropdown-item>
+              <el-dropdown-item>Action 2</el-dropdown-item>
+              <el-dropdown-item>Action 3</el-dropdown-item>
+              <el-dropdown-item>Action 4</el-dropdown-item>
+              <el-dropdown-item>Action 5</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </el-form-item>
     </el-form>
   </div>
