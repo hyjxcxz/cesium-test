@@ -4,7 +4,9 @@ body {
     padding-left: unset !important;
     padding-right: unset !important;
 }
-
+.typora-export-content{
+    height: 100%!important;
+}
 #write {
     height: 100%!important;
     width: 100% !important;
@@ -51,6 +53,7 @@ html {
 .md-toc-content {
     margin-block-start: 0;
     margin-block-end: 0;
+    margin-left: 10px !important;
 }
 
 .md-toc-content a {

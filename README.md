@@ -1,5 +1,5 @@
 # http://10.35.191.98:82/GW-GIS/GOLDMAP-server.git
-
+ node 需要在14以上
 # 测试环境地址
   
 # 工程准备启动等
