@@ -66,7 +66,7 @@ import { ref, reactive } from 'vue'
 const descriptionList = ref('')
 const scenesList = ref('')
 const serverTypeCommand = ref('时间限制')
-const serverTypeCommandID:number = ref(1)
+const serverTypeCommandID:any = ref(1)
 const serverType = reactive([
   { id: 1, name: '时间限制' },
   { id: 2, name: '访问次数限制' },
