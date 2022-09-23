@@ -73,7 +73,7 @@ export default {
     dataHearder: { type: Array, default: () => [] }
   },
   setup (props: any, { emit }: any) {
-    let spanArr = reactive([])
+    let spanArr = reactive([] as any)
     const pos = ref(1)
     getSpanArr()
     const objectSpanMethod = ({
