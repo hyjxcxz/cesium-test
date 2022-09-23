@@ -21,7 +21,7 @@
         <span>{{ item }}</span>
       </div>
       <h2>地图服务列表</h2>
-      <Table
+      <Tablespan
         :datatable="props.dataobj.apiList"
         :data-hearder="tableObj"
       />
@@ -34,14 +34,14 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import Breadcrumb from '@/components/utils/breadcrumb-component.vue'
-import Table from '@/components/utils/table-component.vue'
+import Tablespan from '@/components/utils/table-span-component.vue'
 import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
 
 const nodata = ref('暂无数据')
 const tableObj = reactive([
-  { title: '服务名称', id: 'name' },
+  { title: '数据类型', id: 'type' },
+  { title: '数据名称', id: 'name' },
   { title: '图层', id: 'layerName' },
-  { title: '类型', id: 'type' },
   { title: '服务地址', id: 'url' }
 ])
 const props = defineProps({
