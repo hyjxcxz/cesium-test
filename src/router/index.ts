@@ -14,6 +14,30 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/mapserver',
+    name: 'mapserver',
+    component: () => import('@/views/mapserver/guide-page.vue'),
+    meta: {
+      title: '地图服务'
+    }
+  },
+  {
+    path: '/mapserver-guide',
+    name: 'mapserver-guide',
+    component: () => import('@/views/mapserver/guide-page.vue'),
+    meta: {
+      title: '开发指南'
+    }
+  },
+  {
+    path: '/mapserver-about',
+    name: 'mapserver-about',
+    component: () => import('@/views/mapserver/about-page.vue'),
+    meta: {
+      title: '关于'
+    }
+  },
+  {
     path: '/support',
     name: 'home1',
     component: () => import('@/views/support/guide-page.vue'),

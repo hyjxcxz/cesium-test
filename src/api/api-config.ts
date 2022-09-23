@@ -30,5 +30,16 @@ export const apiPathConfigs = {
   analysisutilities: {
     url: '/analysis/utilities?id={0}',
     method: 'get'
+  },
+  // 地图服务
+  // 开发指南菜单
+  mapdevelopGuide: {
+    url: '/map/developGuide',
+    method: 'get'
+  },
+  // 根据ID获取API文档
+  mapapiDocument: {
+    url: '/map/apiDocument?id={0}',
+    method: 'get'
   }
 }

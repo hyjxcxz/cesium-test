@@ -16,7 +16,7 @@
         :label="item.title"
       />
       <el-table-column
-        v-else-if="item.title==='code'||item.title==='类型'||item.title==='是否必填'||item.title==='缺省值'"
+        v-else-if="item.title==='code'||item.title==='类型'||item.title==='图层'||item.title==='是否必填'||item.title==='缺省值'"
         :prop="item.id"
         :label="item.title"
         width="120px"
@@ -27,6 +27,21 @@
         :label="item.title"
         width="210px"
       />
+      <el-table-column
+        v-else-if="item.title==='服务名称'"
+        :prop="item.id"
+        :label="item.title"
+        width="250px"
+      />
+      <el-table-column
+        v-else-if="item.title==='服务地址'"
+        :prop="item.id"
+        :label="item.title"
+      >
+        <template #default="scope">
+          <span>http://{{ scope.row.url }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         v-else
         :prop="item.id"
