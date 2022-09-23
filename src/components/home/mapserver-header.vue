@@ -9,7 +9,7 @@
         >
         <!-- <div class="division" /> -->
         <span class="project-title">
-          决策支持服务
+          地图服务
           <i
             class="iconfont icon-home-s go-back"
             @click="changPage"
@@ -17,13 +17,13 @@
         </span>
       </div>
       <div class="home-header-menue">
-        <router-link to="/support-guide">
+        <router-link to="/mapserver-guide">
           <span
             class="fa iconfont icon-kaifazhinan"
           />
           开发指南
         </router-link>
-        <router-link to="/support-about">
+        <router-link to="/mapserver-about">
           <span
             class="fa iconfont icon-guanyu"
           />

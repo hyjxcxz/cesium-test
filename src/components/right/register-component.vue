@@ -41,16 +41,19 @@
         <el-dropdown
           split-button
           type="primary"
-          @click="handleClick"
+          @command="handleCommand"
         >
-          Dropdown List
+          {{ serverTypeCommand }}
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>Action 1</el-dropdown-item>
-              <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
-              <el-dropdown-item>Action 4</el-dropdown-item>
-              <el-dropdown-item>Action 5</el-dropdown-item>
+              <template
+                v-for="(item, index) in serverType"
+                :key="index+'server'"
+              >
+                <el-dropdown-item :command="item.id">
+                  {{ item.name }}
+                </el-dropdown-item>
+              </template>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -62,6 +65,13 @@
 import { ref, reactive } from 'vue'
 const descriptionList = ref('')
 const scenesList = ref('')
+const serverTypeCommand = ref('时间限制')
+const serverTypeCommandID:number = ref(1)
+const serverType = reactive([
+  { id: 1, name: '时间限制' },
+  { id: 2, name: '访问次数限制' },
+  { id: 3, name: '不受时间和次数限制' }
+])
 const introductionList = ref('')
 const form :any = reactive(
   {
@@ -99,99 +109,6 @@ const form :any = reactive(
     ],
     exampleJson: null // 服务示例Post
   })
-// const form1 = reactive(
-//   {
-//     id: 'queryDataByPoint',
-//     name: '点查询',
-//     descriptionList: [
-//       '点查询是根据用户输入的地理坐标和数据编码，查询某一个位置的地理，气象，风资源，光资源等信息'
-//     ],
-//     scenesList: [
-//       '用户在地图上点击某一个位置，展示该位置的地理，气象，风资源，光资源等信息',
-//       '用户查询某一个位置的信息，用于资源计算'
-//     ],
-//     introductionList: [
-//       '第一步，申请Web服务API类型Key；',
-//       '第二步，参考接口参数文档发起HTTP/HTTPS请求，第一步申请的 Key 需作为必填参数一同发送；',
-//       '第三步，接收请求返回的数据（JSON格式），参考返回参数文档解析数据。',
-//       '如无特殊声明，接口的输入参数和输出数据编码全部统一为 UTF-8 编码方式。'
-//     ],
-//     address: 'http://10.11.56.245:51011/basedata/queryDataByPoint',
-//     mode: 'Get',
-//     paramList: [
-//       {
-//         name: 'code',
-//         type: 'integer',
-//         mean: '数据编码',
-//         rule: '数据编码的获取可参阅数据编码说明',
-//         required: '是',
-//         defaultValue: '无',
-//         children: null
-//       },
-//       {
-//         name: 'lon',
-//         type: 'double',
-//         mean: '经度',
-//         rule: '建议保留6位小数',
-//         required: '是',
-//         defaultValue: '无',
-//         children: null
-//       },
-//       {
-//         name: 'lat',
-//         type: 'double',
-//         mean: '纬度',
-//         rule: '建议保留6位小数',
-//         required: '是',
-//         defaultValue: '无',
-//         children: null
-//       }
-//     ],
-//     returnList: [
-//       {
-//         name: 'code',
-//         mean: '返回请求状态码',
-//         rule: '返回值为200表示请求成功，否则表示请求失败',
-//         children: null
-//       },
-//       {
-//         name: 'message',
-//         mean: '返回请求状态码说明',
-//         rule: '当code为200时，返回值为“OK”，否则返回错误码。详情可以参阅错误码说明',
-//         children: null
-//       },
-//       {
-//         name: 'data',
-//         mean: '返回数值列表',
-//         rule: '例如：[5.336]',
-//         children: null
-//       }
-//     ],
-//     exampleList: [
-//       {
-//         name: 'code',
-//         type: 'integer',
-//         value: '401',
-//         note: '100m风速数据编码的编码为401，其它数据编码的获取可参阅数据编码说明',
-//         required: '是'
-//       },
-//       {
-//         name: 'lon',
-//         type: 'double',
-//         value: '115.123456',
-//         note: '经度，建议保留6位小数，国内范围为73.66-135.05',
-//         required: '是'
-//       },
-//       {
-//         name: 'lat',
-//         type: 'double',
-//         value: '25.123456',
-//         note: '纬度，建议保留6位小数，国内范围为3.86-53.55',
-//         required: '是'
-//       }
-//     ],
-//     exampleJson: null
-//   })
 function descriptionListChange (value: string) {
   form.descriptionList = value.split('\n')
 }
@@ -200,6 +117,14 @@ function scenesListChange (value: string) {
 }
 function introductionListChange (value: string) {
   form.introductionList = value.split('\n')
+}
+function handleCommand (e:any) {
+  serverType.forEach((item) => {
+    if (item.id === e) {
+      serverTypeCommand.value = item.name
+    }
+  })
+  serverTypeCommandID.value = e
 }
 </script>
 <style lang="scss" scoped>
