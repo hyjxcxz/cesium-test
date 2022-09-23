@@ -1,5 +1,6 @@
 <template>
   <el-table
+    v-if="datatable.length>0"
     :data="datatable"
     style="width: 100%;"
     row-key="name"
@@ -53,7 +54,7 @@
 </template>
 <script lang="ts" >
 import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
-import { reactive, ref } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 
 interface User {
   name: string
@@ -73,9 +74,13 @@ export default {
     dataHearder: { type: Array, default: () => [] }
   },
   setup (props: any, { emit }: any) {
-    let spanArr = reactive([] as any)
+    const spanArr:any = reactive([])
     const pos = ref(1)
-    getSpanArr()
+    watchEffect(() => {
+      if (props.datatable) {
+        getSpanArr()
+      }
+    })
     const objectSpanMethod = ({
       row,
       column,
@@ -90,7 +95,7 @@ export default {
       }
     }
     function getSpanArr () {
-      spanArr = []
+      // spanArr = []
       for (let i = 0; i < props.datatable.length; i++) {
         if (i === 0) {
           spanArr.push(1)
