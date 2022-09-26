@@ -23,6 +23,20 @@
           <span>{{ item.description }}</span>
         </div>
         <el-tooltip
+          v-if="item.url&&item.url.split('.')[item.url.split('.').length - 1] === 'pdf'"
+          class="box-item"
+          :content="item.name+'查看'"
+          placement="top"
+        >
+          <el-button
+            class="iconfont download"
+            @click="download(item.url)"
+          >
+            查看
+          </el-button>
+        </el-tooltip>
+        <el-tooltip
+          v-else
           class="box-item"
           :content="item.name+'下载'"
           placement="top"
@@ -54,7 +68,9 @@ const props = defineProps({
   }
 })
 function download (url:string) {
-  window.location.href = url
+  if (url.split('.')[url.split('.').length - 1] === 'pdf') { window.open(url) } else {
+    window.location.href = url
+  }
 }
 </script>
 <style lang="scss" scoped>
