@@ -43,7 +43,7 @@ const guideAPIdata = reactive({ data: { } })
 const utilitiesAPI = reactive({
   data: [{
     description: '金风能源地理信息规范，通过标准化地理信息语言和系统化的标识符号，将金风科技地理信息的服务宗旨、行为和功能传递广大用户。突出地理信息标准化服务功能，有效增强用户产品体验，强化了用户心智，提升品牌形象。',
-    name: '县编码表',
+    name: '制图规范',
     url: './vendors/金风能源地理信息制图规范V1发布版.pdf'
   }]
 })
@@ -62,8 +62,6 @@ requestApi(
   (res:any) => {
     if (res.message === 'OK' && res.data) {
       guidemenu.data = dealreturnList(res.data)
-      // eslint-disable-next-line no-debugger
-      debugger
       guidemenu.data.push({
         id: 'mapguidea',
         title: '地图规范',
@@ -136,11 +134,15 @@ function queryAPi () {
     (res:any) => {
       if (res.message === 'OK' && res.data) {
         if (APIname.value === 'apiDocument') {
+          // eslint-disable-next-line no-debugger
+          debugger
           guideAPIdata.data = res.data
           // guideAPIdata.data.returnList = dealreturnList(res.data.returnList)
         }
       } else {
         if (APIname.value === 'apiDocument') {
+          // eslint-disable-next-line no-debugger
+          debugger
           guideAPIdata.data = res.data
         }
       }

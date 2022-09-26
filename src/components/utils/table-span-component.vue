@@ -74,7 +74,7 @@ export default {
     dataHearder: { type: Array, default: () => [] }
   },
   setup (props: any, { emit }: any) {
-    const spanArr:any = reactive([])
+    let spanArr:any = reactive([])
     const pos = ref(1)
     watchEffect(() => {
       if (props.datatable) {
@@ -95,7 +95,7 @@ export default {
       }
     }
     function getSpanArr () {
-      // spanArr = []
+      spanArr = []
       for (let i = 0; i < props.datatable.length; i++) {
         if (i === 0) {
           spanArr.push(1)
