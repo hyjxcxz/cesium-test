@@ -7,6 +7,9 @@
       :defaultid="guidemenu.data[0].children[0].id"
       @menu-id="menuid"
     />
+    <template v-else>
+      <nodataComponentVue :data="nodata" />
+    </template>
     <template v-if="APIname==='apiDocument'">
       <Guide-API
         v-if="guideAPIdata.data"
