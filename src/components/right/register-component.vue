@@ -58,11 +58,48 @@
           </template>
         </el-dropdown>
       </el-form-item>
+      <el-form-item label="服务URL：">
+        <div class="API-URL">
+          <ul>
+            <li>
+              <span>URL</span><span><el-input v-model="form.address" /></span>
+            </li>
+            <li>
+              <span>请求方式</span><span><el-dropdown
+                split-button
+                type="primary"
+                @command="handleCommandURL"
+              >
+                {{ form.mode }}
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <template
+                      v-for="(item, index) in serverMode"
+                      :key="index+'server'"
+                    >
+                      <el-dropdown-item :command="item.name">
+                        {{ item.name }}
+                      </el-dropdown-item>
+                    </template>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown></span>
+            </li>
+          </ul>
+        </div>
+      </el-form-item>
+      <el-form-item label="请求参数：">
+        <inputTable
+          :datatable="form.paramList"
+          :hearder="tableObj"
+        />
+      </el-form-item>
     </el-form>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
+import inputTable from '@/components/utils/input-table-component.vue'
 const descriptionList = ref('')
 const scenesList = ref('')
 const serverTypeCommand = ref('时间限制')
@@ -72,6 +109,20 @@ const serverType = reactive([
   { id: 2, name: '访问次数限制' },
   { id: 3, name: '不受时间和次数限制' }
 ])
+const serverMode = reactive([
+  { id: 1, name: 'Get' },
+  { id: 2, name: 'Post/json' },
+  { id: 3, name: 'Post/form-data' }
+])
+const tableObj = reactive([
+  { title: '参数名', id: 'name' },
+  { title: '类型', id: 'type' },
+  { title: '含义', id: 'mean' },
+  { title: '规则说明', id: 'rule' },
+  { title: '是否必填', id: 'required' },
+  { title: '缺省值', id: 'defaultValue' }
+  // { title: '操作', id: 'a' }
+])
 const introductionList = ref('')
 const form :any = reactive(
   {
@@ -80,15 +131,15 @@ const form :any = reactive(
     scenesList: [], // 适用场景
     introductionList: [], // 使用说明
     address: '', // API URL
-    mode: '', // 请求方式
+    mode: 'Get', // 请求方式
     paramList: [ // 请求参数
       {
-        name: 'code',
-        type: 'integer',
-        mean: '数据编码',
-        rule: '数据编码的获取可参阅数据编码说明',
-        required: '是',
-        defaultValue: '无'
+        name: '',
+        type: '',
+        mean: '',
+        rule: '',
+        required: '',
+        defaultValue: ''
       }
     ],
     returnList: [ // 返回参数
@@ -125,6 +176,9 @@ function handleCommand (e:any) {
     }
   })
   serverTypeCommandID.value = e
+}
+function handleCommandURL (e:string) {
+  form.mode = e
 }
 </script>
 <style lang="scss" scoped>

@@ -7,12 +7,18 @@
       :defaultid="guidemenu.data[0].children[0].id"
       @menu-id="menuid"
     />
+    <template v-else>
+      <nodataComponentVue :data="nodata" />
+    </template>
     <template v-if="APIname==='apiDocument'">
       <Guide-API
         v-if="guideAPIdata.data"
         :dataobj="guideAPIdata.data"
         :api-name-string="'您现在的位置：基础数据服务,开发指南,'+apiNameString"
       />
+      <template v-else>
+        <nodataComponentVue :data="nodata" />
+      </template>
     </template>
     <template v-else-if="APIname==='utilities'">
       <template v-if="utilitiesAPI.data">
