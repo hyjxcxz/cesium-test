@@ -17,13 +17,13 @@
         </span>
       </div>
       <div class="home-header-menue">
-        <router-link to="/support-guide">
+        <router-link to="/GOLDMAP-SupportServer-guide">
           <span
             class="fa iconfont icon-kaifazhinan"
           />
           开发指南
         </router-link>
-        <router-link to="/support-about">
+        <router-link to="/GOLDMAP-SupportServer-about">
           <span
             class="fa iconfont icon-guanyu"
           />

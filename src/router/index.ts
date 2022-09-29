@@ -6,78 +6,78 @@ const routes: Array<RouteRecordRaw> = [
 //     redirect: { name: 'index' },
 //   },
   {
-    path: '/control',
-    name: 'control',
+    path: '/GOLDMAP-ServerControl',
+    name: 'GOLDMAP-ServerControl',
     component: () => import('@/views/servercontrol/control-page.vue'),
     meta: {
       title: '服务管理'
     }
   },
   {
-    path: '/mapserver',
-    name: 'mapserver',
+    path: '/GOLDMAP-MapServer',
+    name: 'GOLDMAP-MapServer',
     component: () => import('@/views/mapserver/guide-page.vue'),
     meta: {
       title: '地图服务'
     }
   },
   {
-    path: '/mapserver-guide',
-    name: 'mapserver-guide',
+    path: '/GOLDMAP-MapServer-guide',
+    name: 'GOLDMAP-MapServer-guide',
     component: () => import('@/views/mapserver/guide-page.vue'),
     meta: {
       title: '开发指南'
     }
   },
   {
-    path: '/mapserver-about',
-    name: 'mapserver-about',
+    path: '/GOLDMAP-MapServer-about',
+    name: 'GOLDMAP-MapServer-about',
     component: () => import('@/views/mapserver/about-page.vue'),
     meta: {
       title: '关于'
     }
   },
   {
-    path: '/support',
-    name: 'home1',
+    path: '/GOLDMAP-SupportServer',
+    name: 'GOLDMAP-SupportServer',
     component: () => import('@/views/support/guide-page.vue'),
     meta: {
       title: '分析决策服务'
     }
   }, {
-    path: '/support-guide',
-    name: 'support-guide',
+    path: '/GOLDMAP-SupportServer-guide',
+    name: 'GOLDMAP-SupportServer-guide',
     component: () => import('@/views/support/guide-page.vue'),
     meta: {
       title: '分析决策服务-开发指南'
     }
   },
   {
-    path: '/support-about',
-    name: 'support-about',
+    path: '/GOLDMAP-SupportServer-about',
+    name: 'GOLDMAP-SupportServer-about',
     component: () => import('@/views/support/about-page.vue'),
     meta: {
       title: '分析决策服务-关于'
     }
   },
   {
-    path: '/basedata',
-    name: 'home',
+    path: '/GOLDMAP-BasedataServer',
+    name: 'GOLDMAP-BasedataServer',
     component: () => import('@/views/basedata/guide-page.vue'),
     meta: {
       title: '基础数据服务'
     }
   }, {
-    path: '/basedata-guide',
-    name: 'basedata-guide',
+    path: '/GOLDMAP-BasedataServer-guide',
+    name: 'GOLDMAP-BasedataServer-guide',
     component: () => import('@/views/basedata/guide-page.vue'),
     meta: {
       title: '基础数据服务-开发指南'
     }
   },
   {
-    path: '/basedata-about',
-    name: 'basedata-about',
+    path: '/GOLDMAP-BasedataServer-about',
+    name: 'GOLDMAP-BasedataServer-about',
     component: () => import('@/views/basedata/about-page.vue'),
     meta: {
       title: '基础数据服务-关于'
