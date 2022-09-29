@@ -29,13 +29,13 @@
           />
           概述
         </router-link> -->
-        <router-link to="/basedata-guide">
+        <router-link to="/GOLDMAP-BasedataServer-guide">
           <span
             class="fa iconfont icon-kaifazhinan"
           />
           开发指南
         </router-link>
-        <router-link to="/basedata-about">
+        <router-link to="/GOLDMAP-BasedataServer-about">
           <span
             class="fa iconfont icon-guanyu"
           />
