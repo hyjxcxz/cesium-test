@@ -68,7 +68,7 @@ export function getRequestUrl (param:{
   url:string
 }) {
   if (param.url) {
-    return param.url
+    return param.url.split('/goldmap')[1]
   } else {
     // 判断是否有该api配置信息
     if (!param.apisConfig || !param.apiName || !Object.prototype.hasOwnProperty.call(param.apisConfig, param.apiName) || !param.apisConfig[param.apiName]) {
