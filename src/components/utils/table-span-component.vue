@@ -18,7 +18,7 @@
         :label="item.title"
       />
       <el-table-column
-        v-else-if="item.title==='code'||item.title==='类型'||item.title==='数据类型'||item.title==='图层'||item.title==='是否必填'||item.title==='缺省值'"
+        v-else-if="item.title==='code'||item.title==='类型'||item.title==='数据类型'||item.title==='图层名称'||item.title==='是否必填'||item.title==='缺省值'"
         :prop="item.id"
         :label="item.title"
         width="120px"
