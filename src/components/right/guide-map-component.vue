@@ -41,7 +41,7 @@ const nodata = ref('暂无数据')
 const tableObj = reactive([
   { title: '数据类型', id: 'type' },
   { title: '数据名称', id: 'name' },
-  { title: '图层', id: 'layerName' },
+  { title: '图层名称', id: 'layerName' },
   { title: '服务地址', id: 'url' }
 ])
 const props = defineProps({
