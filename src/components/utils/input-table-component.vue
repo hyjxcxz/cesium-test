@@ -85,7 +85,7 @@ export default {
 
     function remove (node: Node, data: any) {
       // eslint-disable-next-line no-debugger
-      debugger
+      // debugger
     }
     return {
       changeParam,

@@ -90,8 +90,6 @@ function dealreturnList <T> (data:T):T {
   return datalist
 }
 function menuid (obj:any) {
-  // eslint-disable-next-line no-debugger
-  debugger
   switch (obj.parent) {
     case 'apiDocument':
       APIname.value = 'apiDocument'
@@ -113,8 +111,6 @@ function getMenuName () {
         apiNameString.value = item.title + ','
       }
       if (item.id === apiID.value) {
-        // eslint-disable-next-line no-debugger
-        debugger
         apiNameString.value = apiNameString.value + item.title
         utilitiesNmae.value = item.title
       } else {
@@ -134,15 +130,11 @@ function queryAPi () {
     (res:any) => {
       if (res.message === 'OK' && res.data) {
         if (APIname.value === 'apiDocument') {
-          // eslint-disable-next-line no-debugger
-          debugger
           guideAPIdata.data = res.data
           // guideAPIdata.data.returnList = dealreturnList(res.data.returnList)
         }
       } else {
         if (APIname.value === 'apiDocument') {
-          // eslint-disable-next-line no-debugger
-          debugger
           guideAPIdata.data = res.data
         }
       }

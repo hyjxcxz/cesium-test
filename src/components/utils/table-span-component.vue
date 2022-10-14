@@ -41,7 +41,7 @@
         :label="item.title"
       >
         <template #default="scope">
-          <span>http://{{ scope.row.url }}</span>
+          <span>{{ scope.row.url }}</span>
         </template>
       </el-table-column>
       <el-table-column
