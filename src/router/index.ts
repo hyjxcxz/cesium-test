@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const history = createWebHistory()
 const routes: Array<RouteRecordRaw> = [
-//   {
-//     path: "/",
-//     redirect: { name: 'index' },
-//   },
+  // {
+  //   path: '/',
+  //   redirect: { name: 'index' }
+  // },
   {
     path: '/GOLDMAP-ServerControl',
     name: 'GOLDMAP-ServerControl',
