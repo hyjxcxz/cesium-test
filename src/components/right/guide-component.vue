@@ -164,7 +164,7 @@ const exmpletableObj = reactive([
   { title: '备注', id: 'note' }
 ])
 const childtableObj = reactive([
-  { title: '名称', id: 'name' },
+  { title: '名称', id: 'name', width: '200' },
   { title: '含义', id: 'mean' },
   { title: '规则说明', id: 'rule' }
 ])

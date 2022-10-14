@@ -13,8 +13,4 @@
 import Header from '@/components/home/support-home-header.vue'
 </script>
 <style>
-.content{
-  width: 100vw;
-  flex:1;
-}
 </style>

@@ -41,6 +41,7 @@ function changPage () {
   display: flex;
   flex-direction: row;
   z-index: 1;
+  padding: 0 8px;
   .home-header-left{
     flex:1;
     height: 100%;

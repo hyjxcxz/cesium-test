@@ -11,7 +11,10 @@
       <Register />
     </template>
     <template v-else-if="APIname==='2'">
-      <Register />
+      <ApplicationManagement />
+    </template>
+    <template v-else-if="APIname==='3'">
+      <ServicesConfig :title="'服务申请'" />
     </template>
   </div>
 </template>
@@ -20,19 +23,15 @@ import { reactive, ref } from 'vue'
 import Header from '@/components/home/control-header.vue'
 import Menu from '@/components/menu/menu-component.vue'
 import Register from '@/components/right/register-component.vue'
+import ApplicationManagement from './application-management/application-management-list.vue'
+import ServicesConfig from './application-management/services-config.vue'
 // import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
-const guidemenu = reactive({ data: [{ id: '1', title: '服务列表' }, { id: '2', title: '服务注册' }, { id: '3', title: '应用管理' }, { id: '4', title: '额度管理' }] })
+const guidemenu = reactive({ data: [{ id: '1', title: '服务列表' }, { id: '2', title: '应用管理' }, { id: '3', title: '服务申请' }] })
 // const utilitiesDownload = reactive({ data: {} })
-const APIname = ref('1')
+const APIname = ref('2')
 function menuid (obj:any) {
   APIname.value = obj.id
 }
 </script>
 <style>
-.content{
-  width: 100vw;
-  height: calc(100vh - 60px);
-  top:60px;
-  position:fixed;
-}
 </style>
