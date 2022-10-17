@@ -93,7 +93,7 @@ function changPage () {
       // height: 26px;
       // margin:11.5px 18px;
       height: 40px;
-    margin: 10px 8px 0 0;
+      margin: 10px 8px 0 10px;
     float: left;
     display: inline-block;
     box-sizing: border-box;
