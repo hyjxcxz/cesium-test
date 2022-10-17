@@ -8,7 +8,6 @@ import 'element-plus/theme-chalk/index.css'
 import './assets/style/public.css'
 import 'vue3-json-viewer/dist/index.css'
 
-
 const app = createApp(App)
 app.use(router).use(store, key).use(ElementPlus).use(JsonViewer).mount('#app')
 router.beforeEach((to:any, from, next) => {
