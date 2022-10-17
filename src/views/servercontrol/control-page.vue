@@ -28,7 +28,7 @@ import ServicesConfig from './application-management/services-config.vue'
 // import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
 const guidemenu = reactive({ data: [{ id: '1', title: '服务列表' }, { id: '2', title: '应用管理' }, { id: '3', title: '服务申请' }] })
 // const utilitiesDownload = reactive({ data: {} })
-const APIname = ref('1')
+const APIname = ref('2')
 function menuid (obj:any) {
   APIname.value = obj.id
 }
