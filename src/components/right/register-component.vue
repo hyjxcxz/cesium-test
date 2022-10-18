@@ -2,7 +2,7 @@
   <div
     class="guide-content API-content"
   >
-    <h1>服务注册</h1>
+    <h1>{{ props.title }}</h1>
     <el-form
       :model="form"
       label-width="120px"
@@ -98,8 +98,20 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import inputTable from '@/components/utils/input-table-component.vue'
+
+const props = defineProps({
+  servicesInfo: {
+    type: Object,
+    default: () => {}
+  },
+  title: {
+    type: String,
+    default: '服务注册'
+  }
+})
+
 const descriptionList = ref('')
 const scenesList = ref('')
 const serverTypeCommand = ref('时间限制')
@@ -160,6 +172,11 @@ const form :any = reactive(
     ],
     exampleJson: null // 服务示例Post
   })
+
+onMounted(() => {
+  console.log(props.servicesInfo)
+})
+
 function descriptionListChange (value: string) {
   form.descriptionList = value.split('\n')
 }
@@ -184,11 +201,12 @@ function handleCommandURL (e:string) {
 <style lang="scss" scoped>
 .API-content {
   font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
-  width: calc(100% - 221px);
-  float: left;
+  // width: calc(100% - 221px);
+  flex: 1;
+  // float: left;
   overflow: auto;
-  margin-left: 10px;
-  margin-right: 10px;
+  // margin-left: 10px;
+  // margin-right: 10px;
   .API-description {
     margin: 0.8rem 0;
     span {

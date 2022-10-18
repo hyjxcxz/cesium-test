@@ -8,7 +8,8 @@
       @menu-id="menuid"
     />
     <template v-if="APIname==='1'">
-      <Register />
+      <!-- <Register /> -->
+      <serviceList />
     </template>
     <template v-else-if="APIname==='2'">
       <ApplicationManagement />
@@ -22,9 +23,9 @@
 import { reactive, ref } from 'vue'
 import Header from '@/components/home/control-header.vue'
 import Menu from '@/components/menu/menu-component.vue'
-import Register from '@/components/right/register-component.vue'
 import ApplicationManagement from './application-management/application-management-list.vue'
 import ServicesConfig from './application-management/services-config.vue'
+import serviceList from './server-list-page.vue'
 // import nodataComponentVue from '@/composables/nodata/nodata-component.vue'
 const guidemenu = reactive({ data: [{ id: '1', title: '服务列表' }, { id: '2', title: '应用管理' }, { id: '3', title: '服务申请' }] })
 // const utilitiesDownload = reactive({ data: {} })
