@@ -1,60 +1,63 @@
 <template>
-  <div
-    v-if="!isViewQuota && !isSetUp"
-    class="application-management-list"
-  >
-    <SearchInput
-      :placeholder="placeholder"
-      :width="'240px'"
-      :size="'default'"
-      @search-value="searchValue"
-    />
-    <Treetable
-      :datatable="datatable"
-      :data-hearder="childtableObj"
-      :align="'left'"
-      @operation-btn="viewQuota"
-      class="table-list"
-    />
-    <el-pagination
-      v-model:currentPage="current"
-      background
-      layout="prev, pager, next"
-      :hide-on-single-page="datatable.length < size"
-      :total="datatable.length"
-      :page-size="size"
-      @current-change="changeCurrent"
-    />
-  </div>
-  <div
-    v-if="isViewQuota"
-    class="project-services-list"
-  >
-    <span
-      @click="goBack"
-      class="go-back"
+  <div class="content-content">
+    <div
+      v-if="!isViewQuota && !isSetUp"
+      class="application-management-list"
     >
-      <el-icon style="vertical-align: middle">
-        <ArrowLeftBold />
-      </el-icon>
-      返回
-    </span>
-    <ProjectServicesList :project-info="projectServicesInfo" />
-  </div>
-  <div
-    v-if="isSetUp"
-    class="services-set-up"
-  >
-    <span
-      @click="goBack"
-      class="go-back"
+      <SearchInput
+        :placeholder="placeholder"
+        :width="'240px'"
+        :size="'default'"
+        @search-value="searchValue"
+      />
+      <Treetable
+        :datatable="datatable"
+        :data-hearder="childtableObj"
+        :align="'left'"
+        @operation-btn="viewQuota"
+        class="table-list"
+      />
+      <el-pagination
+        v-model:currentPage="current"
+        background
+        layout="prev, pager, next"
+        :hide-on-single-page="datatable.length < size"
+        :total="datatable.length"
+        :page-size="size"
+        @current-change="changeCurrent"
+      />
+    </div>
+    <div
+      v-if="isViewQuota"
+      class="project-services-list"
     >
-      <el-icon style="vertical-align: middle">
-        <ArrowLeftBold />
-      </el-icon>
-      返回
-    </span>
-    <ServicesConfig :title="'修改应用'" />
+      <span
+        @click="goBack"
+        class="go-back"
+      >
+        <el-icon style="vertical-align: middle">
+          <ArrowLeftBold />
+        </el-icon>
+        返回
+      </span>
+      <ProjectServicesList :project-info="projectServicesInfo" />
+    </div>
+    <div
+      v-if="isSetUp"
+      class="services-set-up"
+    >
+      <span
+        @click="goBack"
+        class="go-back"
+      >
+        <el-icon style="vertical-align: middle">
+          <ArrowLeftBold />
+        </el-icon>
+        返回
+      </span>
+      <span class="header-title"> 修改应用 </span>
+      <ServicesConfig :title="'修改应用'" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -150,8 +153,7 @@ const goBack = () => {
 </script>
 <style lang="scss" scoped>
 .application-management-list{
-  flex:1;
-  padding: 8px;
+  padding: 30px;
   .table-list{
     margin-top: 10px;
   }
@@ -160,24 +162,13 @@ const goBack = () => {
     float: right;
   }
 }
-.go-back{
-  font-size: 16px;
-  cursor: pointer;
-  .el-icon{
-    margin-top: -4px;
-  }
-}
 .project-services-list{
-  flex:1;
-  padding: 8px;
-  overflow: hidden;
   .table-list{
     margin-top: 8px;
   }
 }
 .services-set-up{
   flex:1;
-  padding: 8px;
   overflow: hidden;
 }
 </style>

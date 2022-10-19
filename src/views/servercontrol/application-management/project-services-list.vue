@@ -1,17 +1,19 @@
 <template>
-  <Treetable
-    :datatable="datatable"
-    :data-hearder="childtableObj"
-    :align="'left'"
-    :is-merge="true"
-    @operation-btn="viewStatisticsChart"
-    class="table-list"
-    height="calc(100% - 16px)"
-  />
-  <QuotaStatisticsChart
-    :is-quota-statistics-chart="isQuotaStatisticsChart"
-    :title="'使用量统计'"
-  />
+  <div class="project-services-list">
+    <Treetable
+      :datatable="datatable"
+      :data-hearder="childtableObj"
+      :align="'left'"
+      :is-merge="true"
+      @operation-btn="viewStatisticsChart"
+      class="table-list"
+      height="calc(100vh - 160px)"
+    />
+    <QuotaStatisticsChart
+      :is-quota-statistics-chart="isQuotaStatisticsChart"
+      :title="'使用量统计'"
+    />
+  </div>
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
@@ -189,4 +191,7 @@ function viewStatisticsChart (type:string, row: Object) {
 }
 </script>
 <style lang="scss" scoped>
+.project-services-list{
+  padding: 30px;
+}
 </style>

@@ -1,64 +1,66 @@
 <template>
-  <div
-    v-if="!isSetUp"
-    class="server-list-page"
-  >
-    <SearchInput
-      :placeholder="placeholder"
-      :width="'240px'"
-      :size="'default'"
-      @search-value="searchValue"
-    />
-    <el-button
-      class="add-server"
-      type="primary"
-      @click="addServer()"
+  <div class="content-content">
+    <div
+      v-if="!isSetUp"
+      class="server-list-page"
     >
-      <el-icon
-        class="add-icon"
+      <SearchInput
+        :placeholder="placeholder"
+        :width="'240px'"
+        :size="'default'"
+        @search-value="searchValue"
+      />
+      <el-button
+        class="add-server"
+        type="primary"
+        @click="addServer()"
       >
-        <Plus />
-      </el-icon> 添加服务
-    </el-button>
-    <Treetable
-      :datatable="datatable"
-      :data-hearder="childtableObj"
-      :align="'left'"
-      @operation-btn="viewQuota"
-      class="table-list"
-    />
-    <el-pagination
-      v-model:currentPage="current"
-      background
-      layout="prev, pager, next"
-      :hide-on-single-page="datatable.length < size"
-      :total="datatable.length"
-      :page-size="size"
-      @current-change="changeCurrent"
-    />
-  </div>
-  <div
-    v-if="isSetUp"
-    class="services-set-up"
-  >
-    <span
-      @click="goBack"
-      class="go-back"
+        <el-icon
+          class="add-icon"
+        >
+          <Plus />
+        </el-icon> 添加服务
+      </el-button>
+      <Treetable
+        :datatable="datatable"
+        :data-hearder="childtableObj"
+        :align="'left'"
+        @operation-btn="viewQuota"
+        class="table-list"
+      />
+      <el-pagination
+        v-model:currentPage="current"
+        background
+        layout="prev, pager, next"
+        :hide-on-single-page="datatable.length < size"
+        :total="datatable.length"
+        :page-size="size"
+        @current-change="changeCurrent"
+      />
+    </div>
+    <div
+      v-if="isSetUp"
+      class="services-set-up"
     >
-      <el-icon style="vertical-align: middle">
-        <ArrowLeftBold />
-      </el-icon>
-      返回
-    </span>
-    <Register
-      :services-info="servicesInfo"
-      :title="headerTitle"
+      <span
+        @click="goBack"
+        class="go-back"
+      >
+        <el-icon style="vertical-align: middle">
+          <ArrowLeftBold />
+        </el-icon>返回
+      </span>
+      <span class="header-title">{{ headerTitle }}</span>
+      <Register
+        :services-info="servicesInfo"
+        :title="headerTitle"
+      />
+    </div>
+    <QuotaStatisticsChart
+      :is-quota-statistics-chart="isQuotaStatisticsChart"
+      :title="'使用量统计'"
     />
   </div>
-  <QuotaStatisticsChart
-    :is-quota-statistics-chart="isQuotaStatisticsChart"
-    :title="'使用量统计'"
-  />
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
@@ -76,7 +78,7 @@ const childtableObj = reactive([
   { title: '注册人', id: 'c', width: '' },
   { title: '创建时间', id: 'd', width: '' },
   { title: '调用次数', id: 'e', width: '' },
-  { title: '操作', id: 'operation', width: '180', operation: [{ title: '用量查询', class: 'table-btn', type: 'quota' }, { title: '编辑', class: 'table-btn', type: 'put' }, { title: '删除', class: 'table-btn', type: 'del' }] }
+  { title: '操作', id: 'operation', width: '200', operation: [{ title: '用量查询', class: 'table-btn', type: 'quota' }, { title: '编辑', class: 'table-btn', type: 'put' }, { title: '删除', class: 'table-btn', type: 'del' }] }
 ])
 const datatable = reactive([
   {
@@ -224,11 +226,10 @@ const goBack = () => {
 </script>
 <style lang="scss" scoped>
 .server-list-page{
-  flex:1;
-  padding: 8px;
+  padding: 30px;
   .add-server{
     position: absolute;
-    right: 10px;
+    right: 30px;
     .add-icon{
       font-weight: 500;
       margin-right: 2px;
@@ -242,14 +243,7 @@ const goBack = () => {
     float: right;
   }
 }
-.go-back{
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  .el-icon{
-    margin-top: -4px;
-  }
-}
+
 .project-services-list{
   flex:1;
   padding: 8px;
@@ -260,7 +254,6 @@ const goBack = () => {
 }
 .services-set-up{
   flex:1;
-  padding: 8px;
   overflow: hidden;
 }
 </style>

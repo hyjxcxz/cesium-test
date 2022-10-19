@@ -1,100 +1,102 @@
 <template>
-  <div
-    class="guide-content API-content"
-  >
-    <h1>{{ props.title }}</h1>
-    <el-form
-      :model="form"
-      label-width="120px"
+  <div class="content-content">
+    <div
+      class="guide-content API-content"
     >
-      <el-form-item label="服务名称：">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="服务描述：">
-        <el-input
-          v-model="descriptionList"
-          autosize
-          type="textarea"
-          placeholder="输入服务描述，每一段完成后请换行"
-          @change="descriptionListChange"
-        />
-      </el-form-item>
-      <el-form-item label="适用场景：">
-        <el-input
-          v-model="scenesList"
-          autosize
-          type="textarea"
-          placeholder="输入适用场景，每一段完成后请换行"
-          @change="scenesListChange"
-        />
-      </el-form-item>
-      <el-form-item label="使用说明：">
-        <el-input
-          v-model="introductionList"
-          autosize
-          type="textarea"
-          placeholder="按步骤输入使用说明，每一步完成后请换行"
-          @change="introductionListChange"
-        />
-      </el-form-item>
-      <el-form-item label="服务类型：">
-        <el-dropdown
-          split-button
-          type="primary"
-          @command="handleCommand"
-        >
-          {{ serverTypeCommand }}
-          <template #dropdown>
-            <el-dropdown-menu>
-              <template
-                v-for="(item, index) in serverType"
-                :key="index+'server'"
-              >
-                <el-dropdown-item :command="item.id">
-                  {{ item.name }}
-                </el-dropdown-item>
-              </template>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </el-form-item>
-      <el-form-item label="服务URL：">
-        <div class="API-URL">
-          <ul>
-            <li>
-              <span>URL</span><span><el-input v-model="form.address" /></span>
-            </li>
-            <li>
-              <span>请求方式</span><span><el-dropdown
-                split-button
-                type="primary"
-                @command="handleCommandURL"
-              >
-                {{ form.mode }}
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <template
-                      v-for="(item, index) in serverMode"
-                      :key="index+'server'"
-                    >
-                      <el-dropdown-item :command="item.name">
-                        {{ item.name }}
-                      </el-dropdown-item>
-                    </template>
-                  </el-dropdown-menu>
+      <!-- <h1>{{ props.title }}</h1> -->
+      <el-form
+        :model="form"
+        label-width="120px"
+      >
+        <el-form-item label="服务名称：">
+          <el-input v-model="form.name" />
+        </el-form-item>
+        <el-form-item label="服务描述：">
+          <el-input
+            v-model="descriptionList"
+            autosize
+            type="textarea"
+            placeholder="输入服务描述，每一段完成后请换行"
+            @change="descriptionListChange"
+          />
+        </el-form-item>
+        <el-form-item label="适用场景：">
+          <el-input
+            v-model="scenesList"
+            autosize
+            type="textarea"
+            placeholder="输入适用场景，每一段完成后请换行"
+            @change="scenesListChange"
+          />
+        </el-form-item>
+        <el-form-item label="使用说明：">
+          <el-input
+            v-model="introductionList"
+            autosize
+            type="textarea"
+            placeholder="按步骤输入使用说明，每一步完成后请换行"
+            @change="introductionListChange"
+          />
+        </el-form-item>
+        <el-form-item label="服务类型：">
+          <el-dropdown
+            split-button
+            type="primary"
+            @command="handleCommand"
+          >
+            {{ serverTypeCommand }}
+            <template #dropdown>
+              <el-dropdown-menu>
+                <template
+                  v-for="(item, index) in serverType"
+                  :key="index+'server'"
+                >
+                  <el-dropdown-item :command="item.id">
+                    {{ item.name }}
+                  </el-dropdown-item>
                 </template>
-              </el-dropdown></span>
-            </li>
-          </ul>
-        </div>
-      </el-form-item>
-      <el-form-item label="请求参数：">
-        <inputTable
-          :datatable="form.paramList"
-          :hearder="tableObj"
-        />
-      </el-form-item>
-    </el-form>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </el-form-item>
+        <el-form-item label="服务URL：">
+          <div class="API-URL">
+            <ul>
+              <li>
+                <span>URL</span><span><el-input v-model="form.address" /></span>
+              </li>
+              <li>
+                <span>请求方式</span><span><el-dropdown
+                  split-button
+                  type="primary"
+                  @command="handleCommandURL"
+                >
+                  {{ form.mode }}
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <template
+                        v-for="(item, index) in serverMode"
+                        :key="index+'server'"
+                      >
+                        <el-dropdown-item :command="item.name">
+                          {{ item.name }}
+                        </el-dropdown-item>
+                      </template>
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown></span>
+              </li>
+            </ul>
+          </div>
+        </el-form-item>
+        <el-form-item label="请求参数：">
+          <inputTable
+            :datatable="form.paramList"
+            :hearder="tableObj"
+          />
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -202,9 +204,10 @@ function handleCommandURL (e:string) {
 .API-content {
   font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
   // width: calc(100% - 221px);
-  flex: 1;
+  // flex: 1;
   // float: left;
   overflow: auto;
+  padding: 30px;
   // margin-left: 10px;
   // margin-right: 10px;
   .API-description {
