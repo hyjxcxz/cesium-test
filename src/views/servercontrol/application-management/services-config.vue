@@ -1,6 +1,9 @@
 <template>
   <div :class="props.title === '修改应用' ? 'put-up' : 'set-up'">
-    <span class="services-header-title">{{ props.title }}</span>
+    <span
+      class="services-header-title"
+      v-if="props.title !== '修改应用'"
+    >{{ props.title }}</span>
     <el-form
       ref="ruleFormRef"
       :model="ruleForm"
@@ -29,15 +32,20 @@
         label="启用服务"
         prop="type"
       >
-        <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox
-            v-for="item in serviceList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-            name="type"
-          />
-        </el-checkbox-group>
+        <div class="checkbox-box">
+          <el-divider>
+            基础服务
+          </el-divider>
+          <el-checkbox-group v-model="ruleForm.type">
+            <el-checkbox
+              v-for="item in serviceList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              name="type"
+            />
+          </el-checkbox-group>
+        </div>
       </el-form-item>
       <el-form-item
         label="有效日期"
@@ -179,17 +187,48 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <style lang="scss" scoped>
 .put-up{
   width: 100%;
-  height: calc(100% - 16px);
-  padding: 8px 0;
+  height: 100%;
   overflow: auto;
 }
 .set-up{
   flex:1;
   padding: 8px 0;
   overflow: auto;
+  .services-header-title{
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 8px 16px 0 16px;
+  }
 }
 .el-form{
-  width: 50%;
-  margin-left: 25%;
+  padding: 30px;
+  .checkbox-box{
+    width: 660px;
+    display: flex;
+    flex-direction: column;
+  }
+  ::v-deep .el-divider{
+    width: 330px;
+    margin-left: 110px;
+    .el-divider__text{
+      color: #999;
+    }
+  }
+  .el-checkbox-group{
+    width: 660px;
+    display: flex;
+    flex-wrap: wrap;
+    .el-checkbox{
+      width: 220px;
+      margin-right: 0;
+    }
+  }
+  .el-input{
+    width: 260px;
+  }
+  .el-textarea{
+    width: 480px;
+  }
 }
 </style>
