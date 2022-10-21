@@ -1,9 +1,5 @@
 <template>
-  <div :class="props.title === '修改应用' ? 'put-up' : 'set-up'">
-    <span
-      class="services-header-title"
-      v-if="props.title !== '修改应用'"
-    >{{ props.title }}</span>
+  <div class="set-up">
     <el-form
       ref="ruleFormRef"
       :model="ruleForm"
@@ -54,6 +50,8 @@
         <el-date-picker
           v-model="ruleForm.date1"
           type="date"
+          value-format="YYYY-MM-DD"
+          format="YYYY-MM-DD"
           placeholder="选择日期"
         />
       </el-form-item>
@@ -77,6 +75,7 @@
       >
         <el-input
           v-model="ruleForm.desc"
+          autosize
           type="textarea"
         />
       </el-form-item>
@@ -109,7 +108,7 @@ const props = defineProps({
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
-  name: 'Hello',
+  name: '',
   key: '',
   region: 'IP白名单校验',
   date1: '',
@@ -131,16 +130,48 @@ const serviceList = reactive([
     value: '面查询'
   }
 ])
+// 项目名称校验规则
+const validateName = (rule: any, value: any, callback: any) => {
+  const reg = '^[\u4E00-\u9FA5A-Za-z0-9_-]+$'
+  if (value === '') {
+    callback(new Error('请输入项目名称'))
+  } else if (value.length > 20) {
+    callback(new Error('长度不可超过20个字符'))
+  } else if (!value.match(reg)) {
+    callback(new Error('允许输入中文,英文,数字，‘-’和‘_’'))
+  } else {
+    callback()
+  }
+}
+
+// IP校验规则
+const validateIP = (rule: any, value: any, callback: any) => {
+  // eslint-disable-next-line no-useless-escape
+  const reg = '^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\.' + '(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\.' + '(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\.' + '(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$'
+  if (value === '') {
+    callback(new Error('请输入IP'))
+  } else if (value.indexOf(',')) {
+    const list = value.split(',')
+    if (list.some((item:string) => !item.match(reg))) {
+      callback(new Error('请正确输入IP并用英文半角逗号分隔隔开'))
+    } else {
+      callback()
+    }
+  } else if (!value.match(reg)) {
+    callback(new Error('请正确输入IP并用英文半角逗号分隔隔开'))
+  } else {
+    callback()
+  }
+}
 
 const rules = reactive<FormRules>({
   name: [
-    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+    { required: true, validator: validateName, trigger: 'blur' }
   ],
   region: [
     {
       required: true,
-      message: 'Please select Activity zone',
+      message: '请选择校验方式',
       trigger: 'change'
     }
   ],
@@ -148,7 +179,7 @@ const rules = reactive<FormRules>({
     {
       type: 'array',
       required: true,
-      message: 'Please select at least one activity type',
+      message: '请选择要启用的服务',
       trigger: 'change'
     }
   ],
@@ -156,12 +187,12 @@ const rules = reactive<FormRules>({
     {
       type: 'date',
       required: true,
-      message: 'Please select at least one activity type',
+      message: '请选择有效日期',
       trigger: 'change'
     }
   ],
   desc: [
-    { required: true, message: 'Please input activity form', trigger: 'blur' }
+    { required: true, validator: validateIP, trigger: 'blur' }
   ]
 })
 
@@ -185,24 +216,13 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <style lang="scss" scoped>
-.put-up{
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
 .set-up{
-  flex:1;
-  padding: 8px 0;
+  width: calc(100% - 60px);
+  height: calc(100vh - 160px);
+  padding: 30px;
   overflow: auto;
-  .services-header-title{
-    display: inline-block;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 8px 16px 0 16px;
-  }
 }
 .el-form{
-  padding: 30px;
   .checkbox-box{
     width: 660px;
     display: flex;
