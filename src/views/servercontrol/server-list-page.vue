@@ -54,6 +54,7 @@
       <Register
         :services-info="servicesInfo"
         :title="headerTitle"
+        @go-back="goBack"
       />
     </div>
     <QuotaStatisticsChart
