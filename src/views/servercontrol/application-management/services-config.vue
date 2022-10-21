@@ -10,22 +10,27 @@
       status-icon
     >
       <el-form-item
-        label="项目名称"
+        label="项目名称:"
         prop="name"
       >
-        <el-input v-model="ruleForm.name" />
-      </el-form-item>
-      <el-form-item
-        label="服务key"
-        v-if="props.title === '修改应用'"
-      >
+        <span v-if="props.title === '修改应用'">{{ ruleForm.name }}</span>
         <el-input
-          v-model="ruleForm.key"
-          disabled
+          v-else
+          v-model="ruleForm.name"
         />
       </el-form-item>
       <el-form-item
-        label="启用服务"
+        label="服务key:"
+        v-if="props.title === '修改应用'"
+      >
+        <!-- <el-input
+          v-model="ruleForm.key"
+          disabled
+        /> -->
+        {{ ruleForm.key }}
+      </el-form-item>
+      <el-form-item
+        label="启用服务:"
         prop="type"
       >
         <div class="checkbox-box">
@@ -44,7 +49,7 @@
         </div>
       </el-form-item>
       <el-form-item
-        label="有效日期"
+        label="有效日期:"
         prop="date1"
       >
         <el-date-picker
@@ -56,7 +61,7 @@
         />
       </el-form-item>
       <el-form-item
-        label="请求校验方式"
+        label="请求校验方式:"
         prop="region"
       >
         <el-select
@@ -70,7 +75,7 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        label="IP白名单"
+        label="IP白名单:"
         prop="desc"
       >
         <el-input

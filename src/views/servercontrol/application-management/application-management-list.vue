@@ -51,6 +51,9 @@
         </el-icon>
         返回
       </span>
+      <span class="header-title">
+        项目名称
+      </span>
       <ProjectServicesList :project-info="projectServicesInfo" />
     </div>
     <div
