@@ -91,12 +91,19 @@
         </el-button>
       </el-form-item>
     </el-form>
+    <Result
+      v-if="isResult"
+      :title="'提交成功'"
+      :sub-title="'我们会尽快处理此问题，请耐心等待…'"
+      @go-back="goback"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import Result from '@/components/utils/result-component.vue'
 
 const props = defineProps({
   title: {
@@ -105,6 +112,13 @@ const props = defineProps({
   }
 })
 
+const emits = defineEmits(['go-back'])
+
+const goback = () => {
+  emits('go-back')
+}
+
+const isResult = ref(false)
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
@@ -200,8 +214,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
-      console.log(ruleForm)
+      isResult.value = true
     } else {
       console.log('error submit!', fields)
     }

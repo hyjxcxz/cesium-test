@@ -67,7 +67,10 @@
         返回
       </span>
       <span class="header-title"> {{ headerTitle }} </span>
-      <ServicesConfig :title="headerTitle" />
+      <ServicesConfig
+        :title="headerTitle"
+        @go-back="goBack"
+      />
     </div>
   </div>
 </template>
