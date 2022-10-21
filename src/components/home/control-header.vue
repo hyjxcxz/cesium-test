@@ -9,7 +9,7 @@
         >
         <!-- <div class="division" /> -->
         <span class="project-title">
-          服务管理
+          后台管理
           <i
             class="iconfont icon-home-s go-back"
             @click="changPage"

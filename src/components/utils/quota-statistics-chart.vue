@@ -28,7 +28,7 @@
           end-placeholder="结束日期"
           value-format="YYYY-MM-DD"
           format="YYYY-MM-DD"
-          :default-value="[new Date(2010, 9, 1), new Date(2010, 10, 1)]"
+          :default-value="[new Date(2020, 9, 1), new Date(2020, 10, 1)]"
         />
         <el-button
           type="primary"
