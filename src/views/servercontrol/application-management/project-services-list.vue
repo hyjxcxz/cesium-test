@@ -4,7 +4,7 @@
       :datatable="datatable"
       :data-hearder="childtableObj"
       :align="'left'"
-      :is-merge="true"
+      :is-merge="false"
       @operation-btn="viewStatisticsChart"
       class="table-list"
       height="calc(100vh - 160px)"
@@ -32,152 +32,20 @@ const props = defineProps({
 console.log(props.projectInfo, 'projectInfo')
 
 const childtableObj = reactive([
-  { title: '项目名称', id: 'name', width: '300', colSpan: 3 },
   { title: '服务名称', id: 'mean', width: '' },
   { title: '调用次数', id: 'rule', width: '' },
   { title: '操作', id: 'operation', width: '120', operation: [{ title: '用量查询', class: 'table-btn' }] }
 ])
 const datatable = reactive([
   {
-    name: 1,
-    mean: '2',
-    rule: '3'
-  }, {
-    name: 11,
     mean: '12',
     rule: '13'
   }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
     mean: '12',
     rule: '13'
   }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
     mean: '12',
     rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
-  }, {
-    name: 11,
-    mean: '12',
-    rule: '13'
-  }, {
-    name: 21,
-    mean: '22',
-    rule: '23'
   }
 ])
 const isQuotaStatisticsChart = ref(false)
