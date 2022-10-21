@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'GOLDMAP-ServerControl',
     component: () => import('@/views/servercontrol/control-page.vue'),
     meta: {
-      title: '服务管理'
+      title: '后台管理'
     }
   },
   {

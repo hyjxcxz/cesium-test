@@ -10,6 +10,17 @@
         :size="'default'"
         @search-value="searchValue"
       />
+      <el-button
+        class="add-server"
+        type="primary"
+        @click="addServer()"
+      >
+        <el-icon
+          class="add-icon"
+        >
+          <Plus />
+        </el-icon> 添加应用
+      </el-button>
       <Treetable
         :datatable="datatable"
         :data-hearder="childtableObj"
@@ -55,14 +66,14 @@
         </el-icon>
         返回
       </span>
-      <span class="header-title"> 修改应用 </span>
-      <ServicesConfig :title="'修改应用'" />
+      <span class="header-title"> {{ headerTitle }} </span>
+      <ServicesConfig :title="headerTitle" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { ArrowLeftBold } from '@element-plus/icons-vue'
+import { ArrowLeftBold, Plus } from '@element-plus/icons-vue'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import SearchInput from '../../../composables/search/search-input.vue'
 import ProjectServicesList from './project-services-list.vue'
@@ -74,6 +85,7 @@ const childtableObj = reactive([
   { title: '剩余额度', id: 'rule', width: '' },
   { title: '操作', id: 'operation', width: '160', operation: [{ title: '额度', class: 'table-btn', type: 'quota' }, { title: '设置', class: 'table-btn', type: 'setUp' }] }
 ])
+const headerTitle = ref('服务申请')
 const datatable = reactive([
   {
     name: 1,
@@ -134,6 +146,7 @@ const viewQuota = (type:string, row: Object) => {
     isViewQuota.value = true
   } else if (type === 'setUp') {
     isSetUp.value = true
+    headerTitle.value = '修改应用'
   }
   projectServicesInfo = row
 }
@@ -150,10 +163,24 @@ const goBack = () => {
   isSetUp.value = false
   projectServicesInfo = {}
 }
+// 添加应用
+const addServer = () => {
+  isSetUp.value = true
+  headerTitle.value = '服务申请'
+  projectServicesInfo = {}
+}
 </script>
 <style lang="scss" scoped>
 .application-management-list{
   padding: 30px;
+  .add-server{
+    position: absolute;
+    right: 30px;
+    .add-icon{
+      font-weight: 500;
+      margin-right: 2px;
+    }
+  }
   .table-list{
     margin-top: 10px;
   }
