@@ -136,14 +136,15 @@
     </el-form>
     <Result
       v-if="isResult"
-      :title="'注册成功'"
+      :title="props.title === '修改服务' ? '修改成功' : '注册成功'"
       :sub-title="'即将返回列表页面'"
       @go-back="goback"
     />
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive } from 'vue'
+import { requestServiceApi } from '@/utils/request-util'
 import TableJson from '@/components/utils/table-json-component.vue'
 import Result from '@/components/utils/result-component.vue'
 
@@ -171,8 +172,8 @@ const serverTypeCommand = ref('时间限制')
 const serverTypeCommandID:any = ref(1)
 const serverType = reactive([
   { id: 1, name: '时间限制' },
-  { id: 2, name: '访问次数限制' },
-  { id: 3, name: '不受时间和次数限制' }
+  { id: 2, name: '访问次数限制' }
+  // { id: 3, name: '不受时间和次数限制' }
 ])
 const serverMode = reactive([
   { id: 1, name: 'Get' },
@@ -281,10 +282,6 @@ const form :any = reactive(
       }
     ]
   })
-
-onMounted(() => {
-  console.log(props.servicesInfo)
-})
 
 function descriptionListChange (value: string) {
   form.descriptionList = value.split('\n')
@@ -412,8 +409,78 @@ const operationExamplePostBtn = (type:string, row: object) => {
     addTableObj('del', form.examplePostList, row, obj)
   }
 }
+const getServerDetails = (id: string) => {
+  requestServiceApi(
+    '',
+    '',
+    'getServerDetails',
+    null,
+    (res: any) => {
+      serverTypeCommandID.value = res.data.serviceType || 1
+      const index = serverType.findIndex(item => item.id === res.data.serviceType)
+      serverTypeCommand.value = index !== -1 ? serverType[index].name : '时间限制'
+      for (const k in res.data.subDetails) {
+        if (k === 'descriptionList') {
+          descriptionList.value = res.data.subDetails[k].join('\n')
+        } else if (k === 'scenesList') {
+          scenesList.value = res.data.subDetails[k].join('\n')
+        } else if (k === 'introductionList') {
+          introductionList.value = res.data.subDetails[k].join('\n')
+        }
+        form[k] = res.data.subDetails[k]
+      }
+    },
+    [id]
+  )
+}
+if (props.title === '修改服务') {
+  getServerDetails(props.servicesInfo.id)
+}
+// 添加
+const registServer = () => {
+  const data = {
+    address: form.address,
+    name: form.name,
+    serviceType: serverTypeCommandID.value,
+    subDetails: form
+  }
+  requestServiceApi(
+    '',
+    '',
+    'registServer',
+    data,
+    (res: any) => {
+      isResult.value = true
+    },
+    null
+  )
+}
+// 更新
+const updateServerInfo = () => {
+  const data = {
+    id: props.servicesInfo.id,
+    address: form.address,
+    name: form.name,
+    serviceType: serverTypeCommandID.value,
+    subDetails: form
+  }
+  requestServiceApi(
+    '',
+    '',
+    'updateServerInfo',
+    data,
+    (res: any) => {
+      isResult.value = true
+    },
+    null
+  )
+}
 const onSubmit = () => {
-  isResult.value = true
+  if (props.title === '服务注册') {
+    registServer()
+  } else {
+    updateServerInfo()
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -125,11 +125,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep.el-table{
+.el-table{
   .inp-box{
     width: 100%;
   }
-  .cell{
+  :deep(.cell){
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -140,24 +140,24 @@ export default {
       flex: 1;
     }
   }
-  .add-list{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #409eff;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 16px;
-    margin-top: 2px;
-    cursor: pointer;
-    .el-icon{
-      color: #fff;
-    }
+}
+.add-list{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #409eff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  cursor: pointer;
+  .el-icon{
+    color: #fff;
   }
 }
 </style>
