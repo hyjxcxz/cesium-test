@@ -10,7 +10,7 @@
   >
     <template
       v-for="(item, index) in dataHearder"
-      :key="index + 'd'"
+      :key="index+'d'"
     >
       <el-table-column
         v-if="item.id !== 'operation'"
