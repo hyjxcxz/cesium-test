@@ -14,6 +14,11 @@ export default defineConfig({
         // target: 'http://10.11.57.69:9527/goldmap/', // 测试
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/backstage': {
+        target: 'http://10.12.9.167:52008/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/backstage/, '')
       }
     }
   },

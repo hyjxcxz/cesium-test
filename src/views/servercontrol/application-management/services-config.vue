@@ -11,49 +11,45 @@
     >
       <el-form-item
         label="项目名称:"
-        prop="name"
+        prop="subject"
       >
-        <span v-if="props.title === '修改应用'">{{ ruleForm.name }}</span>
+        <span v-if="props.title === '修改应用'">{{ ruleForm.subject }}</span>
         <el-input
           v-else
-          v-model="ruleForm.name"
+          v-model="ruleForm.subject"
         />
       </el-form-item>
       <el-form-item
         label="服务key:"
         v-if="props.title === '修改应用'"
       >
-        <!-- <el-input
-          v-model="ruleForm.key"
-          disabled
-        /> -->
-        {{ ruleForm.key }}
+        {{ ruleForm.apiKey }}
       </el-form-item>
       <el-form-item
         label="启用服务:"
-        prop="type"
+        prop="serverSimpleInfos"
       >
         <div class="checkbox-box">
           <el-divider>
             基础服务
           </el-divider>
-          <el-checkbox-group v-model="ruleForm.type">
+          <el-checkbox-group v-model="ruleForm.serverSimpleInfos">
             <el-checkbox
-              v-for="item in serviceList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              name="type"
-            />
+              v-for="item in serviceList.info"
+              :key="item.id"
+              :label="item.id"
+            >
+              {{ item.name }}
+            </el-checkbox>
           </el-checkbox-group>
         </div>
       </el-form-item>
       <el-form-item
         label="有效日期:"
-        prop="date1"
+        prop="validTime"
       >
         <el-date-picker
-          v-model="ruleForm.date1"
+          v-model="ruleForm.validTime"
           type="date"
           value-format="YYYY-MM-DD"
           format="YYYY-MM-DD"
@@ -62,10 +58,10 @@
       </el-form-item>
       <el-form-item
         label="请求校验方式:"
-        prop="region"
+        prop="requestCheckType"
       >
         <el-select
-          v-model="ruleForm.region"
+          v-model="ruleForm.requestCheckType"
           placeholder="请选择"
         >
           <el-option
@@ -76,16 +72,19 @@
       </el-form-item>
       <el-form-item
         label="IP白名单:"
-        prop="desc"
+        prop="whiteLists"
       >
         <el-input
-          v-model="ruleForm.desc"
+          v-model="ruleForm.whiteLists"
           autosize
           type="textarea"
         />
       </el-form-item>
       <el-form-item>
-        <el-button @click="resetForm(ruleFormRef)">
+        <el-button
+          v-if="props.title === '服务申请'"
+          @click="resetForm(ruleFormRef)"
+        >
           重置
         </el-button>
         <el-button
@@ -98,7 +97,7 @@
     </el-form>
     <Result
       v-if="isResult"
-      :title="'提交成功'"
+      :title="props.title === '修改应用' ? '修改成功' : '提交成功'"
       :sub-title="'我们会尽快处理此问题，请耐心等待…'"
       @go-back="goback"
     />
@@ -108,12 +107,20 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
+import { requestServiceApi } from '@/utils/request-util'
 import Result from '@/components/utils/result-component.vue'
 
 const props = defineProps({
   title: {
     type: String,
     default: ''
+  },
+  projectInfo: {
+    type: Object,
+    default () {
+      return {}
+    }
   }
 })
 
@@ -127,28 +134,24 @@ const isResult = ref(false)
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
-  name: '',
-  key: '',
-  region: 'IP白名单校验',
-  date1: '',
-  type: [],
-  desc: ''
+  subject: '',
+  apiKey: '',
+  requestCheckType: 'IP白名单校验',
+  validTime: '',
+  serverSimpleInfos: [],
+  whiteLists: ''
 })
-const serviceList = reactive([
-  {
-    label: '点查询',
-    value: '点查询'
-  }, {
-    label: '行政区划查询',
-    value: '行政区划查询'
-  }, {
-    label: '矢量文件格式转换',
-    value: '矢量文件格式转换'
-  }, {
-    label: '面查询',
-    value: '面查询'
-  }
-])
+interface SeavicesList<T> {
+  info?: T
+}
+interface SeavicesObj {
+  name: string,
+  id: string
+}
+
+const serviceList:SeavicesList<SeavicesObj[]> = reactive({
+  info: []
+})
 // 项目名称校验规则
 const validateName = (rule: any, value: any, callback: any) => {
   const reg = '^[\u4E00-\u9FA5A-Za-z0-9_-]+$'
@@ -184,17 +187,17 @@ const validateIP = (rule: any, value: any, callback: any) => {
 }
 
 const rules = reactive<FormRules>({
-  name: [
+  subject: [
     { required: true, validator: validateName, trigger: 'blur' }
   ],
-  region: [
+  requestCheckType: [
     {
       required: true,
       message: '请选择校验方式',
       trigger: 'change'
     }
   ],
-  type: [
+  serverSimpleInfos: [
     {
       type: 'array',
       required: true,
@@ -202,7 +205,7 @@ const rules = reactive<FormRules>({
       trigger: 'change'
     }
   ],
-  date1: [
+  validTime: [
     {
       type: 'date',
       required: true,
@@ -210,16 +213,105 @@ const rules = reactive<FormRules>({
       trigger: 'change'
     }
   ],
-  desc: [
+  whiteLists: [
     { required: true, validator: validateIP, trigger: 'blur' }
   ]
 })
+
+const getServerSimpleList = () => {
+  requestServiceApi(
+    '',
+    '',
+    'getServerSimpleList',
+    null,
+    (res: any) => {
+      serviceList.info = res.data
+    },
+    null
+  )
+}
+
+getServerSimpleList()
+
+const getProjectDetail = () => {
+  requestServiceApi(
+    '',
+    '',
+    'getProjectDetail',
+    null,
+    (res: any) => {
+      ruleForm.subject = res.data.subject
+      ruleForm.apiKey = res.data.apiKey
+      ruleForm.requestCheckType = res.data.requestCheckType
+      ruleForm.validTime = res.data.validTime
+      ruleForm.serverSimpleInfos = res.data.serverSimpleInfos
+      ruleForm.whiteLists = res.data.whiteLists.join(',')
+    },
+    [props.projectInfo.id]
+  )
+}
+if (props.title === '修改应用') {
+  getProjectDetail()
+}
+// 申请服务
+const applyKey = () => {
+  const data = {
+    openServerIds: ruleForm.serverSimpleInfos,
+    subject: ruleForm.subject,
+    validTerm: ruleForm.validTime,
+    whiteLists: ruleForm.whiteLists.split(','),
+    requestCheckType: ruleForm.requestCheckType
+  }
+  requestServiceApi(
+    '',
+    '',
+    'applyKey',
+    data,
+    (res: any) => {
+      if (res.code === 200) {
+        isResult.value = true
+      } else {
+        ElMessage({
+          type: 'error',
+          message: res.message,
+          duration: 3000
+        })
+      }
+    },
+    null
+  )
+}
+// 更新服务
+const updateProjectInfo = () => {
+  const data = {
+    projectId: props.projectInfo.id,
+    openServerIds: ruleForm.serverSimpleInfos,
+    subject: ruleForm.subject,
+    validTerm: ruleForm.validTime,
+    whiteLists: ruleForm.whiteLists.split(','),
+    requestCheckType: ruleForm.requestCheckType
+  }
+  requestServiceApi(
+    '',
+    '',
+    'updateProjectInfo',
+    data,
+    (res: any) => {
+      isResult.value = true
+    },
+    null
+  )
+}
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      isResult.value = true
+      if (props.title === '服务申请') {
+        applyKey()
+      } else {
+        updateProjectInfo()
+      }
     } else {
       console.log('error submit!', fields)
     }
@@ -246,7 +338,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     display: flex;
     flex-direction: column;
   }
-  ::v-deep .el-divider{
+  :deep(.el-divider){
     width: 330px;
     margin-left: 110px;
     .el-divider__text{

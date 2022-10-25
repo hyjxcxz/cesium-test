@@ -6,6 +6,7 @@
     row-key="name"
     border
     default-expand-all
+    :height="'74vh'"
   >
     <template
       v-for="(item, index) in dataHearder"
