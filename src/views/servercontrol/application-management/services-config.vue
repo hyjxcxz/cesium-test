@@ -54,6 +54,7 @@
           value-format="YYYY-MM-DD"
           format="YYYY-MM-DD"
           placeholder="选择日期"
+          :disabled-date="pickerOptions"
         />
       </el-form-item>
       <el-form-item
@@ -141,6 +142,13 @@ const ruleForm = reactive({
   serverSimpleInfos: [],
   whiteLists: ''
 })
+// 限制日期选择
+const pickerOptions = (time: any) => {
+  let nowData = new Date()
+  nowData = new Date(nowData.setDate(nowData.getDate() - 1))
+  return time < nowData
+}
+
 interface SeavicesList<T> {
   info?: T
 }

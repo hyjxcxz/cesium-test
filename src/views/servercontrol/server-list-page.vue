@@ -158,11 +158,18 @@ const open = (row:any) => {
         'deleteServerInfo',
         null,
         (res: any) => {
-          ElMessage({
-            type: 'success',
-            message: '删除成功'
-          })
-          getServerList()
+          if (res.code === 200) {
+            ElMessage({
+              type: 'success',
+              message: '删除成功'
+            })
+            getServerList()
+          } else {
+            ElMessage({
+              type: 'error',
+              message: res.message
+            })
+          }
         },
         [row.id]
       )

@@ -145,6 +145,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { requestServiceApi } from '@/utils/request-util'
+import { ElMessage } from 'element-plus'
 import TableJson from '@/components/utils/table-json-component.vue'
 import Result from '@/components/utils/result-component.vue'
 
@@ -450,7 +451,15 @@ const registServer = () => {
     'registServer',
     data,
     (res: any) => {
-      isResult.value = true
+      if (res.code === 200) {
+        isResult.value = true
+      } else {
+        ElMessage({
+          type: 'error',
+          message: res.message,
+          duration: 3000
+        })
+      }
     },
     null
   )
