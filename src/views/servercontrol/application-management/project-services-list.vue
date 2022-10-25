@@ -1,7 +1,7 @@
 <template>
   <div class="project-services-list">
     <Treetable
-      :datatable="datatable"
+      :datatable="datatable.datatable"
       :data-hearder="childtableObj"
       :align="'left'"
       :is-merge="false"
@@ -17,6 +17,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+// import { requestServiceApi } from '@/utils/request-util'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import QuotaStatisticsChart from '@/components/utils/quota-statistics-chart.vue'
 
@@ -36,18 +37,9 @@ const childtableObj = reactive([
   { title: '调用次数', id: 'rule', width: '' },
   { title: '操作', id: 'operation', width: '120', operation: [{ title: '用量查询', class: 'table-btn' }] }
 ])
-const datatable = reactive([
-  {
-    mean: '12',
-    rule: '13'
-  }, {
-    mean: '12',
-    rule: '13'
-  }, {
-    mean: '12',
-    rule: '13'
-  }
-])
+const datatable = reactive({
+  datatable: []
+})
 const isQuotaStatisticsChart = ref(false)
 
 // table表格操作

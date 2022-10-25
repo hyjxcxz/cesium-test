@@ -22,19 +22,18 @@
         </el-icon> 添加应用
       </el-button>
       <Treetable
-        :datatable="datatable"
+        :datatable="datatable.datatable"
         :data-hearder="childtableObj"
         :align="'left'"
         @operation-btn="viewQuota"
         class="table-list"
       />
       <el-pagination
-        v-model:currentPage="current"
+        v-model:currentPage="searchInfo.current"
         background
         layout="prev, pager, next"
-        :hide-on-single-page="datatable.length < size"
-        :total="datatable.length"
-        :page-size="size"
+        :total="total"
+        :page-size="searchInfo.size"
         @current-change="changeCurrent"
       />
     </div>
@@ -52,9 +51,9 @@
         返回
       </span>
       <span class="header-title">
-        项目名称
+        {{ projectServicesInfo.info.subject }}
       </span>
-      <ProjectServicesList :project-info="projectServicesInfo" />
+      <ProjectServicesList :project-info="projectServicesInfo.info" />
     </div>
     <div
       v-if="isSetUp"
@@ -72,79 +71,60 @@
       <span class="header-title"> {{ headerTitle }} </span>
       <ServicesConfig
         :title="headerTitle"
+        :project-info="projectServicesInfo.info"
         @go-back="goBack"
       />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { ArrowLeftBold, Plus } from '@element-plus/icons-vue'
+import { requestServiceApi } from '@/utils/request-util'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import SearchInput from '../../../composables/search/search-input.vue'
 import ProjectServicesList from './project-services-list.vue'
 import ServicesConfig from './services-config.vue'
 
 const childtableObj = reactive([
-  { title: '项目名称', id: 'name', width: '300' },
-  { title: '授权key', id: 'mean', width: '' },
-  { title: '剩余额度', id: 'rule', width: '' },
+  { title: '项目名称', id: 'subject', width: '300' },
+  { title: '授权key', id: 'apiKey', width: '' },
+  { title: '截止时间', id: 'validTime', width: '160' },
   { title: '操作', id: 'operation', width: '160', operation: [{ title: '额度', class: 'table-btn', type: 'quota' }, { title: '设置', class: 'table-btn', type: 'setUp' }] }
 ])
 const headerTitle = ref('服务申请')
-const datatable = reactive([
-  {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }, {
-    name: 1,
-    mean: '1',
-    rule: '1'
-  }
-])
+const datatable = reactive({
+  datatable: []
+})
 const placeholder = ref('请输入关键字搜索')
-const size = ref(10)
-const current = ref(1)
 const isViewQuota = ref(false)
 const isSetUp = ref(false)
-let projectServicesInfo = reactive({})
+const projectServicesInfo:any = reactive({
+  info: {}
+})
+const searchInfo = reactive({
+  current: 1,
+  size: 10,
+  fuzzyQuery: ''
+})
+const total = ref(0)
+
+const getProjectInfoList = () => {
+  requestServiceApi(
+    '',
+    '',
+    'getProjectInfoList',
+    searchInfo,
+    (res: any) => {
+      datatable.datatable = res.data
+      total.value = res.total
+    },
+    null
+  )
+}
+onMounted(() => {
+  getProjectInfoList()
+})
 
 // table表格操作
 const viewQuota = (type:string, row: Object) => {
@@ -154,26 +134,30 @@ const viewQuota = (type:string, row: Object) => {
     isSetUp.value = true
     headerTitle.value = '修改应用'
   }
-  projectServicesInfo = row
+  projectServicesInfo.info = row
 }
 // 搜索
-const searchValue = (value: String) => {
-  console.log(value)
+const searchValue = (value: string) => {
+  searchInfo.fuzzyQuery = value
+  searchInfo.current = 1
+  getProjectInfoList()
 }
 // 分页
-const changeCurrent = (current: Number) => {
-  // console.log(current)
+const changeCurrent = (current: number) => {
+  searchInfo.current = current
+  getProjectInfoList()
 }
 const goBack = () => {
   isViewQuota.value = false
   isSetUp.value = false
-  projectServicesInfo = {}
+  getProjectInfoList()
+  projectServicesInfo.info = {}
 }
 // 添加应用
 const addServer = () => {
   isSetUp.value = true
   headerTitle.value = '服务申请'
-  projectServicesInfo = {}
+  projectServicesInfo.info = {}
 }
 </script>
 <style lang="scss" scoped>
