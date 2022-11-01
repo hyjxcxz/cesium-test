@@ -1,5 +1,7 @@
 import axios from 'axios'
 import envConfig from '@/utils/env-config'
+import { getToken } from '@/utils/auth'
+import router from '@/router'
 // 创建一个 axios 实例
 const service = axios.create({
   baseURL: envConfig.apiBackstageUrl,
@@ -15,9 +17,12 @@ service.interceptors.request.use(
     // // todo:从store中获取token
     // const token = util.cookies.get('token')
     //
-    // const token = getToken()
     config.headers = config.headers || {}
     config.headers.apiKey = import.meta.env.VITE_APP_apiKey
+    const token = getToken()
+    if (token && config.url !== '/user/login') {
+      config.headers.token = token
+    }
     return config
   },
   error => {
@@ -29,6 +34,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response: any) => {
+    responseHandler(response.data.code)
     if (response.config.url.includes('/file/download')) {
       return response
     } else {
@@ -36,6 +42,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    responseHandler(error.response.status)
     // 判断是否服务调用成功，但出现业务错误
     if (error && error.response && error.response.data && error.response.data.code) {
       return Promise.resolve(error.response.data)
@@ -91,5 +98,12 @@ service.interceptors.response.use(
     return Promise.resolve(errorData)
   }
 )
+
+// 返回操作
+const responseHandler = (code: number) => {
+  if (code === 401) {
+    router.replace({ path: '/login' })
+  }
+}
 
 export default service

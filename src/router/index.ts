@@ -6,6 +6,22 @@ const routes: Array<RouteRecordRaw> = [
   //   redirect: { name: 'index' }
   // },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/login-page.vue'),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/login/login-page.vue'),
+    meta: {
+      title: '注册'
+    }
+  },
+  {
     path: '/GOLDMAP-ServerControl',
     name: 'GOLDMAP-ServerControl',
     component: () => import('@/views/servercontrol/control-page.vue'),

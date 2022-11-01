@@ -11,6 +11,17 @@
         @search-value="searchValue"
       />
       <el-button
+        class="add-user"
+        type="primary"
+        @click="addUser()"
+      >
+        <el-icon
+          class="add-icon"
+        >
+          <Plus />
+        </el-icon> 添加用户
+      </el-button>
+      <el-button
         class="add-server"
         type="primary"
         @click="addServer()"
@@ -81,11 +92,13 @@
 import { reactive, ref, onMounted } from 'vue'
 import { ArrowLeftBold, Plus } from '@element-plus/icons-vue'
 import { requestServiceApi } from '@/utils/request-util'
+import { useRouter } from 'vue-router'
 import Treetable from '@/components/utils/tree-table-component.vue'
 import SearchInput from '../../../composables/search/search-input.vue'
 import ProjectServicesList from './project-services-list.vue'
 import ServicesConfig from './services-config.vue'
 
+const router = useRouter()
 const childtableObj = reactive([
   { title: '项目名称', id: 'subject', width: '300' },
   { title: '授权key', id: 'apiKey', width: '' },
@@ -159,10 +172,22 @@ const addServer = () => {
   headerTitle.value = '服务申请'
   projectServicesInfo.info = {}
 }
+// 添加用户
+const addUser = () => {
+  router.push('/register')
+}
 </script>
 <style lang="scss" scoped>
 .application-management-list{
   padding: 30px;
+  .add-user{
+    position: absolute;
+    right: 140px;
+    .add-icon{
+      font-weight: 500;
+      margin-right: 2px;
+    }
+  }
   .add-server{
     position: absolute;
     right: 30px;
