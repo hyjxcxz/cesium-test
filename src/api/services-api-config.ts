@@ -45,5 +45,18 @@ export const servicesApiPathConfigs = {
   deleteProjectInfo: { // 删除项目应用
     url: '/apiKey/deleteProjectInfo?id={0}',
     method: 'delete'
+  },
+  // 登录
+  login: {
+    url: '/user/login',
+    method: 'post'
+  },
+  addUser: { // 注册
+    url: '/user/addUser',
+    method: 'post'
+  },
+  userLogout: { // 注销 逻辑有问题暂时不接
+    url: '/user/logout',
+    method: 'get'
   }
 }
