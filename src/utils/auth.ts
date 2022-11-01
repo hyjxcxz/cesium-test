@@ -44,7 +44,12 @@ export function setLocal (key:string, data:string) {
   return localStorage.setItem(key, JSON.stringify(data))
 }
 export function getLocal (key:string) {
-  return JSON.parse(localStorage.getItem(key) || null) || null
+  const obj = localStorage.getItem(key)
+  if (obj) {
+    return JSON.parse(obj)
+  } else {
+    return null
+  }
 }
 export function removeLocal (key:string) {
   // console.log('removeLocal')
@@ -57,7 +62,12 @@ export function setSession (key:string, data:string) {
   return sessionStorage.setItem(key, JSON.stringify(data))
 }
 export function getSession (key:string) {
-  return JSON.parse(sessionStorage.getItem(key) || null) || null
+  const obj = sessionStorage.getItem(key)
+  if (obj) {
+    return JSON.parse(obj)
+  } else {
+    return null
+  }
 }
 export function removeSession (key:string) {
   delete sessionStorage[key]
