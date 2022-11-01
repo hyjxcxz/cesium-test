@@ -18,7 +18,7 @@ export function removeCookie (key:string) {
 /**
   * token的操作
   * */
-let TokenKey:string | null = null
+let TokenKey:any = null
 // if (envConfig.appNodeEnv == 'local' || envConfig.appNodeEnv == 'development') {
 //   TokenKey = `${envConfig.appTitle}-dev-token`
 // } else {
@@ -44,7 +44,7 @@ export function setLocal (key:string, data:string) {
   return localStorage.setItem(key, JSON.stringify(data))
 }
 export function getLocal (key:string) {
-  return JSON.parse(localStorage.getItem(key) || '') || null
+  return JSON.parse(localStorage.getItem(key) || null) || null
 }
 export function removeLocal (key:string) {
   // console.log('removeLocal')
@@ -57,7 +57,7 @@ export function setSession (key:string, data:string) {
   return sessionStorage.setItem(key, JSON.stringify(data))
 }
 export function getSession (key:string) {
-  return JSON.parse(sessionStorage.getItem(key) || '') || null
+  return JSON.parse(sessionStorage.getItem(key) || null) || null
 }
 export function removeSession (key:string) {
   delete sessionStorage[key]
