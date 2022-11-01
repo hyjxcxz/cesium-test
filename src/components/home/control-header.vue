@@ -17,17 +17,33 @@
         </span>
       </div>
     </div>
-    <div class="home-header-right" />
+    <div class="home-header-right">
+      <span
+        class="layout"
+        @click="layout"
+      >
+        退出
+      </span>
+      <span>{{ userName }}</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-// import { ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-const route = useRouter()
+import { getLocal, removeLocal, removeToken } from '@/utils/auth'
+const router = useRouter()
 
 function changPage () {
-  route.push('/')
+  router.push('/')
+}
+const userName = ref(getLocal('GoldMap-userName'))
+
+const layout = () => {
+  removeToken()
+  removeLocal('GoldMap-userName')
+  router.replace('/login')
 }
 </script>
 
@@ -109,26 +125,16 @@ function changPage () {
   }
   .home-header-right{
     flex:1;
-    .home-header-right-title{
-      margin-right: 18px;
-      color: #EBEEE7;
+    padding-right: 20px;
+    span{
       float: right;
-      height: 100%;
-    .iconfont{
-      float: left;
-      color: #EBEEE7;
-      font-size: 22px;
-      margin-top: 13px;
-      cursor:pointer;
-    }
-    .user-content{
-      float: left;
-      cursor: pointer;
-      color: #EBEEE7;
-      height: 100%;
+      display: inline-block;
+      color: #fff;
       line-height: 60px;
-      margin: auto 20px;
+      margin-right: 10px;
     }
+    .layout{
+      cursor:pointer;
     }
   }
 }
